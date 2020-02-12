@@ -1,0 +1,39 @@
+.viewer {
+  height: 100%;
+  /* cursor: url("http://localhost:3000/assets/cursor.png"), auto; */
+}
+.view-area {
+  height: 100%;
+  touch-action: none;
+  /* cursor: url("http://localhost:3000/assets/cursor.png"), auto; */
+
+  position: relative;
+}
+.setting-panel {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 282px;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
+  opacity: 1;
+  overflow-y: scroll;
+}
+.setting-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  z-index: -10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

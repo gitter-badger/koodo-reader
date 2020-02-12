@@ -1,0 +1,109 @@
+.sidebar {
+  width: 190px;
+  height: 100%;
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+}
+/* .logo {
+  position: relative;
+  left: 0;
+  top: 0;
+} */
+.icon-koodo {
+  position: absolute;
+  font-size: 70px;
+  text-shadow: 0px 0px 4px #4b4b4b;
+  opacity: 0.8;
+  color: black;
+  top: 14px;
+  left: 54px;
+}
+.logo-text {
+  position: absolute;
+  font-size: 14px;
+  top: 84px;
+  left: 54px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  line-height: 25px;
+  color: rgba(75, 75, 75, 1);
+  opacity: 1;
+}
+.side-menu-container {
+  position: relative;
+  top: 135px;
+  /* overflow: hidden; */
+  overflow-y: scroll;
+  width: 190px;
+  height: 400px;
+}
+.side-menu-container::-webkit-scrollbar {
+  display: none;
+}
+.side-menu-icon {
+  font-size: 17px;
+  color: rgba(0, 0, 0, 1);
+  margin-right: 16px;
+}
+.side-menu-item {
+  list-style-type: none;
+  font-size: 16px;
+  width: 190px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 38px;
+  margin-bottom: 38px;
+  color: rgba(75, 75, 75, 1);
+  font-weight: 500;
+}
+.side-menu-selector {
+  width: 148px;
+  height: 39px;
+  border-radius: 25px;
+  background: rgba(75, 75, 75, 1);
+  position: absolute;
+  top: 123px;
+  left: 15px;
+}
+.shelf-list-container {
+  list-style-type: none;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 32px;
+}
+.shelf-list-item {
+  list-style-type: none;
+  line-height: 28px;
+  font-size: 14px;
+  width: 140px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 26px;
+  margin-left: 31px;
+  font-weight: 500;
+  color: rgba(75, 75, 75, 1);
+  opacity: 0.75;
+}
+.setting-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 190px;
+  height: 29px;
+  background: rgba(237, 237, 237, 1);
+  opacity: 1;
+}
+.icon-more {
+  margin-left: 87px;
+  line-height: 29px;
+}
+.icon-shelf {
+  margin-right: 16px;
+}
+.icon-dropdown {
+  margin-left: 16px;
+}
