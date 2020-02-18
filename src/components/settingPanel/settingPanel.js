@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Config from "../../service/Config";
 import Util from "../../service/Util";
-import "./SettingPanel.css";
+import "./settingPanel.css";
 
 const fontSizeDescription = [
   { id: 1, size: "小", num: 15 },

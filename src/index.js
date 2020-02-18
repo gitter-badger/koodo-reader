@@ -8,28 +8,28 @@ import Reader from "./containers/reader/reader";
 import Manager from "./containers/manager/manager";
 import "./assets/styles/reset.css";
 import "./assets/styles/style.css";
-import reducers from "./reducer";
+// import reducers from "./reducer";
 
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
-);
+// const store = createStore(
+//   reducers,
+//   compose(
+//     applyMiddleware(thunk),
+//     window.devToolsExtension ? window.devToolsExtension() : f => f
+//   )
+// );
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <div>
-        <HashRouter>
-          <Switch>
-            <Route path="/" exact component={Manager} />
-            <Route path="/reader" exact component={Reader} />
-          </Switch>
-        </HashRouter>
-      </div>
-    </BrowserRouter>
-  </Provider>,
+  // <Provider store={store}>
+  <BrowserRouter>
+    <div>
+      <HashRouter>
+        <Switch>
+          <Route path="/" exact component={Reader} />
+          <Route path="/reader" exact component={Reader} />
+        </Switch>
+      </HashRouter>
+    </div>
+  </BrowserRouter>,
+  // </Provider>,,
   document.getElementById("root")
 );
 

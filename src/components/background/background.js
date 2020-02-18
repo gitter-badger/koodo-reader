@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Background.css";
+import "./background.css";
 class Background extends Component {
   constructor(props) {
     super(props);

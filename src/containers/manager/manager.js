@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Sidebar from "../../components/Sidebar/sidebar";
-import Header from "../../components/Header/header";
-import BookList from "../../components/BookList/booklist";
+import Sidebar from "../../components/sidebar/sidebar";
+import Header from "../../components/header/header";
+import BookList from "../../components/bookList/booklist";
 import DBUtil from "../../service/DBUtil";
 
-import "./Manager.css";
+import "./manager.css";
 
 class BookManager extends Component {
   constructor(props) {

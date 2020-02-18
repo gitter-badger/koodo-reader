@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import "./Book.css";
+import "./book.css";
 import Config from "../../service/Config";
 
 class Book extends Component {
@@ -27,6 +27,7 @@ class Book extends Component {
   }
 
   render() {
+    console.log("afgafhf");
     return (
       <div className="book-list-item">
         <img

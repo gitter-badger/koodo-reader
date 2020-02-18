@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import DBUtil from "../../service/DBUtil";
 import Config from "../../service/Config";
-import ViewArea from "../../components/ViewArea/ViewArea";
-import Background from "../../components/Background/Background";
-import SettingPanel from "../../components/SettingPanel/SettingPanel";
-import "./Viewer.css";
+import ViewArea from "../../components/viewArea/viewArea";
+import Background from "../../components/background/background";
+import SettingPanel from "../../components/settingPanel/settingPanel";
+// import "./Viewer.css";
 
 class Viewer extends Component {
   constructor(props) {
@@ -214,7 +214,7 @@ class Viewer extends Component {
       letterSpacing,
       wordSpacing,
       column,
-      disablePopup,
+      disablePopup
     } = this.state;
     console.log(padding, gutter);
     return (

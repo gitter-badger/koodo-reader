@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./ViewArea.css";
+import "./viewArea.css";
 import Util from "../../service/Util";
-import AutoBookmark from "../../service/AutoBookmark";
+import AutoBookmark from "../../service/autoBookmark";
 import Config from "../../service/Config";
 
 class ViewArea extends Component {

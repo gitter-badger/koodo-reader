@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./booklist.css";
 import { BookData } from "../../service/booklist.data";
 
-import Book from "../Book/Book";
+import Book from "../book/book";
 
 class BookList extends Component {
   constructor(props) {
@@ -10,10 +10,12 @@ class BookList extends Component {
     this.state = {};
   }
   render() {
+    console.log("gasgsakjgslg");
     const renderBookList = () => {
       return this.props.books.map((item, index) => {
         return (
           <Book
+            className="book"
             key={item.key}
             book={item}
             bookCover={BookData[index].cover}
