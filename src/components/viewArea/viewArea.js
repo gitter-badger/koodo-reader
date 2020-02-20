@@ -1,189 +1,68 @@
 import React, { Component } from "react";
 import "./viewArea.css";
-import Util from "../../utils/Util";
+import Util from "../../utils/styleConfig";
 import RecordLocation from "../../utils/recordLocation";
-import ReaderConfig from "../../utils/readerConfig";
-
+import Config from "../../utils/readerConfig";
+import { connect } from "react-redux";
+import { MouseEvent } from "../../utils/mouseEvent";
+// @connect(state => state.book)
 class ViewArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      openMenu: false, // 是否打开菜单
-      openNoteCard: false, // 是否打开附注编辑框
-      mPosX: 0, // 菜单的X轴坐标
-      mPosY: 0, // 菜单的Y轴坐标
-      nPosX: 0, // 附注输入框的X轴坐标
-      nPosY: 0, // 附注输入框的Y轴坐标
-      note: {}, // 当前正在被编辑的note
-      colors: ReaderConfig.get().colors // 四种不同的图书背景色
+      currentBook: {}
     };
-
-    this.x = 0; // 计算菜单坐标时的中间结果
-    this.y = 0; // 计算菜单坐标时的中间结果
-    this.pen = null;
-    this.notes = []; // 当前章节的note
-    this.key = ""; // 当前正在渲染的note的key
-
-    this.prev = this.prev.bind(this);
-    this.next = this.next.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
-    this.openMenu = this.openMenu.bind(this);
-    this.closeNoteCard = this.closeNoteCard.bind(this);
-    this.openNoteCard = this.openNoteCard.bind(this);
-    this.renderNotes = this.renderNotes.bind(this);
-    this.getPen = this.getPen.bind(this);
-    this.setNote = this.setNote.bind(this);
-    this.setKey = this.setKey.bind(this);
   }
 
   componentWillUnmount() {
     document.removeEventListener("copy", this.copyTextHack);
   }
-
   componentDidMount() {
     let page = document.getElementById("page-area");
-    let { book, epub } = this.props;
+    let epub = this.props.currentEpub;
 
-    epub.renderTo(page); // 渲染
-    this.bindEvent(); // 绑定事件
-    epub.gotoCfi(RecordLocation.getCfi(book.key)); // 跳转到上一次阅读位置
+    // console.log(document, "dhgskhgsk");
+    // epub.locations.generate().then(result => {
+    epub.renderTo(page);
+    MouseEvent(epub, this.props.currentBook.key); // 绑定事件
+    // 渲染
+    // addEventListener('')
+    epub.on("renderer:locationChanged", () => {
+      let cfi = epub.getCurrentLocationCfi();
+      // let locations = epub.locations;
+      console.log("asfhfhh");
+      console.log(this.props.locations);
+      if (this.props.locations) {
+        let percentage = this.props.locations.percentageFromCfi(cfi);
+        console.log(percentage, "sahafhfh");
+        // console.log(percentage, "dgafhdafha");
+        RecordLocation.recordCfi(this.props.currentBook.key, cfi, percentage);
+      }
+    });
+    // console.log(AutoBookmark.getCfi(this.props.currentBook.key).cfi);
+    epub.gotoCfi(
+      RecordLocation.getCfi(this.props.currentBook.key) === null
+        ? null
+        : RecordLocation.getCfi(this.props.currentBook.key).cfi
+    );
+    // });
+    // MouseEvent(epub, this.props.currentBook.key); // 绑定事件
+    // epub.gotoCfi(AutoBookmark.getCfi(this.props.currentBook.key).cfi);
+    // console.log("ghdfgfdgh");
 
     // 解决火狐下不能正常复制
-    this.copyTextHack = event => {
-      let iDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-      let copyText =
-        iDoc.getSelection().toString() || document.getSelection().toString();
-      event.clipboardData.setData("text/plain", copyText);
-      event.preventDefault();
-    };
-    document.addEventListener("copy", this.copyTextHack);
   }
+  // recordCfi = () => {
+  //   let cfi = this.props.currentEpub.getCurrentLocationCfi();
+  //   let locations = this.props.currentEpub.locations;
+  //   let percentage = locations.percentageFromCfi(cfi);
+  //   // console.log(percentage, "sahafhfh");
+  //   console.log(percentage, "dgafhdafha");
+  //   RecordLocation.recordCfi(this.props.currentBook.key, cfi, percentage);
+  // };
   toggleTheme(theme) {
     this.setState({ theme });
-    ReaderConfig.set("theme", theme);
-  }
-  // 为阅读界面绑定事件
-  bindEvent() {
-    let epub = this.props.epub;
-    console.log("hello");
-    let isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
-    let lock = false; // 暂时锁住翻页快捷键，避免快速点击产生的Bug
-
-    let arrowKeys = event => {
-      event.preventDefault();
-
-      if (lock) return;
-
-      if (event.keyCode === 37 || event.keyCode === 38) {
-        epub.prevPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-
-      if (event.keyCode === 39 || event.keyCode === 40) {
-        epub.nextPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-    };
-
-    let mouseFirefox = event => {
-      event.preventDefault();
-
-      if (lock) return;
-
-      if (event.detail < 0) {
-        epub.prevPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-
-      if (event.detail > 0) {
-        epub.nextPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-    };
-
-    let mouseChrome = event => {
-      // event.preventDefault();
-      console.log("wheel moving");
-      if (lock) return;
-
-      if (event.wheelDelta > 0) {
-        epub.prevPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-
-      if (event.wheelDelta < 0) {
-        epub.nextPage();
-        lock = true;
-        setTimeout(function() {
-          lock = false;
-        }, 100);
-        return false;
-      }
-    };
-
-    let copyText = event => {
-      let key = event.keyCode || event.which;
-      if (key === 67 && event.ctrlKey) {
-        let iDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-        let text = iDoc.execCommand("copy", false, null);
-        !text
-          ? console.log("failed to copy text to clipboard")
-          : console.log(`copied!`);
-      }
-    };
-
-    epub.on("renderer:chapterDisplayed", () => {
-      this.getPen(); // 切换章节后获取 pen
-
-      console.log(
-        "%c renderer:chapterDisplayed has been triggered! ",
-        "color: cyan; background: #333333"
-      );
-
-      let doc = epub.renderer.doc;
-
-      doc.addEventListener("click", this.openMenu); // 为每一章节内容绑定弹出菜单触发程序
-      doc.addEventListener("keydown", arrowKeys, false); // 箭头按键翻页
-      doc.addEventListener("keydown", copyText); // 解决 Ctrl + C 复制的bug
-
-      // 鼠标滚轮翻页
-      console.log("wheel moving");
-      if (isFirefox)
-        doc.addEventListener("DOMMouseScroll", mouseFirefox, false);
-      else doc.addEventListener("mousewheel", mouseChrome, false);
-
-      Util.addDefaultCss(); // 切换章节后为当前文档设置默认的样式
-      Util.applyCss(); // 切换章节后应当为当前文档设置样式
-      this.renderNotes(); // 切换章节后需要重新渲染注释
-    });
-
-    epub.on("renderer:visibleRangeChanged", () => {
-      let { book, epub } = this.props;
-      let bookKey = book.key;
-      let cfi = epub.getCurrentLocationCfi();
-      RecordLocation.recordCfi(bookKey, cfi);
-      console.log("auto bookmark: ", cfi);
-    });
+    Config.set("theme", theme);
   }
 
   // 关闭弹出菜单
@@ -261,92 +140,8 @@ class ViewArea extends Component {
   }
 
   // 获取与本章节相关的 pen
-  getPen() {
-    // 注意点一
-    // 为了每次切换章节时都有与当前文档相关联的 pen
-    let iDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-    this.pen = window.rangy.createHighlighter(iDoc);
-    let classes = ["color-0", "color-1", "color-2", "color-3"];
-
-    classes.forEach(item => {
-      let config = {
-        ignoreWhiteSpace: true,
-        elementTagName: "span",
-        elementProperties: {
-          onclick: event => {
-            let iDoc = document.getElementsByTagName("iframe")[0]
-              .contentDocument;
-            let sel = iDoc.getSelection();
-            if (!sel.isCollapsed) return;
-
-            let { gutter, padding } = this.props;
-            let key = event.currentTarget.dataset.key;
-            let note = this.props.getNote(key);
-            note || console.log("no note with key: " + key);
-            this.setNote(note);
-            let [x, y] = [event.clientX + gutter, event.clientY + padding];
-            this.openNoteCard(x, y);
-            event.stopPropagation();
-
-            if (this.state.openMenu) this.setState({ openMenu: false }); // 修复bug
-          }
-        },
-        onElementCreate: element => {
-          element.dataset.key = this.key;
-        }
-      };
-      let applier = window.rangy.createClassApplier(item, config);
-      this.pen.addClassApplier(applier);
-    });
-  }
 
   // 渲染本章节的note
-  renderNotes() {
-    // TODO: 注意点二
-    console.log(
-      "%c renderNotes has been called! ",
-      "color: cyan; background: #333333"
-    );
-
-    let { epub, getNotesByChapter } = this.props;
-    let chapter = epub.renderer.currentChapter;
-
-    if (!chapter) return; // 初次打开书籍，页面尚未渲染
-
-    this.notes = getNotesByChapter(chapter.spinePos);
-    let notes = this.notes;
-    let iframe = document.getElementsByTagName("iframe")[0];
-    let iWin = iframe.contentWindow || iframe.contentDocument.defaultView;
-
-    let sel = window.rangy.getSelection(iframe);
-    let serial = window.rangy.serializeSelection(sel, true);
-
-    this.pen && this.pen.removeAllHighlights(); // 为了避免下次反序列化失败，必须先清除已有的高亮
-
-    let classes = ["color-0", "color-1", "color-2", "color-3"];
-
-    notes.forEach(note => {
-      this.key = note.key;
-      try {
-        let temp = JSON.parse(note.range);
-        temp = [temp];
-        window.rangy
-          .getSelection(iframe)
-          .restoreCharacterRanges(iframe.contentDocument, temp);
-      } catch (e) {
-        console.warn(
-          "Exception has been caught when restore character ranges."
-        );
-        return;
-      }
-
-      this.pen.highlightSelection(classes[note.color]);
-    });
-
-    iWin.getSelection().empty(); // 清除文本选取
-    this.state.openMenu &&
-      window.rangy.deserializeSelection(serial, null, iWin); // （为了选取文本后不被上一行代码清除掉）恢复原本的文本选取
-  }
 
   // 翻页：上一页
   prev() {
@@ -363,36 +158,31 @@ class ViewArea extends Component {
   }
 
   render() {
-    const {
-      epub,
-      book,
-      theme,
-      colors,
-      column,
-      gutter,
-      padding,
-      addNote,
-      updateNote,
-      deleteNote,
-      classes
-    } = this.props;
-    let style = {
-      left: gutter,
-      right: gutter,
-      top: padding,
-      bottom: padding
-    };
-
-    epub.renderer.forceSingle(column === 1); // TODO: 在合适的地方触发重新渲染书籍
-    console.log("%c render view-area. ", "color: orange; background: #333333");
-    this.renderNotes();
+    // let epub = this.epub;
+    // console.log(epub, "epub");
+    // epub.renderer.forceSingle(); // TODO: 在合适的地方触发重新渲染书籍
+    // console.log("%c render view-area. ", "color: orange; background: #333333");
+    // console.log(this.props.isLoading, "isloading");
     return (
       <div className="view-area">
-        <div className="view-area-mask"></div>
-        <div className="view-area-page" id="page-area" style={style}></div>
+        <div
+          className="view-area-mask"
+          onClick={() => {
+            this.handleClick();
+          }}
+        ></div>
+        <div className="view-area-page" id="page-area"></div>
       </div>
     );
   }
 }
-
+const mapStateToProps = state => {
+  return {
+    currentBook: state.book.currentBook,
+    currentEpub: state.book.currentEpub,
+    locations: state.progressPanel.locations
+  };
+};
+const actionCreator = {};
+ViewArea = connect(mapStateToProps, actionCreator)(ViewArea);
 export default ViewArea;

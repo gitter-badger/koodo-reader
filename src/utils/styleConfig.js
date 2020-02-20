@@ -1,7 +1,7 @@
 // 工具类
 import ReaderConfig from "./readerConfig";
 
-class Util {
+class StyleConfig {
   // 获取元素的样式
   static getStyle(element, attr) {
     if (element.currentStyle) {
@@ -47,16 +47,37 @@ class Util {
   static addDefaultCss() {
     let css = ReaderConfig.getDefaultCss();
     let iDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-    let style = iDoc.getElementById("qiu-default-style");
-
+    let style = iDoc.getElementById("default-style");
+    let background = document.querySelector(".background");
+    // let iframe = document.querySelector("iframe");
+    background.setAttribute(
+      "style",
+      `background-color:${ReaderConfig.get().theme}`
+    );
+    // let height =
+    //   document.documentElement.clientHeight - ReaderConfig.get().padding * 2;
+    // console.log(ReaderConfig.get().padding, "height");
+    // let width =
+    //   document.documentElement.clientWidth - ReaderConfig.get().padding * 2;
+    // iframe.setAttribute("width", `${width}px`);
+    // iframe.setAttribute("height", `${height}px`);
+    // iframe.setAttribute(
+    //   "style",
+    //   ` position: relative; left:${ReaderConfig.get().padding}px; top:${
+    //     ReaderConfig.get().padding
+    //   }px;`
+    // );
+    // iFrame.removeAttribute("width");
+    // iFrame.removeAttribute("width");
+    // iFrame.setAttribute("style", ``);
     if (!style) {
       style = iDoc.createElement("style");
-      style.id = "qiu-default-style";
+      style.id = "default-style";
       style.textContent = css;
+
       iDoc.head.appendChild(style);
       return;
     }
-
     style.textContent = css;
   }
 
@@ -104,18 +125,18 @@ class Util {
   static applyCss() {
     let outerDoc = document;
     let innerDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-    let style = Util.getUserStyle();
-    style.inner && Util.addCss(style.inner, innerDoc);
-    style.outer && Util.addCss(style.outer, outerDoc);
+    let style = StyleConfig.getUserStyle();
+    style.inner && StyleConfig.addCss(style.inner, innerDoc);
+    style.outer && StyleConfig.addCss(style.outer, outerDoc);
   }
 
   // 应用外部的样式
   static applyScript() {
     let outerDoc = document;
     let innerDoc = document.getElementsByTagName("iframe")[0].contentDocument;
-    let script = Util.getUserScript();
-    script.inner && Util.addCss(script.inner, innerDoc);
-    script.outer && Util.addCss(script.outer, outerDoc);
+    let script = StyleConfig.getUserScript();
+    script.inner && StyleConfig.addCss(script.inner, innerDoc);
+    script.outer && StyleConfig.addCss(script.outer, outerDoc);
   }
 
   // 取消自定义的样式
@@ -127,8 +148,8 @@ class Util {
     localStorage.setItem("style", JSON.stringify(style));
     ReaderConfig.resetConfig();
 
-    Util.applyCss();
-    Util.addDefaultCss();
+    StyleConfig.applyCss();
+    StyleConfig.addDefaultCss();
   }
 
   // 取消用户自定义脚本
@@ -138,8 +159,8 @@ class Util {
       outer: " "
     };
     localStorage.setItem("script", JSON.stringify(script));
-    Util.applyScript();
+    StyleConfig.applyScript();
   }
 }
 
-export default Util;
+export default StyleConfig;

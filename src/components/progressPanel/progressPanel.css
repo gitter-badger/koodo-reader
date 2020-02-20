@@ -1,0 +1,95 @@
+.progress-text {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: rgba(75, 75, 75, 1);
+  width: 100%;
+  margin-top: 9px;
+  text-align: center;
+}
+.progress-slide-line {
+  width: 309px;
+  height: 0px;
+  border-bottom: 2px solid rgba(112, 112, 112, 1);
+  opacity: 1;
+  margin-top: 10px;
+  margin-left: 52px;
+}
+.progress-slide-circle {
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(112, 112, 112, 1);
+  border-radius: 50%;
+  opacity: 1;
+  position: absolute;
+  left: 100px;
+  bottom: 15px;
+}
+.previous-chapter {
+  width: 25px !important;
+  height: 25px !important;
+  border: 2px solid rgba(112, 112, 112, 1);
+  border-radius: 50%;
+  opacity: 1;
+  color: rgba(112, 112, 112, 1);
+  position: relative;
+  bottom: 19px;
+  left: 10px;
+  font-size: 14px;
+}
+.next-chapter {
+  width: 25px;
+  height: 25px;
+  border: 2px solid rgba(112, 112, 112, 1);
+  border-radius: 50%;
+  opacity: 1;
+  color: rgba(112, 112, 112, 1);
+  position: relative;
+  bottom: 47px;
+  left: 370px;
+  font-size: 14px;
+}
+.previous-chapter {
+  transform: rotate(90deg);
+}
+.next-chapter {
+  transform: rotate(-90deg);
+}
+.previous-chapter-icon {
+  line-height: 25px !important;
+  margin-left: 6px !important;
+}
+.next-chapter-icon {
+  line-height: 25px !important;
+  margin-left: 6px !important;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 309px;
+  position: relative;
+  left: 48px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 309px;
+  height: 0px;
+  border-bottom: 2px solid rgba(112, 112, 112, 1);
+  opacity: 1;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid rgba(112, 112, 112, 1);
+  border-radius: 50%;
+  opacity: 1;
+  position: relative;
+  bottom: 9px;
+}

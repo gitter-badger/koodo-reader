@@ -1,0 +1,113 @@
+.navigation-header {
+  position: fixed;
+  width: 282px;
+  height: 173px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.16);
+  opacity: 1;
+  z-index: 10;
+}
+.book-cover {
+  float: left;
+  width: 91px;
+  height: 118px;
+  background: rgba(0, 0, 0, 0);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  position: relative;
+  left: 12px;
+  top: 14px;
+}
+.book-title {
+  height: 30px;
+  width: 160px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(75, 75, 75, 1);
+  opacity: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  word-break: keep-all;
+  overflow: hidden;
+  position: absolute;
+  left: 118px;
+  bottom: 131px;
+}
+.book-arthur {
+  position: absolute;
+  left: 118px;
+  top: 41px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 25px;
+  color: rgba(75, 75, 75, 1);
+  opacity: 0.67;
+}
+
+.reading-duration {
+  position: absolute;
+  left: 118px;
+  top: 67px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 22px;
+  color: rgba(75, 75, 75, 1);
+}
+.book-search-box {
+  position: absolute;
+  left: 113px;
+  top: 94px;
+  width: 160px;
+  height: 31px;
+  background: rgba(191, 191, 191, 1);
+  opacity: 0.28;
+  border-radius: 19px;
+  border: none;
+}
+.book-search-box::placeholder {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.book-search-icon {
+  position: absolute;
+  left: 245px;
+  top: 102px;
+  color: #bfbfbf;
+  font-size: 18px;
+}
+.book-content-title {
+  position: absolute;
+  left: 62px;
+  top: 145px;
+  width: 32px;
+  font-weight: 500;
+  line-height: 27px;
+  color: rgba(112, 112, 112, 1);
+  opacity: 1;
+}
+.book-bookmark-title {
+  position: absolute;
+  left: 192px;
+  top: 145px;
+  width: 32px;
+  font-weight: 500;
+  line-height: 27px;
+  color: rgba(217, 217, 217, 1);
+  opacity: 1;
+}
+.navigation-body {
+  position: absolute;
+  top: 173px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+}
+.navigation-body::-webkit-scrollbar {
+  display: none;
+}

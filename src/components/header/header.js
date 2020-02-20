@@ -1,14 +1,31 @@
 import React, { Component } from "react";
 import "./header.css";
-import Book from "../../model/Book";
-import PropTypes from "prop-types";
+import BookModel from "../../model/Book";
+import { connect } from "react-redux";
+import localforage from "localforage";
+import { handleFetchBooks } from "../../redux/manager.redux";
+// @connect(state => state.manager)
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.handleChange = this.handleChange.bind(this);
   }
+  handleAddBook(book) {
+    let bookArr = this.props.books;
+    console.log(bookArr, "bookArr");
+    if (bookArr == null) {
+      bookArr = [];
+    }
+    bookArr.push(book);
+    console.log(bookArr, "sghasfkh");
+    localforage.setItem("books", bookArr).then(() => {
+      console.log("hadfhafh");
+      this.props.handleFetchBooks();
+    });
+  }
   handleChange(event) {
+    event.preventDefault();
     let file = event.target.files[0];
     let reader = new FileReader();
     reader.readAsArrayBuffer(file);
@@ -24,8 +41,8 @@ class Header extends Component {
           metadata.description,
           e.target.result
         ];
-        book = new Book(name, author, content, description);
-        this.props.handleAddBook(book);
+        book = new BookModel(name, author, content, description);
+        this.handleAddBook(book);
       });
     };
 
@@ -74,7 +91,9 @@ class Header extends Component {
     );
   }
 }
-// Header.propTypes = {
-//   classes: PropTypes.object.isRequired
-// };
+const mapStateToProps = state => {
+  return { books: state.manager.books };
+};
+const actionCreator = { handleFetchBooks };
+Header = connect(mapStateToProps, actionCreator)(Header);
 export default Header;

@@ -1,10 +1,10 @@
 // 阅读期间自动记录当前阅读位置
 class RecordLocation {
-  static recordCfi(bookKey, cfi) {
+  static recordCfi(bookKey, cfi, percentage) {
     let json = localStorage.getItem("recordLocation");
     let obj = JSON.parse(json) || {};
-    obj[bookKey] = cfi;
-
+    obj[bookKey] = { cfi: cfi, percentage: percentage };
+    // console.log(cfi, "dfhdafhdfh");
     localStorage.setItem("recordLocation", JSON.stringify(obj));
   }
 

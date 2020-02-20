@@ -1,12 +1,9 @@
 .viewer {
-  height: 100% !important;
-
-  /* cursor: url("http://localhost:3000/assets/cursor.png"), auto; */
+  height: 100%;
 }
 .view-area {
   height: 100%;
   touch-action: none;
-  /* cursor: url("http://localhost:3000/assets/cursor.png"), auto; */
 
   position: relative;
 }
@@ -20,11 +17,26 @@
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
   opacity: 1;
   overflow-y: scroll;
+  display: none;
 }
 .setting-panel::-webkit-scrollbar {
   display: none;
 }
-
+.navigation-panel {
+  position: relative;
+  bottom: 100%;
+  width: 282px;
+  height: 100%;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
+  opacity: 1;
+  overflow-y: scroll;
+  z-index: 10;
+  display: none;
+}
+.navigation-panel::-webkit-scrollbar {
+  display: none;
+}
 .background {
   position: absolute;
   top: 0;
@@ -37,4 +49,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.book-operation-panel {
+  width: 412px !important;
+  height: 60px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: calc(50% - 206px);
+  z-index: 10;
+}
+.progress-panel {
+  width: 412px !important;
+  height: 60px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
+  opacity: 1;
+  position: absolute;
+  bottom: 0px;
+  left: calc(50% - 206px);
+  z-index: 10;
 }
