@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Config from "../../service/Config";
-import Util from "../../service/Util";
+import ReaderConfig from "../../utils/readerConfig";
+import Util from "../../utils/Util";
 import "./settingPanel.css";
 
 const fontSizeDescription = [
@@ -171,18 +171,10 @@ class SettingPanel extends Component {
     Util.addDefaultCss();
   }
   // 改变主题
-  changeTheme(theme) {
-    this.props.toggleTheme(theme);
-    let colors1 = Config.getDefaultConfigObj().colors;
-    let colors2 = ["#F44336", "#F57F17", "#8BC34A", "#2196F3"];
-    let colors = theme ? colors1 : colors2;
-    this.props.setConfig("colors", colors);
-    Util.addDefaultCss(); // 改变了设置，需要为当前页重新应用样式
-  }
 
   // 改变高亮的颜色
   changeColors(event) {
-    let colors = Config.get().colors;
+    let colors = ReaderConfig.get().colors;
     let value = event.target.value;
     let i = parseInt(event.target.dataset.color);
     colors[i] = value;
@@ -260,7 +252,7 @@ class SettingPanel extends Component {
 
   // 重置为默认样式
   resetUserStyle() {
-    let config = Config.getDefaultConfigObj();
+    let config = ReaderConfig.getDefaultConfigObj();
     this.props.setConfig("colors", config.colors);
     this.props.setConfig("padding", config.padding);
     this.props.setConfig("gutter", config.gutter);

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "../../components/sidebar/sidebar";
 import Header from "../../components/header/header";
 import BookList from "../../components/bookList/booklist";
-import DBUtil from "../../service/DBUtil";
+import IndexDB from "../../utils/indexDB";
 
 import "./manager.css";
 
@@ -18,7 +18,7 @@ class BookManager extends Component {
   }
   //从indexdb里读取书籍
   componentWillMount() {
-    let bookDBAccess = new DBUtil("books", "book");
+    let bookDBAccess = new IndexDB("books", "book");
     let bookArr = [];
     bookDBAccess.open(() => {
       bookDBAccess.getAll(result => {
@@ -29,7 +29,7 @@ class BookManager extends Component {
   }
 
   handleAddBook(book) {
-    let bookDBAccess = new DBUtil("books", "book");
+    let bookDBAccess = new IndexDB("books", "book");
     bookDBAccess.open(() => {
       bookDBAccess.add(book);
       let bookArr = this.state.books;
@@ -40,7 +40,7 @@ class BookManager extends Component {
 
   handleDeleteBook(key) {
     // 从数据库中删除此book
-    let bookDBAccess = new DBUtil("books", "book");
+    let bookDBAccess = new IndexDB("books", "book");
     bookDBAccess.open(() => {
       bookDBAccess.remove(key);
       let bookArr = this.state.books;
@@ -51,7 +51,7 @@ class BookManager extends Component {
     });
 
     // 从数据库中删除本书的note
-    let noteDBAccess = new DBUtil("notes", "note");
+    let noteDBAccess = new IndexDB("notes", "note");
     noteDBAccess.open(() => {
       noteDBAccess.getAll(result => {
         let noteArr;
@@ -63,7 +63,7 @@ class BookManager extends Component {
     });
 
     // 从数据库中删除本书的bookmark
-    let bmDBAccess = new DBUtil("bookmarks", "bookmark");
+    let bmDBAccess = new IndexDB("bookmarks", "bookmark");
     bmDBAccess.open(() => {
       bmDBAccess.getAll(result => {
         let bookmarksArr;
@@ -80,7 +80,7 @@ class BookManager extends Component {
   }
 
   handleUpdateBook(book) {
-    let bookDBAccess = new DBUtil("books", "book");
+    let bookDBAccess = new IndexDB("books", "book");
     bookDBAccess.open(() => {
       bookDBAccess.update(book);
       let bookArr = this.state.books;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./book.css";
-import Config from "../../service/Config";
+import ReaderConfig from "../../utils/readerConfig";
 
 class Book extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ class Book extends Component {
   }
 
   handleOpenBook() {
+    console.log(this.props.book);
     this.props.handleReadingBook(this.props.book);
     this.props.handleReading(true);
   }

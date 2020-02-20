@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./booklist.css";
-import { BookData } from "../../service/booklist.data";
+import { BookData } from "../../utils/booklist.data";
 
 import Book from "../book/book";
 

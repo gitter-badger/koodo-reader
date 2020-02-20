@@ -1,6 +1,6 @@
 // 数据库访问的工具类
 // TODO 使用相应的IndexedDB库以提高查询效率
-class DBUtil {
+class IndexDB {
   constructor(dbName, storeName, version = 1) {
     if (!window.indexedDB) {
       console.error(
@@ -146,4 +146,4 @@ class DBUtil {
   }
 }
 
-export default DBUtil;
+export default IndexDB;

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import DBUtil from "../../service/DBUtil";
-import Config from "../../service/Config";
+import IndexDB from "../../utils/indexDB";
+import ReaderConfig from "../../utils/readerConfig";
 import ViewArea from "../../components/viewArea/viewArea";
 import Background from "../../components/background/background";
 import SettingPanel from "../../components/settingPanel/settingPanel";
-// import "./Viewer.css";
+import "./reader.css";
 
 class Viewer extends Component {
   constructor(props) {
@@ -17,16 +17,16 @@ class Viewer extends Component {
       openExport: false, // 打开note导出面板
       bookmarks: [], // 书签列表
       notes: [], // note列表
-      colors: Config.get().colors, // note的四种颜色
-      background: Config.get().background, // 阅读区域的背景色
-      gutter: Config.get().gutter, // 阅读区域两侧预留的间隔
-      padding: Config.get().padding, // 阅读区域上下两侧预留的间隔
-      fontSize: Config.get().fontSize, // 字体大小
-      lineHeight: Config.get().lineHeight, // 行高
-      letterSpacing: Config.get().letterSpacing, // 字间距
-      wordSpacing: Config.get().wordSpacing, // 词间距（限英语）
-      column: Config.get().column, // 列数
-      disablePopup: Config.get().disablePopup // 禁用弹出菜单
+      colors: ReaderConfig.get().colors, // note的四种颜色
+      background: ReaderConfig.get().background, // 阅读区域的背景色
+      gutter: ReaderConfig.get().gutter, // 阅读区域两侧预留的间隔
+      padding: ReaderConfig.get().padding, // 阅读区域上下两侧预留的间隔
+      fontSize: ReaderConfig.get().fontSize, // 字体大小
+      lineHeight: ReaderConfig.get().lineHeight, // 行高
+      letterSpacing: ReaderConfig.get().letterSpacing, // 字间距
+      wordSpacing: ReaderConfig.get().wordSpacing, // 词间距（限英语）
+      column: ReaderConfig.get().column, // 列数
+      disablePopup: ReaderConfig.get().disablePopup // 禁用弹出菜单
     };
 
     this.epub = null;
@@ -48,7 +48,7 @@ class Viewer extends Component {
   }
 
   componentWillMount() {
-    let dbAccess = new DBUtil("bookmarks", "bookmark");
+    let dbAccess = new IndexDB("bookmarks", "bookmark");
     dbAccess.open(() => {
       dbAccess.getAll(result => {
         let bookmarksArr;
@@ -59,7 +59,7 @@ class Viewer extends Component {
       });
     });
 
-    let noteDBAccess = new DBUtil("notes", "note");
+    let noteDBAccess = new IndexDB("notes", "note");
     noteDBAccess.open(() => {
       noteDBAccess.getAll(result => {
         let noteArr;
@@ -83,7 +83,7 @@ class Viewer extends Component {
   // 为state的属性设置相应的值
   setConfig(key, value) {
     this.setState({ [key]: value });
-    Config.set(key, value);
+    ReaderConfig.set(key, value);
   }
 
   toggleSettingsDialog(open) {
@@ -108,7 +108,7 @@ class Viewer extends Component {
 
   // 添加书签
   addBookmark(bookmark) {
-    let dbAccess = new DBUtil("bookmarks", "bookmark");
+    let dbAccess = new IndexDB("bookmarks", "bookmark");
     dbAccess.open(() => {
       dbAccess.add(bookmark);
       let bookmarksArr = this.state.bookmarks;
@@ -119,7 +119,7 @@ class Viewer extends Component {
 
   // 删除书签
   deleteBookmark(key) {
-    let dbAccess = new DBUtil("bookmarks", "bookmark");
+    let dbAccess = new IndexDB("bookmarks", "bookmark");
     dbAccess.open(() => {
       dbAccess.remove(key);
       let bookmarksArr = this.state.bookmarks;
@@ -130,7 +130,7 @@ class Viewer extends Component {
 
   // 更新书签内容
   updateBookmark(bookmark) {
-    let dbAccess = new DBUtil("bookmarks", "bookmark");
+    let dbAccess = new IndexDB("bookmarks", "bookmark");
     dbAccess.open(() => {
       dbAccess.update(bookmark);
       let bookmarksArr = this.state.bookmarks;
@@ -143,7 +143,7 @@ class Viewer extends Component {
 
   // 添加note
   addNote(note) {
-    let dbAccess = new DBUtil("notes", "note");
+    let dbAccess = new IndexDB("notes", "note");
     dbAccess.open(() => {
       dbAccess.add(note);
       let noteArr = this.state.notes;
@@ -154,7 +154,7 @@ class Viewer extends Component {
 
   // 删除note
   deleteNote(key) {
-    let dbAccess = new DBUtil("notes", "note");
+    let dbAccess = new IndexDB("notes", "note");
     dbAccess.open(() => {
       dbAccess.remove(key);
       let noteArr = this.state.notes;
@@ -165,7 +165,7 @@ class Viewer extends Component {
 
   // 更新note内容
   updateNote(note) {
-    let dbAccess = new DBUtil("notes", "note");
+    let dbAccess = new IndexDB("notes", "note");
     dbAccess.open(() => {
       dbAccess.update(note);
       let noteArr = this.state.notes;
@@ -218,7 +218,7 @@ class Viewer extends Component {
     } = this.state;
     console.log(padding, gutter);
     return (
-      <div className="viewer">
+      <div className="viewer" style={{ height: "100%" }}>
         <ViewArea
           className="view-area"
           epub={epub}
@@ -236,23 +236,25 @@ class Viewer extends Component {
           column={column}
           disablePopup={disablePopup}
         />
-        <SettingPanel
-          className="setting-panel"
-          open={openSettings}
-          toggleSettingsDialog={this.toggleSettingsDialog}
-          toggleTheme={this.props.toggleTheme}
-          setConfig={this.setConfig}
-          colors={colors}
-          background={background}
-          gutter={gutter}
-          padding={padding}
-          fontSize={fontSize}
-          lineHeight={lineHeight}
-          letterSpacing={letterSpacing}
-          wordSpacing={wordSpacing}
-          column={column}
-          disablePopup={disablePopup}
-        />
+        {
+          // <SettingPanel
+          //   className="setting-panel"
+          //   open={openSettings}
+          //   toggleSettingsDialog={this.toggleSettingsDialog}
+          //   toggleTheme={this.props.toggleTheme}
+          //   setConfig={this.setConfig}
+          //   colors={colors}
+          //   background={background}
+          //   gutter={gutter}
+          //   padding={padding}
+          //   fontSize={fontSize}
+          //   lineHeight={lineHeight}
+          //   letterSpacing={letterSpacing}
+          //   wordSpacing={wordSpacing}
+          //   column={column}
+          //   disablePopup={disablePopup}
+          // />
+        }
         <Background className="background" />
       </div>
     );

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./viewArea.css";
-import Util from "../../service/Util";
-import AutoBookmark from "../../service/autoBookmark";
-import Config from "../../service/Config";
+import Util from "../../utils/Util";
+import RecordLocation from "../../utils/recordLocation";
+import ReaderConfig from "../../utils/readerConfig";
 
 class ViewArea extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ViewArea extends Component {
       nPosX: 0, // 附注输入框的X轴坐标
       nPosY: 0, // 附注输入框的Y轴坐标
       note: {}, // 当前正在被编辑的note
-      colors: Config.get().colors // 四种不同的图书背景色
+      colors: ReaderConfig.get().colors // 四种不同的图书背景色
     };
 
     this.x = 0; // 计算菜单坐标时的中间结果
@@ -46,7 +46,7 @@ class ViewArea extends Component {
 
     epub.renderTo(page); // 渲染
     this.bindEvent(); // 绑定事件
-    epub.gotoCfi(AutoBookmark.getCfi(book.key)); // 跳转到上一次阅读位置
+    epub.gotoCfi(RecordLocation.getCfi(book.key)); // 跳转到上一次阅读位置
 
     // 解决火狐下不能正常复制
     this.copyTextHack = event => {
@@ -60,11 +60,12 @@ class ViewArea extends Component {
   }
   toggleTheme(theme) {
     this.setState({ theme });
-    Config.set("theme", theme);
+    ReaderConfig.set("theme", theme);
   }
   // 为阅读界面绑定事件
   bindEvent() {
     let epub = this.props.epub;
+    console.log("hello");
     let isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
     let lock = false; // 暂时锁住翻页快捷键，避免快速点击产生的Bug
 
@@ -180,7 +181,7 @@ class ViewArea extends Component {
       let { book, epub } = this.props;
       let bookKey = book.key;
       let cfi = epub.getCurrentLocationCfi();
-      AutoBookmark.recordCfi(bookKey, cfi);
+      RecordLocation.recordCfi(bookKey, cfi);
       console.log("auto bookmark: ", cfi);
     });
   }

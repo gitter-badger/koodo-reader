@@ -1,4 +1,4 @@
-class Config {
+class ReaderConfig {
   // 获取默认的配置
   static getDefaultConfigObj() {
     return {
@@ -20,26 +20,26 @@ class Config {
   static get() {
     let json = localStorage.getItem("config");
 
-    return JSON.parse(json) || Config.getDefaultConfigObj(); //若localstorage中不存在数据，就赋予默认值
+    return JSON.parse(json) || ReaderConfig.getDefaultConfigObj(); //若localstorage中不存在数据，就赋予默认值
   }
 
   // 更新config
   static set(key, value) {
     let json = localStorage.getItem("config"); //获取json格式的数据
-    let config = JSON.parse(json) || Config.getDefaultConfigObj(); //将json数据转换为对象
+    let config = JSON.parse(json) || ReaderConfig.getDefaultConfigObj(); //将json数据转换为对象
     config[key] = value;
     localStorage.setItem("config", JSON.stringify(config));
   }
 
   // 重置Config
   static resetConfig() {
-    let json = JSON.stringify(Config.getDefaultConfigObj()); //对象转json
+    let json = JSON.stringify(ReaderConfig.getDefaultConfigObj()); //对象转json
     localStorage.setItem("config", json);
   }
 
   // 获取为文档默认应用的css样式
   static getDefaultCss() {
-    let config = Config.get();
+    let config = ReaderConfig.get();
     let colors = config.colors;
 
     let css1 = `::selection{background:#f3a6a68c}::-moz-selection{background:#f3a6a68c}[class*=color-]:hover{cursor:pointer;background-image:linear-gradient(0,rgba(0,0,0,.075),rgba(0,0,0,.075))}.color-0{background-color:${colors[0]}}.color-1{background-color:${colors[1]}}.color-2{background-color:${colors[2]}}.color-3{background-color:${colors[3]}}`;
@@ -69,4 +69,4 @@ class Config {
   }
 }
 
-export default Config;
+export default ReaderConfig;
