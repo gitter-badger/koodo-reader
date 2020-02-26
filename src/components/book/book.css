@@ -1,6 +1,6 @@
 .book-list-item {
   width: 135px;
-  height: 180px;
+  height: 190px;
   float: left;
 }
 .book-item-cover {
@@ -45,5 +45,8 @@
   cursor: pointer;
 }
 .book-item-config:hover {
-  opacity: 0.5;
+  opacity: 1;
+}
+.view-icon {
+  color: white;
 }

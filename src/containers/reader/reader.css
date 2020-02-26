@@ -17,7 +17,7 @@
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.38);
   opacity: 1;
   overflow-y: scroll;
-  display: none;
+  /* display: none; */
 }
 .setting-panel::-webkit-scrollbar {
   display: none;
@@ -32,7 +32,7 @@
   opacity: 1;
   overflow-y: scroll;
   z-index: 10;
-  display: none;
+  /* display: none; */
 }
 .navigation-panel::-webkit-scrollbar {
   display: none;
@@ -60,6 +60,7 @@
   top: 0px;
   left: calc(50% - 206px);
   z-index: 10;
+  /* display: none; */
 }
 .progress-panel {
   width: 412px !important;
@@ -71,4 +72,5 @@
   bottom: 0px;
   left: calc(50% - 206px);
   z-index: 10;
+  /* display: none; */
 }

@@ -4,7 +4,7 @@ import ReaderConfig from "./readerConfig";
 class StyleConfig {
   // 获取元素的样式
   static getStyle(element, attr) {
-    if (element.currentStyle) {
+    if (element.currentStyle !== null) {
       return element.currentStyle[attr];
     } else {
       return getComputedStyle(element)[attr];

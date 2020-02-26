@@ -1,5 +1,5 @@
 import recordLocation from "./recordLocation";
-import SytleConfig from "./styleConfig";
+import StyleConfig from "./styleConfig";
 import ReaderConfig from "./readerConfig";
 
 export const MouseEvent = (epub, key) => {
@@ -104,7 +104,7 @@ export const MouseEvent = (epub, key) => {
 
     let doc = epub.renderer.doc;
 
-    // doc.addEventListener("click", this.openMenu); // 为每一章节内容绑定弹出菜单触发程序
+    // doc.addEventListener("click", openMenu); // 为每一章节内容绑定弹出菜单触发程序
     doc.addEventListener("keydown", arrowKeys, false); // 箭头按键翻页
     doc.addEventListener("keydown", copyText); // 解决 Ctrl + C 复制的bug
 
@@ -124,8 +124,8 @@ export const MouseEvent = (epub, key) => {
     //     ReaderConfig.get().padding
     //   }px`
     // );
-    SytleConfig.addDefaultCss(); // 切换章节后为当前文档设置默认的样式
+    StyleConfig.addDefaultCss(); // 切换章节后为当前文档设置默认的样式
     // console.log("我被执行能力");
-    SytleConfig.applyCss(); // 切换章节后应当为当前文档设置样式
+    StyleConfig.applyCss(); // 切换章节后应当为当前文档设置样式
   });
 };

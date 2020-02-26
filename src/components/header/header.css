@@ -6,16 +6,20 @@
 }
 .header-search-container {
   position: absolute;
-  top: 36px;
+  top: 20px;
   left: 20px;
 }
 .header-search-box {
-  width: 209px;
+  width: 189px;
   height: 38px;
   background: rgba(191, 191, 191, 1);
   opacity: 0.28;
   border-radius: 19px;
   border-style: none;
+  outline: none;
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
@@ -27,16 +31,18 @@ textarea::-webkit-input-placeholder {
 }
 .header-search-icon {
   float: left;
-  font-size: 25px;
-  color: #bfbfbf;
+  font-size: 23px;
+  color: rgba(75, 75, 75, 0.6);
   position: relative;
-  margin-top: 10px;
-  left: 200px;
+  margin-top: 29px;
+  left: 190px;
+  cursor: pointer;
 }
 .header-sort-container {
   position: absolute;
   left: 285px;
-  top: 45px;
+  top: 29px;
+  cursor: pointer;
 }
 .header-sort-text {
   float: left;
@@ -57,7 +63,7 @@ textarea::-webkit-input-placeholder {
 .only-local-container {
   position: absolute;
   left: 350px;
-  margin-top: 45px;
+  margin-top: 29px;
 }
 .only-local-text {
   float: left;
@@ -89,7 +95,7 @@ textarea::-webkit-input-placeholder {
 .import-from-cloud {
   float: right;
   margin-right: -270px;
-  margin-top: 35px;
+  margin-top: 20px;
   width: 118px;
   height: 42px;
   border: 2px solid #4b4b4b;
@@ -106,7 +112,7 @@ textarea::-webkit-input-placeholder {
 .import-from-local {
   float: right;
   margin-right: 370px;
-  margin-top: 35px;
+  margin-top: 20px;
   width: 118px;
   height: 42px;
   background: rgba(75, 75, 75, 1);
@@ -120,7 +126,7 @@ textarea::-webkit-input-placeholder {
 
 .import-book-box {
   position: relative;
-  bottom: 51px;
+  bottom: 67px;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -138,4 +144,16 @@ textarea::-webkit-input-placeholder {
     position: absolute;
     left: 538px;
   }
+}
+.header-search-text {
+  font-size: 16px;
+  display: inline-block;
+  width: 50px;
+  color: rgba(75, 75, 75, 0.8);
+  position: absolute;
+  margin-top: 32px;
+  margin-left: 20px;
+  left: 165px;
+  font-weight: 500;
+  cursor: pointer;
 }

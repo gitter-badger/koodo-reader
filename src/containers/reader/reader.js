@@ -12,7 +12,9 @@ import {
   handleDigests,
   handleFetchNotes,
   handleFetchBookmarks,
-  handleFetchDigests
+  handleFetchDigests,
+  handleFetchChapters,
+  handleFetchHighlighters
   // handleLocations
 } from "../../redux/reader.redux";
 import "./reader.css";
@@ -27,7 +29,7 @@ import { connect } from "react-redux";
 //   handleFetchDigests
 //   // handleLocations
 // })
-class Viewer extends Component {
+class Reader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +41,10 @@ class Viewer extends Component {
   }
   componentWillMount() {
     this.props.handleFetchBookmarks();
+    this.props.handleFetchNotes();
+    this.props.handleFetchDigests();
+    this.props.handleFetchHighlighters();
+    this.props.handleFetchChapters(this.props.currentEpub);
     // this.props.currentEpub.locations.generate().then(() => {
     //   this.props.handleLocations(this.props.currentEpub.locations);
     // });
@@ -84,7 +90,10 @@ class Viewer extends Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    currentEpub: state.book.currentEpub,
+    currentBook: state.book.currentBook
+  };
 };
 const actionCreator = {
   handleNotes,
@@ -92,7 +101,9 @@ const actionCreator = {
   handleDigests,
   handleFetchNotes,
   handleFetchBookmarks,
-  handleFetchDigests
+  handleFetchDigests,
+  handleFetchChapters,
+  handleFetchHighlighters
 };
-Viewer = connect(mapStateToProps, actionCreator)(Viewer);
-export default Viewer;
+Reader = connect(mapStateToProps, actionCreator)(Reader);
+export default Reader;

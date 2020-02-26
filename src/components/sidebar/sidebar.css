@@ -32,47 +32,62 @@
 }
 .side-menu-container {
   position: relative;
-  top: 135px;
+  top: 120px;
   /* overflow: hidden; */
   overflow-y: scroll;
   width: 190px;
-  height: 400px;
+  height: 100%;
 }
 .side-menu-container::-webkit-scrollbar {
   display: none;
 }
 .side-menu-icon {
+  /* float: left; */
   font-size: 17px;
   color: rgba(0, 0, 0, 1);
-  margin-right: 16px;
+  margin: 7px 12px 7px 26px;
+  display: inline-block;
+  position: relative;
+  top: 2px;
 }
 .side-menu-item {
+  margin-top: 2px;
   list-style-type: none;
   font-size: 16px;
-  width: 190px;
+  width: 150px;
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 38px;
-  margin-bottom: 38px;
+  margin-left: 20px;
+  margin-bottom: 15px;
   color: rgba(75, 75, 75, 1);
   font-weight: 500;
+  position: relative;
+  bottom: 1px;
 }
 .side-menu-selector {
   width: 148px;
   height: 39px;
   border-radius: 25px;
   background: rgba(75, 75, 75, 1);
-  position: absolute;
+  line-height: 39px;
+
+  /* position: absolute;
   top: 123px;
-  left: 15px;
+  left: 15px; */
 }
 .shelf-list-container {
   list-style-type: none;
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-top: 32px;
+  margin-top: 20px;
+  height: 120px;
+  overflow-y: scroll;
+}
+
+.shelf-list-container::-webkit-scrollbar {
+  display: none;
 }
 .shelf-list-item {
   list-style-type: none;
@@ -82,28 +97,53 @@
   cursor: pointer;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-bottom: 26px;
+  margin-bottom: 15px;
   margin-left: 31px;
   font-weight: 500;
-  color: rgba(75, 75, 75, 1);
-  opacity: 0.75;
+  color: rgba(75, 75, 75, 0.5);
+  opacity: 1;
 }
 .setting-container {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 190px;
+  width: 200px;
   height: 29px;
   background: rgba(237, 237, 237, 1);
   opacity: 1;
 }
 .icon-more {
-  margin-left: 87px;
-  line-height: 29px;
+  margin-left: 93px;
+  /* line-height: 29px; */
+  position: relative;
+  top: 6px;
 }
 .icon-shelf {
-  margin-right: 16px;
+  margin-right: 12px;
 }
 .icon-dropdown {
   margin-left: 16px;
+  font-size: 13px;
+}
+.active {
+  color: white;
+}
+.icon-shangla {
+  font-size: 6px;
+  margin-left: 16px;
+  position: relative;
+  bottom: 4px;
+}
+.inactive-selector {
+  background-color: #fff;
+}
+.side-menu-shelf {
+  margin-left: 45px;
+  margin-top: 25px;
+  cursor: pointer;
+}
+.active-shelf {
+  color: black;
+  font-size: 16px;
+  margin-left: 27px;
 }

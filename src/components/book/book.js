@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import {
   handleEditDialog,
   handleDeleteDialog,
-  handleAddToShelfDialog,
+  handleAddDialog,
   handleReadingState,
   handleReadingBook,
   handleReadingEpub
 } from "../../redux/book.redux";
-
+import RecentBooks from "../../utils/recordRecent";
 import "./book.css";
 // import Config from "../../utils/Config";
 
@@ -24,22 +24,28 @@ import "./book.css";
 class Book extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isDeleteDialog: false };
     this.handleOpenBook = this.handleOpenBook.bind(this);
   }
 
   handleOpenBook() {
     this.props.handleReadingBook(this.props.book);
-    // this.props.epub.locations.generate().then(() => {
     this.props.handleReadingEpub(this.props.epub);
-    // });
-    // this.props.handleReadingEpub(this.props.epub);
     this.props.handleReadingState(true);
-    // console.log("asfhfdhfh");
-    // this.props.handleRedirect();
-    // console.log(this.props.book, "hello");
+    RecentBooks.setRecent(this.props.book.key);
   }
-
+  handleDeleteBook = () => {
+    this.props.handleDeleteDialog(true);
+    this.props.handleReadingBook(this.props.book);
+  };
+  handleEditBook = () => {
+    this.props.handleEditDialog(true);
+    this.props.handleReadingBook(this.props.book);
+  };
+  handleAddShelf = () => {
+    this.props.handleAddDialog(true);
+    this.props.handleReadingBook(this.props.book);
+  };
   render() {
     // console.log(this.props.isReading, "agsffh");
     return (
@@ -54,16 +60,22 @@ class Book extends Component {
         />
         <div className="book-item-config">
           <span
-            className="icon-add icon"
-            onClick={this.props.handleAddToShelfDialog}
+            className="icon-add view-icon"
+            onClick={() => {
+              this.handleAddShelf();
+            }}
           ></span>
           <span
-            className="icon-delete icon"
-            onClick={this.props.handleDeleteDialog}
+            className="icon-delete view-icon"
+            onClick={() => {
+              this.handleDeleteBook();
+            }}
           ></span>
           <span
-            className="icon-edit icon"
-            onClick={this.props.handleEditDialog}
+            className="icon-edit view-icon"
+            onClick={() => {
+              this.handleEditBook();
+            }}
           ></span>
         </div>
         <p className="book-item-title">{this.props.book.name}</p>
@@ -71,21 +83,16 @@ class Book extends Component {
     );
   }
 }
-// const mapStateToProps = state => {
-//   return { isReading: state };
-// };
-// const mapDispatchToProps = dispatch => ({
-//   handleReadingState: state => dispatch(handleReadingState(state)),
-//   handleReadingBook: book => dispatch(handleReadingBook(book)),
-//   handleReadingEpub: epub => dispatch(handleReadingEpub(epub))
-// });
 const mapStateToProps = state => {
   return { isReading: state.book.isReading };
 };
 const actionCreator = {
   handleReadingState,
   handleReadingBook,
-  handleReadingEpub
+  handleReadingEpub,
+  handleEditDialog,
+  handleDeleteDialog,
+  handleAddDialog
 };
 Book = connect(mapStateToProps, actionCreator)(Book);
 export default Book;

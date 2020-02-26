@@ -1,16 +1,23 @@
 .book-list-container {
   position: absolute;
-  top: 90px;
-  left: 190px;
-  width: calc(100% - 190px);
+  top: 75px;
+  left: 200px;
+  width: calc(100% - 200px);
   height: calc(100% - 90px);
-  display: grid;
-  grid-template-columns: repeat(7, auto);
-  justify-content: space-around;
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  /* border: 1px solid black; */
+  /* grid-template-columns: repeat(7, 135px);
+  justify-content: space-around; */
   overflow-y: scroll;
+  /* align-items: flex-start; */
+  align-content: flex-start;
 }
-
-@media screen and (max-width: 1080px) and (min-width: 1000px) {
+.book-list-container::-webkit-scrollbar {
+  display: none;
+}
+/* @media screen and (max-width: 1080px) and (min-width: 1000px) {
   .book-list-container {
     grid-template-columns: repeat(6, auto);
   }
@@ -29,4 +36,33 @@
   .book-list-container {
     grid-template-columns: repeat(3, auto);
   }
+} */
+.book-list-view {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  font-size: 14px;
+  color: black;
+  font-weight: 500;
+  margin-right: 30px;
+  clear: both;
+}
+.card-list-mode {
+  width: 74px;
+  height: 17px;
+  float: left;
+  line-height: 17px;
+  cursor: pointer;
+}
+.list-view-mode {
+  width: 74px;
+  height: 17px;
+  float: left;
+  line-height: 17px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.book-list-item-box {
+  position: relative;
+  top: 10px;
 }

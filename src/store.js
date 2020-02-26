@@ -5,12 +5,16 @@ import { book } from "./redux/book.redux";
 import { manager } from "./redux/manager.redux";
 import { progressPanel } from "./redux/progressPanel.redux";
 import { reader } from "./redux/reader.redux";
+import { viewArea } from "./redux/viewArea.redux";
+import { sidebar } from "./redux/sidebar.redux";
 const rootReducer = combineReducers({
   settingPanel,
   book,
   manager,
   reader,
-  progressPanel
+  progressPanel,
+  viewArea,
+  sidebar
 });
 // console.log(manager, rootReducer);
 const store = createStore(

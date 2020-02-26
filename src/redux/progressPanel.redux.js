@@ -1,6 +1,8 @@
 // import localforage from "localforage";
-// import RecordLocation from "../utils/recordLocation";
+import RecordLocation from "../utils/recordLocation";
 const initState = {
+  percentage: null,
+  section: null,
   locations: null
 };
 export function progressPanel(state = initState, action) {
@@ -26,16 +28,31 @@ export function progressPanel(state = initState, action) {
   }
 }
 
+export function handleSection(section) {
+  return { type: "HANDLE_SECTION", payload: section };
+}
 export function handleLocations(locations) {
   return { type: "HANDLE_LOCATIONS", payload: locations };
 }
-
+export function handlePercentage(percentage) {
+  console.log(percentage, "jkjlll");
+  return { type: "HANDLE_PERCENTAGE", payload: percentage };
+}
+export function handleFetchPercentage(book) {
+  return dispatch => {
+    let percentage = RecordLocation.getCfi(book.key).percentage;
+    dispatch(handlePercentage(percentage));
+  };
+}
 export function handleFetchLocations(epub) {
   return dispatch => {
-    epub.locations.generate().then(result => {
-      let locations = epub.locations;
-      console.log("sfhafshfhafh");
-      dispatch(handleLocations(locations));
-    });
+    console.log(epub);
+    if (epub.locations !== undefined) {
+      epub.locations.generate().then(result => {
+        let locations = epub.locations;
+        console.log("sfhafshfhafh");
+        dispatch(handleLocations(locations));
+      });
+    }
   };
 }

@@ -10,7 +10,8 @@ class readerConfig {
       column: 2, // 可取值为1, 2
       padding: 50, // 阅读区域与浏览器可视区域上下的间距
       disablePopup: false,
-      progress: 0
+      progress: 0,
+      colors: ["#FBF1D1", "#EFEEB0", "#CAEFC9", "#76BEE9"]
     };
   }
 
@@ -40,7 +41,7 @@ class readerConfig {
     let config = readerConfig.get();
     let colors = config.colors;
 
-    let css1 = `::selection{background:#f3a6a68c}::-moz-selection{background:#f3a6a68c}[class*=color-]:hover{cursor:pointer;background-image:linear-gradient(0,rgba(0,0,0,.075),rgba(0,0,0,.075))}`;
+    let css1 = `::selection{background:#f3a6a68c}::-moz-selection{background:#f3a6a68c}[class*=color-]:hover{cursor:pointer;background-image:linear-gradient(0,rgba(0,0,0,.075),rgba(0,0,0,.075))}.color-0{background-color:${colors[0]}}.color-1{background-color:${colors[1]}}.color-2{background-color:${colors[2]}}.color-3{background-color:${colors[3]}}`;
     // console.log(config, "config");
     let css2 = [
       "a, article, cite, code, div, li, p, pre, span, table {",
@@ -121,6 +122,39 @@ export const dropdownList = [
       { id: 5, name: "宽", value: 70 },
       { id: 6, name: "超宽", value: 90 }
     ]
+  }
+];
+export const sideMenu = [
+  {
+    name: "全部图书",
+    icon: "home",
+    mode: "home"
+    // action: fetchRecentlyPlayed
+  },
+  {
+    name: "最近阅读",
+    icon: "recent",
+    mode: "recent"
+    // action: fetchSongs
+  },
+  {
+    name: "我的书签",
+    icon: "bookmark",
+    mode: "bookmark"
+    // action: fetchAlbums
+  },
+  {
+    name: "我的笔记",
+    icon: "idea",
+    mode: "note"
+    // action: fetchArtists,
+    // getArtists: true
+  },
+
+  {
+    name: "我的书摘",
+    icon: "digest",
+    mode: "digest"
   }
 ];
 export default readerConfig;

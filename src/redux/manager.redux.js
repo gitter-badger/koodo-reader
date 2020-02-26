@@ -2,7 +2,9 @@ import localforage from "localforage";
 const initState = {
   books: [],
   epubs: [],
-  covers: []
+  covers: null,
+  searchBooks: [],
+  isSearch: false
 };
 export function manager(state = initState, action) {
   switch (action.type) {
@@ -10,6 +12,16 @@ export function manager(state = initState, action) {
       return {
         ...state,
         books: action.payload
+      };
+    case "HANDLE_SEARCH_BOOKS":
+      return {
+        ...state,
+        searchBooks: action.payload
+      };
+    case "HANDLE_SEARCH":
+      return {
+        ...state,
+        isSearch: action.payload
       };
     case "HANDLE_NOTES":
       return {
@@ -42,6 +54,12 @@ export function handleNotes(notes) {
 export function handleBooks(books) {
   return { type: "HANDLE_BOOKS", payload: books };
 }
+export function handleSearchBooks(searchBooks) {
+  return { type: "HANDLE_SEARCH_BOOKS", payload: searchBooks };
+}
+export function handleSearch(mode) {
+  return { type: "HANDLE_SEARCH", payload: mode };
+}
 export function handleEpubs(epubs) {
   return { type: "HANDLE_EPUBS", payload: epubs };
 }
@@ -58,7 +76,7 @@ export function handleFetchBooks() {
       dispatch(handleBooks(bookArr));
       let epubArr = [];
       if (bookArr === null) {
-        epubArr = [];
+        epubArr = null;
       } else {
         bookArr.forEach(item => {
           // console.log(item, "sgash");
@@ -79,10 +97,9 @@ export function handleFetchBooks() {
       epubArr.forEach(async (item, index) => {
         await item.coverUrl().then(url => {
           // console.log(url, "urlsagasf");
-          coverArr.push(url);
+          coverArr.push({ key: bookArr[index].key, url: url });
           if (coverArr.length === bookArr.length) {
             // console.log(coverArr, "coverArr");
-
             dispatch(handleCovers(coverArr));
           }
         });

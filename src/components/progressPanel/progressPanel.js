@@ -12,33 +12,21 @@ class ProgressPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // locations: null,
-      // progress: null,
-      // percentage: 0,
-      // chapterArr: []
-      displayPercentage: 0
+      displayPercentage: this.props.percentage
     };
   }
   //WARNING! To be deprecated in React v17. Use componentDidMount instead.
-  componentWillMount() {
-    let percentage =
-      RecordLocation.getCfi(this.props.currentBook.key) === null
-        ? 0
-        : RecordLocation.getCfi(this.props.currentBook.key).percentage;
-    console.log(percentage, "sfhfhg");
-    // this.props.handleFetchPercentage(this.props.currentBook);
-    this.setState({ displayPercentage: percentage });
+  UNSAFE_componentWillMount() {
     this.props.handleFetchLocations(this.props.currentEpub);
-    // console.log(this.state.displayPercentage, "fjsfgh");
   }
-  componentDidMount() {}
+
   onProgressChange = event => {
     const percentage = event.target.value / 100;
     // console.log(this.state.locations, "agashaf");
     const location =
       percentage >= 0 ? this.props.locations.cfiFromPercentage(percentage) : 0;
     // let progress = this.state.locations.percentageFromCfi(location);
-    console.log(location, percentage, "fhasfhfdh");
+    // console.log(location, percentage, "fhasfhfdh");
     this.props.currentEpub.gotoCfi(location);
     // this.recordCfi();
   };
@@ -50,20 +38,43 @@ class ProgressPanel extends Component {
   previourChapter = () => {
     let currentSection = this.props.currentEpub.spinePos;
     this.props.currentEpub.displayChapter(currentSection - 1, false);
+    let percentage =
+      RecordLocation.getCfi(this.props.currentBook.key) === null
+        ? 0
+        : RecordLocation.getCfi(this.props.currentBook.key).percentage;
+    console.log(percentage, "sfhfhg");
+    // this.props.handleFetchPercentage(this.props.currentBook);
+    this.setState({ displayPercentage: percentage });
   };
   nextChapter = () => {
     let currentSection = this.props.currentEpub.spinePos;
     this.props.currentEpub.displayChapter(currentSection + 1, false);
+    let percentage =
+      RecordLocation.getCfi(this.props.currentBook.key) === null
+        ? 0
+        : RecordLocation.getCfi(this.props.currentBook.key).percentage;
+    console.log(percentage, "sfhfhg");
+    // this.props.handleFetchPercentage(this.props.currentBook);
+    this.setState({ displayPercentage: percentage });
   };
   render() {
+    console.log(this.props.percentage, "sfhfsah");
     return (
       <div className="progress-panel">
         <p className="progress-text">
-          当前进度: {Math.round(this.state.displayPercentage * 100)}%
+          当前进度:
+          {this.props.percentage === null
+            ? 0
+            : Math.round(this.state.displayPercentage * 100)}
+          %
         </p>
         <input
           className="input-progress"
-          value={Math.round(this.state.displayPercentage * 100)}
+          // defalutValue={
+          //   this.props.percentage === null
+          //     ? 0
+          //     : Math.round(this.props.percentage * 100)
+          // }
           type="range"
           max="100"
           min="0"
@@ -103,7 +114,7 @@ const mapStateToProps = state => {
 
     currentEpub: state.book.currentEpub,
     currentBook: state.book.currentBook,
-    // percentage: state.progressPanel.percentage,
+    percentage: state.progressPanel.percentage,
     locations: state.progressPanel.locations,
     section: state.progressPanel.section
   };

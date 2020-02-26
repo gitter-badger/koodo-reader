@@ -1,7 +1,7 @@
 const initState = {
   isOpenEditDialog: false,
   isOpenDeleteDialog: false,
-  isOpenAddToShelfDialog: false,
+  isOpenAddDialog: false,
   isReading: false,
   currentBook: {},
   currentEpub: {},
@@ -13,17 +13,17 @@ export function book(state = initState, action) {
     case "HANDLE_EDIT_DIALOG":
       return {
         ...state,
-        isOpenEditDialog: true
+        isOpenEditDialog: action.payload
       };
     case "HANDLE_DELETE_DIALOG":
       return {
         ...state,
-        isOpenDeleteDialog: true
+        isOpenDeleteDialog: action.payload
       };
-    case "HANDLE_ADD_TO_SHELF_DIALOG":
+    case "HANDLE_ADD_DIALOG":
       return {
         ...state,
-        isOpenAddToShelfDialog: true
+        isOpenAddDialog: action.payload
       };
     case "HANDLE_READING_STATE":
       return {
@@ -51,14 +51,14 @@ export function book(state = initState, action) {
   }
 }
 
-export function handleEditDialog() {
-  return { type: "HANDLE_EDIT_DIALOG" };
+export function handleEditDialog(mode) {
+  return { type: "HANDLE_EDIT_DIALOG", payload: mode };
 }
-export function handleDeleteDialog() {
-  return { type: "HANDLE_DELETE_DIALOG" };
+export function handleDeleteDialog(mode) {
+  return { type: "HANDLE_DELETE_DIALOG", payload: mode };
 }
-export function handleAddToShelfDialog() {
-  return { type: "HANDLE_ADD_TO_SHELF_DIALOG" };
+export function handleAddDialog(mode) {
+  return { type: "HANDLE_ADD_DIALOG", payload: mode };
 }
 export function handleReadingState(state) {
   return { type: "HANDLE_READING_STATE", payload: state };
