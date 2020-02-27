@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./addDialog.css";
-import { handleFetchBooks } from "../../redux/manager.redux";
+import {
+  handleFetchBooks,
+  handleMessageBox,
+  handleMessage
+} from "../../redux/manager.redux";
 import { handleAddDialog } from "../../redux/book.redux";
 import ShelfUtil from "../../utils/shelfUtil";
 import {
@@ -34,6 +38,8 @@ class AddDialog extends Component {
     }
     ShelfUtil.setShelf(shelfTitle, this.props.currentBook.key);
     this.props.handleAddDialog(false);
+    this.props.handleMessage("添加成功");
+    this.props.handleMessageBox(true);
   };
   handleChange = event => {
     let shelfTitle = event.target.value;
@@ -123,7 +129,9 @@ const actionCreator = {
   handleFetchBookmarks,
   handleFetchNotes,
   handleFetchDigests,
-  handleFetchHighlighters
+  handleFetchHighlighters,
+  handleMessageBox,
+  handleMessage
 };
 AddDialog = connect(mapStateToProps, actionCreator)(AddDialog);
 export default AddDialog;

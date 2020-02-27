@@ -7,10 +7,7 @@ class NoteList extends Component {
     super(props);
     this.state = { currentDate: null, currentIndex: null };
   }
-  // UNSAFE_componentWillMount() {
-  //   this.props.handleFetchNotes();
-  //   console.log("helo");
-  // }
+
   handleBookName = bookKey => {
     let { books } = this.props;
     let chapter = "";
@@ -131,34 +128,8 @@ class NoteList extends Component {
     };
     const renderNoteList = () => {
       return dateArr.map((item, index) => {
-        // let notePageItem = document.querySelector(".note-page-item");
-        let height =
-          document.body.clientWidth < 997
-            ? Math.ceil(
-                noteObj["" + item.year + item.month + item.day].length
-              ) * 155
-            : Math.ceil(
-                noteObj["" + item.year + item.month + item.day].length / 2
-              ) * 155;
-        let isCurrentItem =
-          this.state.currentDate === "" + item.year + item.month + item.day;
-        // console.log(
-        //   this.state.currentDate,
-        //   "" + item.year + item.month + item.day
-        // );
-        // console.log(
-        //   Math.floor(noteObj["" + item.year + item.month + item.day].length / 2)
-        // );
         return (
-          <li
-            className="note-page-item"
-            key={index}
-            style={
-              isCurrentItem
-                ? { height: `${height + 100}px` }
-                : { height: `${height}px` }
-            }
-          >
+          <li className="note-page-item" key={index}>
             <div className="note-page-item-date">{`${item.year}年${item.month}月${item.day}日`}</div>
             <ul className="note-list-container-box">
               {renderNoteListItem("" + item.year + item.month + item.day)}

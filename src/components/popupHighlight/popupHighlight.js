@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./popupHighlight.css";
 import Highlighter from "../../model/Highlighter";
 import localforage from "localforage";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux.js";
 import { connect } from "react-redux";
 class PopupHighlight extends Component {
   handleReturn = () => {
@@ -48,6 +49,8 @@ class PopupHighlight extends Component {
     localforage.setItem("highlighters", highlighterArr);
     this.props.closeMenu();
     iDoc.getSelection().empty();
+    this.props.handleMessage("高亮成功");
+    this.props.handleMessageBox(true);
     console.log("%c Add note here. ", "background-color: green");
   }
 
@@ -112,6 +115,6 @@ const mapStateToProps = state => {
     highlighters: state.reader.highlighters
   };
 };
-const actionCreator = {};
+const actionCreator = { handleMessageBox, handleMessage };
 PopupHighlight = connect(mapStateToProps, actionCreator)(PopupHighlight);
 export default PopupHighlight;

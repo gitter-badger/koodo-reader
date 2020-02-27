@@ -26,11 +26,17 @@ class Book extends Component {
     super(props);
     this.state = { isDeleteDialog: false };
     this.handleOpenBook = this.handleOpenBook.bind(this);
+    this.epub = null;
   }
-
+  UNSAFE_componentWillMount() {
+    this.epub = window.ePub({
+      bookPath: this.props.book.content,
+      restore: false
+    });
+  }
   handleOpenBook() {
     this.props.handleReadingBook(this.props.book);
-    this.props.handleReadingEpub(this.props.epub);
+    this.props.handleReadingEpub(this.epub);
     this.props.handleReadingState(true);
     RecentBooks.setRecent(this.props.book.key);
   }

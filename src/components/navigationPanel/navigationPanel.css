@@ -18,9 +18,19 @@
   left: 12px;
   top: 14px;
 }
-.book-title {
-  height: 30px;
+.book-title-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
   width: 160px;
+  height: 30px;
+  position: absolute;
+  left: 118px;
+  bottom: 135px;
+}
+.book-title {
+  /* height: 30px;
+  width: 160px; */
   font-size: 15px;
   font-weight: 500;
   color: rgba(75, 75, 75, 1);
@@ -33,9 +43,8 @@
   white-space: normal;
   word-break: keep-all;
   overflow: hidden;
-  position: absolute;
-  left: 118px;
-  bottom: 131px;
+  display: inline-block;
+  /* float: left; */
 }
 .book-arthur {
   position: absolute;

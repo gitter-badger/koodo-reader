@@ -5,6 +5,7 @@ import ContentList from "../contentList/contentList";
 import BookmarkList from "../bookmarkList/boomarkList";
 import { handleFetchBookmarks } from "../../redux/reader.redux";
 import SearchPanel from "../searchPanel/searchPanel";
+import ReadingTime from "../../utils/readingTime";
 // @connect(state => state.book)
 class NavigationPanel extends Component {
   constructor(props) {
@@ -14,13 +15,20 @@ class NavigationPanel extends Component {
       chapters: [],
       cover: "",
       isSearch: false,
-      searchList: null
+      searchList: null,
+      time: ReadingTime.getTime(this.props.currentBook.key)
     };
     this.epub = null;
+    this.timer = null;
     this.handleSearch = this.handleSearch.bind(this);
     this.doSearch = this.doSearch.bind(this);
   }
   componentDidMount() {
+    this.timer = setInterval(() => {
+      let time = this.state.time;
+      time += 1;
+      this.setState({ time });
+    }, 1000);
     // console.log(this.props.currentBook.cover, "fhadhgdah");
     this.props.currentEpub.coverUrl().then(url => {
       // console.log(url, "url");
@@ -28,6 +36,11 @@ class NavigationPanel extends Component {
     });
     this.props.handleFetchBookmarks();
   }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    ReadingTime.setTime(this.props.currentBook.key, this.state.time);
+  }
+
   handleClick = state => {
     this.setState({ isContentShow: state });
   };
@@ -68,14 +81,19 @@ class NavigationPanel extends Component {
           <React.Fragment>
             <div className="navigation-header">
               <img className="book-cover" src={this.state.cover} alt="" />
-              <p className="book-title">{this.props.currentBook.name}</p>
+              <div className="book-title-container">
+                <p className="book-title">{this.props.currentBook.name}</p>
+              </div>
+
               <p className="book-arthur">
                 作者:{" "}
                 {this.props.currentBook.arthur
                   ? this.props.currentBook.arthur
                   : "未知"}
               </p>
-              <span className="reading-duration">用时: 37分钟</span>
+              <span className="reading-duration">
+                用时: {Math.floor(this.state.time / 60)}分钟
+              </span>
               <input
                 type="text"
                 className="book-search-box"

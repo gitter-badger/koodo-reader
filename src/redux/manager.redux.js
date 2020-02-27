@@ -1,10 +1,17 @@
 import localforage from "localforage";
+import OtherUtil from "../utils/otherUtil";
 const initState = {
-  books: [],
-  epubs: [],
+  books: null,
+  epubs: null,
   covers: null,
   searchBooks: [],
-  isSearch: false
+  isSearch: false,
+  isSort: true,
+  isList: "card",
+  isSortDisplay: false,
+  sortCode: { sort: 2, order: 2 },
+  isMessage: false,
+  message: "添加成功"
 };
 export function manager(state = initState, action) {
   switch (action.type) {
@@ -22,6 +29,36 @@ export function manager(state = initState, action) {
       return {
         ...state,
         isSearch: action.payload
+      };
+    case "HANDLE_SORT":
+      return {
+        ...state,
+        isSort: action.payload
+      };
+    case "HANDLE_LIST":
+      return {
+        ...state,
+        isList: action.payload
+      };
+    case "HANDLE_SORT_DISPLAY":
+      return {
+        ...state,
+        isSortDisplay: action.payload
+      };
+    case "HANDLE_MESSAGE":
+      return {
+        ...state,
+        message: action.payload
+      };
+    case "HANDLE_MESSAGE_BOX":
+      return {
+        ...state,
+        isMessage: action.payload
+      };
+    case "HANDLE_SORT_CODE":
+      return {
+        ...state,
+        sortCode: { sort: action.payload.sort, order: action.payload.order }
       };
     case "HANDLE_NOTES":
       return {
@@ -60,6 +97,28 @@ export function handleSearchBooks(searchBooks) {
 export function handleSearch(mode) {
   return { type: "HANDLE_SEARCH", payload: mode };
 }
+export function handleSort(mode) {
+  return { type: "HANDLE_SORT", payload: mode };
+}
+export function handleList(mode) {
+  return { type: "HANDLE_LIST", payload: mode };
+}
+export function handleMessage(message) {
+  console.log(message);
+  return { type: "HANDLE_MESSAGE", payload: message };
+}
+export function handleMessageBox(mode) {
+  console.log(mode);
+  return { type: "HANDLE_MESSAGE_BOX", payload: mode };
+}
+export function handleSortDisplay(mode) {
+  console.log("hdflhghgh", mode);
+  return { type: "HANDLE_SORT_DISPLAY", payload: mode };
+}
+export function handleSortCode(code) {
+  console.log(code);
+  return { type: "HANDLE_SORT_CODE", payload: code };
+}
 export function handleEpubs(epubs) {
   return { type: "HANDLE_EPUBS", payload: epubs };
 }
@@ -87,25 +146,33 @@ export function handleFetchBooks() {
           });
           // console.log(epub, "eashah");
           epubArr.push(epub);
+          dispatch(handleEpubs(epubArr));
+          let coverArr = [];
+          // async function getCovers(epubArr) {
+          epubArr.forEach(async (item, index) => {
+            await item.coverUrl().then(url => {
+              // console.log(url, "urlsagasf");
+              coverArr.push({ key: bookArr[index].key, url: url });
+              if (coverArr.length === bookArr.length) {
+                // console.log(coverArr, "coverArr");
+                dispatch(handleCovers(coverArr));
+              }
+            });
+          });
         });
       }
-
-      // console.log(epubArr, "epubArr");
-      dispatch(handleEpubs(epubArr));
-      let coverArr = [];
-      // async function getCovers(epubArr) {
-      epubArr.forEach(async (item, index) => {
-        await item.coverUrl().then(url => {
-          // console.log(url, "urlsagasf");
-          coverArr.push({ key: bookArr[index].key, url: url });
-          if (coverArr.length === bookArr.length) {
-            // console.log(coverArr, "coverArr");
-            dispatch(handleCovers(coverArr));
-          }
-        });
-      });
-      // }
-      // getCovers(epubArr);
     });
+  };
+}
+export function handleFetchSortCode() {
+  return dispatch => {
+    let sortCode = OtherUtil.getSortCode();
+    dispatch(handleSortCode(sortCode));
+  };
+}
+export function handleFetchList() {
+  return dispatch => {
+    let isList = localStorage.getItem("isList") || "card";
+    dispatch(handleList(isList));
   };
 }

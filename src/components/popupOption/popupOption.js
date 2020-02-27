@@ -3,6 +3,8 @@ import "./popupOption.css";
 import { connect } from "react-redux";
 import localforage from "localforage";
 import Digest from "../../model/Digest";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux.js";
+
 import {
   handleOpenNote,
   handleOpenHighlight,
@@ -29,6 +31,8 @@ class PopupOption extends Component {
       : console.log("copied!");
     this.props.closeMenu();
     iDoc.getSelection().empty();
+    this.props.handleMessage("复制成功");
+    this.props.handleMessageBox(true);
   };
   handleDigest = () => {
     let book = this.props.currentBook;
@@ -49,7 +53,10 @@ class PopupOption extends Component {
       return item.spinePos > epub.renderer.currentChapter.spinePos;
     });
     // console.log(index, "sahathth");
-    let chapter = this.props.chapters[index].label.trim(" ");
+    let chapter =
+      this.props.chapters[index] !== undefined
+        ? this.props.chapters[index].label.trim(" ")
+        : "未知章节";
     // let chapter = epub.renderer.currentChapter.spinePos;
 
     let digest = new Digest(bookKey, chapter, text, cfi);
@@ -58,6 +65,8 @@ class PopupOption extends Component {
     localforage.setItem("digests", digestArr);
     this.props.closeMenu();
     iDoc.getSelection().empty();
+    this.props.handleMessage("添加成功");
+    this.props.handleMessageBox(true);
   };
   // return note;};
   render() {
@@ -125,6 +134,12 @@ const mapStateToProps = state => {
     chapters: state.reader.chapters
   };
 };
-const actionCreator = { handleOpenNote, handleOpenHighlight, handleOpenMenu };
+const actionCreator = {
+  handleOpenNote,
+  handleOpenHighlight,
+  handleOpenMenu,
+  handleMessageBox,
+  handleMessage
+};
 PopupOption = connect(mapStateToProps, actionCreator)(PopupOption);
 export default PopupOption;

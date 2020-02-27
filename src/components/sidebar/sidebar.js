@@ -93,8 +93,7 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <div className="logo">
-          <span className="icon-koodo"></span>
-          <p className="logo-text">可道阅读器</p>
+          <img src="../../assets/logo.png" alt="" className="img-koodo-logo" />
         </div>
         <ul className="side-menu-container">
           {renderSideMenu()}

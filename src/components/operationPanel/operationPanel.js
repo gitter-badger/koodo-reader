@@ -19,6 +19,7 @@ class OperationPanel extends Component {
       isBookmark: false // 是否进入全屏模式
     };
   }
+
   // 点击切换全屏按钮触发
   handleScreen() {
     !this.state.isFullScreen

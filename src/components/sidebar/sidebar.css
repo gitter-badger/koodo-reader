@@ -10,26 +10,16 @@
   left: 0;
   top: 0;
 } */
-.icon-koodo {
+.logo {
+  width: 200px;
+  height: 200px;
   position: absolute;
-  font-size: 70px;
-  text-shadow: 0px 0px 4px #4b4b4b;
-  opacity: 0.8;
-  color: black;
-  top: 14px;
-  left: 54px;
+  transform: scale(0.5);
+  /* position: relative; */
+  top: -40px;
+  left: -20px;
 }
-.logo-text {
-  position: absolute;
-  font-size: 14px;
-  top: 84px;
-  left: 54px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
-  line-height: 25px;
-  color: rgba(75, 75, 75, 1);
-  opacity: 1;
-}
+
 .side-menu-container {
   position: relative;
   top: 120px;

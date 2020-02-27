@@ -6,7 +6,7 @@ import BookItem from "../bookItem/bookItem";
 import { connect } from "react-redux";
 import RecordRecent from "../../utils/recordRecent";
 import ShelfUtil from "../../utils/shelfUtil";
-
+import SortUtil from "../../utils/sortUtil";
 // @connect(state => state.book)
 // @connect(state => state.manager)
 class BookList extends Component {
@@ -16,8 +16,10 @@ class BookList extends Component {
       books: this.props.books,
       covers: this.props.covers,
       shelfIndex: this.props.shelfIndex,
-      isList: false,
+      isList: this.props.isList,
       isSearch: this.props.isSearch,
+      isSort: this.props.isSort,
+      sortCode: this.props.sortCode,
       searchBooks: this.props.searchBooks
     };
   }
@@ -28,8 +30,11 @@ class BookList extends Component {
       covers: nextProps.covers,
       shelfIndex: nextProps.shelfIndex,
       isSearch: nextProps.isSearch,
+      isSort: nextProps.isSort,
+      sortCode: nextProps.sortCode,
       searchBooks: nextProps.searchBooks
     });
+    console.log(this.state.sortCode);
   };
   handleRecent = items => {
     let recentArr = [];
@@ -62,16 +67,21 @@ class BookList extends Component {
   }
   handleChange = mode => {
     this.setState({ isList: mode });
+    localStorage.setItem("isList", mode);
   };
   handleSearch = (items, arr) => {
+    console.log(arr, "arr");
     let itemArr = [];
+
     arr.forEach(item => {
       itemArr.push(items[item]);
     });
     return itemArr;
   };
   render() {
+    console.log(this.state.isList);
     const renderBookList = () => {
+      console.log(this.state.books, "sdgasf");
       let books =
         this.props.mode === "recent"
           ? this.handleRecent(this.state.books)
@@ -79,7 +89,12 @@ class BookList extends Component {
           ? this.handleShelf(this.state.books, this.state.shelfIndex)
           : this.state.isSearch
           ? this.handleSearch(this.state.books, this.props.searchBooks)
-          : this.props.books;
+          : this.state.isSort
+          ? this.handleSearch(
+              this.state.books,
+              SortUtil.sortBooks(this.state.books, this.state.sortCode)
+            )
+          : this.state.books;
       // console.log(this.props.covers);
       let covers =
         this.props.mode === "recent"
@@ -88,36 +103,28 @@ class BookList extends Component {
           ? this.handleShelf(this.state.covers, this.state.shelfIndex)
           : this.state.isSearch
           ? this.handleSearch(this.state.covers, this.props.searchBooks)
-          : this.props.covers;
+          : this.state.isSort
+          ? this.handleSearch(
+              this.state.covers,
+              SortUtil.sortBooks(this.state.books, this.state.sortCode)
+            )
+          : this.state.covers;
       return books.map((item, index) => {
         // console.log(covers, "djhdhdfh");
-        return this.state.isList ? (
+        console.log(this.state.isList, "sdgasf");
+        let mode = this.state.isList;
+        console.log(mode);
+        return this.state.isList === "list" ? (
           <BookItem
             key={item.key}
             book={item}
-            epub={this.props.epubs === null ? {} : this.props.epubs[index]}
-            bookCover={
-              // BookData[index].cover
-              covers === null ||
-              covers[index] === null ||
-              covers[index] === undefined
-                ? BookData[index].cover
-                : covers[index].url
-            }
+            bookCover={covers[index] ? covers[index].url : BookData[index]}
           />
         ) : (
           <Book
             key={item.key}
             book={item}
-            epub={this.props.epubs === null ? {} : this.props.epubs[index]}
-            bookCover={
-              // BookData[index].cover
-              covers === null ||
-              covers[index] === null ||
-              covers[index] === undefined
-                ? BookData[index].cover
-                : covers[index].url
-            }
+            bookCover={covers[index] ? covers[index].url : BookData[index]}
           />
         );
       });
@@ -128,22 +135,31 @@ class BookList extends Component {
           <div
             className="card-list-mode"
             onClick={() => {
-              this.handleChange(false);
+              this.handleChange("card");
             }}
-            style={this.state.isList ? { color: "rgba(75,75,75,0.5)" } : {}}
+            style={
+              this.state.isList === "card"
+                ? {}
+                : { color: "rgba(75,75,75,0.5)" }
+            }
           >
             <span className="icon-grid"></span> 卡片模式
           </div>
           <div
             className="list-view-mode"
             onClick={() => {
-              this.handleChange(true);
+              this.handleChange("list");
             }}
-            style={this.state.isList ? {} : { color: "rgba(75,75,75,0.5)" }}
+            style={
+              this.state.isList === "list"
+                ? {}
+                : { color: "rgba(75,75,75,0.5)" }
+            }
           >
             <span className="icon-list"></span> 列表模式
           </div>
         </div>
+
         <div className="book-list-item-box">{renderBookList()}</div>
       </div>
     );
@@ -157,7 +173,10 @@ const mapStateToProps = state => {
     mode: state.sidebar.mode,
     shelfIndex: state.sidebar.shelfIndex,
     searchBooks: state.manager.searchBooks,
-    isSearch: state.manager.isSearch
+    isSearch: state.manager.isSearch,
+    isSort: state.manager.isSort,
+    isList: state.manager.isList,
+    sortCode: state.manager.sortCode
   };
 };
 BookList = connect(mapStateToProps)(BookList);

@@ -6,19 +6,34 @@ import localforage from "localforage";
 import {
   handleFetchBooks,
   handleSearchBooks,
-  handleSearch
+  handleSearch,
+  handleSort,
+  handleSortCode,
+  handleSortDisplay,
+  handleMessageBox,
+  handleMessage
 } from "../../redux/manager.redux";
+
+import OtherUtil from "../../utils/otherUtil";
 // @connect(state => state.manager)
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { isSearch: this.props.isSearch };
+    this.state = {
+      isSearch: this.props.isSearch,
+      isSort: this.props.isSort,
+      sortCode: this.props.sortCode,
+      isSortDisplay: this.props.isSortDisplay
+    };
     this.handleChange = this.handleChange.bind(this);
   }
   UNSAFE_componentWillReceiveProps = nextProps => {
     // console.log(nextProps);
     this.setState({
-      isSearch: nextProps.isSearch
+      isSearch: nextProps.isSearch,
+      isSort: nextProps.isSort,
+      isSortDisplay: nextProps.isSortDisplay,
+      sortCode: nextProps.sortCode
     });
   };
   handleAddBook(book) {
@@ -33,69 +48,24 @@ class Header extends Component {
       console.log("hadfhafh");
       this.props.handleFetchBooks();
     });
+    this.props.handleMessage("添加成功");
+    this.props.handleMessageBox(true);
   }
-  fuzzyQuery = (list, keyWord) => {
-    var arr = [];
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].match(keyWord) != null) {
-        arr.push(i);
-      }
-    }
-    return arr;
-  };
-  MergeArray = (arr1, arr2) => {
-    var _arr = [];
-    for (let i = 0; i < arr1.length; i++) {
-      _arr.push(arr1[i]);
-    }
-    for (let i = 0; i < arr2.length; i++) {
-      var flag = true;
-      for (let j = 0; j < arr1.length; j++) {
-        if (arr2[i] === arr1[j]) {
-          flag = false;
-          break;
-        }
-      }
-      if (flag) {
-        _arr.push(arr2[i]);
-      }
-    }
-    return _arr;
-  };
-  handleSearch = (event, keyMode) => {
-    if (keyMode === "key") {
-      if (event && event.keyCode === 13) {
-        let bookNameArr = [];
-        let AuthorNameArr = [];
-        this.props.books.forEach(item => {
-          bookNameArr.push(item.name);
-          AuthorNameArr.push(item.author);
-        });
-        let bookResults = this.fuzzyQuery(bookNameArr, event.target.value);
-        let authorResults = this.fuzzyQuery(AuthorNameArr, event.target.value);
-        let results = this.MergeArray(bookResults, authorResults);
-        console.log(results.sort());
 
-        this.props.handleSearchBooks(results);
-        this.props.handleSearch(true);
-      }
-    } else if (keyMode === "mouse") {
-      let keyword = document.querySelector(".header-search-box").value;
-      let bookNameArr = [];
-      let AuthorNameArr = [];
-      this.props.books.forEach(item => {
-        bookNameArr.push(item.name);
-        AuthorNameArr.push(item.author);
-      });
-      let bookResults = this.fuzzyQuery(bookNameArr, keyword);
-      let authorResults = this.fuzzyQuery(AuthorNameArr, keyword);
-      let results = this.MergeArray(bookResults, authorResults);
-      console.log(results.sort());
-
+  handleMouse = () => {
+    let results = OtherUtil.MouseSearch(this.props.books);
+    this.props.handleSearchBooks(results);
+    this.props.handleSearch(true);
+  };
+  handleKey = event => {
+    let results = OtherUtil.KeySearch(event, this.props.books);
+    // console.log(results, "resultes");
+    if (results !== undefined) {
       this.props.handleSearchBooks(results);
       this.props.handleSearch(true);
     }
   };
+
   handleCancel = () => {
     this.props.handleSearch(false);
     document.querySelector(".header-search-box").value = "";
@@ -121,11 +91,18 @@ class Header extends Component {
         this.handleAddBook(book);
       });
     };
-
-    reader.onerror = () => {
-      alert("Σ(っ °Д °;)っ Some error occurred, please try again!");
-    };
   }
+  handleSortBooks = () => {
+    console.log(this.state.isSortDisplay, "ahdgslahg");
+    if (this.state.isSortDisplay) {
+      this.props.handleSortDisplay(false);
+    } else {
+      this.props.handleSortDisplay(true);
+    }
+
+    // this.props.handleSortDisplay(!this.state.isSortDisplay);
+    // console.log(this.state.isSortDisplay);
+  };
   render() {
     // const classes = this.props.classes;
 
@@ -136,7 +113,7 @@ class Header extends Component {
           placeholder="搜索我的书库"
           className="header-search-box header-search-container"
           onKeyDown={event => {
-            this.handleSearch(event, "key");
+            this.handleKey(event);
           }}
         />
         {this.props.isSearch ? (
@@ -152,14 +129,20 @@ class Header extends Component {
           <span
             className="icon-search header-search-icon"
             onClick={() => {
-              this.handleSearch(null, "mouse");
+              this.handleMouse();
             }}
           ></span>
         )}
-        <div className="header-sort-container">
+        <div
+          className="header-sort-container"
+          onClick={() => {
+            this.handleSortBooks();
+          }}
+        >
           <span className="header-sort-text">排序</span>
           <span className="icon-sort header-sort-icon"></span>
         </div>
+        {this.state.isSort}
         <div className="only-local-container">
           <span className="only-local-text">只显示本地图书</span>
           <div className="only-local-icon">
@@ -186,8 +169,21 @@ class Header extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { books: state.manager.books, isSearch: state.manager.isSearch };
+  return {
+    books: state.manager.books,
+    isSearch: state.manager.isSearch,
+    isSortDisplay: state.manager.isSortDisplay
+  };
 };
-const actionCreator = { handleFetchBooks, handleSearchBooks, handleSearch };
+const actionCreator = {
+  handleFetchBooks,
+  handleSearchBooks,
+  handleSearch,
+  handleSort,
+  handleSortCode,
+  handleSortDisplay,
+  handleMessageBox,
+  handleMessage
+};
 Header = connect(mapStateToProps, actionCreator)(Header);
 export default Header;

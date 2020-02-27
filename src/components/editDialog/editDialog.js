@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./editDialog.css";
-import { handleFetchBooks } from "../../redux/manager.redux";
+import {
+  handleFetchBooks,
+  handleMessageBox,
+  handleMessage
+} from "../../redux/manager.redux";
 import { handleEditDialog } from "../../redux/book.redux";
 import {
   handleFetchBookmarks,
@@ -41,6 +45,8 @@ class editDialog extends Component {
       this.props.handleEditDialog(false);
       this.props.handleFetchBooks();
     });
+    this.props.handleMessage("编辑成功");
+    this.props.handleMessageBox(true);
   };
   render() {
     return (
@@ -91,7 +97,9 @@ const actionCreator = {
   handleFetchBookmarks,
   handleFetchNotes,
   handleFetchDigests,
-  handleFetchHighlighters
+  handleFetchHighlighters,
+  handleMessageBox,
+  handleMessage
 };
 editDialog = connect(mapStateToProps, actionCreator)(editDialog);
 export default editDialog;

@@ -3,6 +3,7 @@ import "./popupNote.css";
 import { connect } from "react-redux";
 import Note from "../../model/Note";
 import localforage from "localforage";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux.js";
 class PopupNote extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +37,10 @@ class PopupNote extends Component {
       return item.spinePos > epub.renderer.currentChapter.spinePos;
     });
     // console.log(index, "sahathth");
-    let chapter = this.props.chapters[index].label.trim(" ");
+    let chapter =
+      this.props.chapters[index] !== undefined
+        ? this.props.chapters[index].label.trim(" ")
+        : "未知章节";
     // let chapter = epub.renderer.currentChapter.spinePos;
 
     let note = new Note(bookKey, chapter, text, cfi, serial, notes);
@@ -45,6 +49,8 @@ class PopupNote extends Component {
     localforage.setItem("notes", noteArr);
     this.props.closeMenu();
     iDoc.getSelection().empty();
+    this.props.handleMessage("添加成功");
+    this.props.handleMessageBox(true);
     // return note;
   }
   handleReturn = () => {
@@ -102,6 +108,6 @@ const mapStateToProps = state => {
     chapters: state.reader.chapters
   };
 };
-const actionCreator = {};
+const actionCreator = { handleMessageBox, handleMessage };
 PopupNote = connect(mapStateToProps, actionCreator)(PopupNote);
 export default PopupNote;

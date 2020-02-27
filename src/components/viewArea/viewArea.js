@@ -80,7 +80,6 @@ class ViewArea extends Component {
     return (
       <div className="view-area">
         <PopupMenu id="popup-menu" />
-        <div className="view-area-mask"></div>
         <ViewPage />
       </div>
     );

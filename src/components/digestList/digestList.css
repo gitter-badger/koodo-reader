@@ -14,13 +14,14 @@
 }
 .digest-page-item-date {
   /* float: left; */
-  /* position: absolute; */
+  position: absolute;
   font-size: 14px;
   font-weight: 500;
   line-height: 25px;
   color: rgba(75, 75, 75, 1);
   opacity: 0.75;
   margin-left: 19px;
+  height: 20px;
 }
 .digest-page-item {
   /* display: block; */
@@ -36,6 +37,7 @@
   /* float: left; */
   /* zoom: 1; */
   overflow: hidden;
+  clear: both;
 }
 .digest-list-item {
   float: left;
@@ -94,4 +96,7 @@
 }
 .digest-list-item-title {
   float: left;
+}
+.digest-list-container-box {
+  margin-top: 35px;
 }

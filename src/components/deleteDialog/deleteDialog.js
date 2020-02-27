@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./deleteDialog.css";
-import { handleFetchBooks } from "../../redux/manager.redux";
+import {
+  handleFetchBooks,
+  handleMessageBox,
+  handleMessage
+} from "../../redux/manager.redux";
 import { handleDeleteDialog } from "../../redux/book.redux";
 import {
   handleFetchBookmarks,
@@ -28,6 +32,7 @@ class DeleteDialog extends Component {
       this.props.handleDeleteDialog(false);
       this.props.handleFetchBooks();
     });
+
     if (this.state.isCheck) {
       let bookmarkArr = DeleteUtil.deleteBookmarks(
         this.props.bookmarks,
@@ -59,6 +64,8 @@ class DeleteDialog extends Component {
         this.props.handleFetchHighlighters();
       });
     }
+    this.props.handleMessage("删除成功");
+    this.props.handleMessageBox(true);
   };
   handleCheck = mode => {
     this.setState({ isCheck: mode });
@@ -128,7 +135,9 @@ const actionCreator = {
   handleFetchBookmarks,
   handleFetchNotes,
   handleFetchDigests,
-  handleFetchHighlighters
+  handleFetchHighlighters,
+  handleMessageBox,
+  handleMessage
 };
 DeleteDialog = connect(mapStateToProps, actionCreator)(DeleteDialog);
 export default DeleteDialog;

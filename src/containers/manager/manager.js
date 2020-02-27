@@ -8,8 +8,16 @@ import DigestList from "../../components/digestList/digestList";
 import DeleteDialog from "../../components/deleteDialog/deleteDialog";
 import EditDialog from "../../components/editDialog/editDialog";
 import AddDialog from "../../components/addDialog/addDialog";
+import SortDialog from "../../components/sortDialog/sortDialog";
+import MessageBox from "../../components/messageBox/messageBox";
 import { connect } from "react-redux";
-import { handleFetchBooks } from "../../redux/manager.redux";
+import {
+  handleFetchBooks,
+  handleFetchSortCode,
+  handleFetchList,
+  handleList,
+  handleMessageBox
+} from "../../redux/manager.redux";
 import {
   handleFetchNotes,
   handleFetchDigests,
@@ -27,11 +35,14 @@ class Manager extends Component {
       books: this.props.books,
       notes: this.props.notes,
       digests: this.props.digests,
+      covers: this.props.covers,
       bookmarks: this.props.bookmarks,
-      // dialog: null
       isOpenEditDialog: this.props.isOpenEditDialog,
       isOpenDeleteDialog: this.props.isOpenDeleteDialog,
-      isOpenAddDialog: this.props.isOpenAddDialog
+      isOpenAddDialog: this.props.isOpenAddDialog,
+      isSort: this.props.isSort,
+      isSortDisplay: this.props.isSortDisplay,
+      isMessage: false
     };
   }
   //从indexdb里读取书籍
@@ -41,31 +52,39 @@ class Manager extends Component {
     this.props.handleFetchDigests();
     this.props.handleFetchBookmarks();
     this.props.handleFetchHighlighters();
+    this.props.handleFetchSortCode();
+    this.props.handleList(localStorage.getItem("isList") || false);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     this.setState({
       mode: nextProps.mode,
       shelfIndex: nextProps.shelfIndex,
-      books: nextProps.books,
+      // books: nextProps.books,
       notes: nextProps.notes,
+      covers: nextProps.covers,
       digests: nextProps.digests,
       bookmarks: nextProps.bookmarks,
       isOpenDeleteDialog: nextProps.isOpenDeleteDialog,
       isOpenEditDialog: nextProps.isOpenEditDialog,
-      isOpenAddDialog: nextProps.isOpenAddDialog
+      isOpenAddDialog: nextProps.isOpenAddDialog,
+      isSort: nextProps.isSort,
+      isSortDisplay: nextProps.isSortDisplay,
+      isMessage: nextProps.isMessage
     });
-    // console.log(this.state.isOpenDeleteDialog);
+    if (nextProps.isMessage) {
+      setTimeout(() => {
+        this.props.handleMessageBox(false);
+        this.setState({ isMessage: false });
+      }, 2000);
+    }
   }
   componentDidMount() {}
 
   render() {
-    let { mode, books, notes, digests, bookmarks } = this.state;
-    console.log(mode, "manager");
-    // console.log(this.state.isOpenDeleteDialog, "hajagjf");
-    // console.log(this.props.books === [], this.props.books, "sfhafhh");
-    // console.log(mode, books, notes, digests, bookmarks);
+    let { mode, notes, digests, bookmarks, covers } = this.state;
+    console.log(this.state.isMessage, "message");
     return (
       <div className="manager">
         <Sidebar />
@@ -79,8 +98,9 @@ class Manager extends Component {
             <AddDialog />
           ) : null}
         </div>
-
-        {books !== null &&
+        {this.state.isMessage ? <MessageBox /> : null}
+        {this.state.isSortDisplay ? <SortDialog /> : null}
+        {covers !== null &&
         (mode === "home" || mode === "recent" || mode === "shelf") ? (
           <BookList />
         ) : bookmarks !== null && mode === "bookmark" ? (
@@ -98,7 +118,8 @@ class Manager extends Component {
 }
 const mapStateToProps = state => {
   return {
-    books: state.manager.books,
+    // books: state.manager.books,
+    covers: state.manager.covers,
     notes: state.reader.notes,
     digests: state.reader.digests,
     bookmarks: state.reader.bookmarks,
@@ -107,7 +128,10 @@ const mapStateToProps = state => {
     shelfIndex: state.sidebar.shelfIndex,
     isOpenEditDialog: state.book.isOpenEditDialog,
     isOpenDeleteDialog: state.book.isOpenDeleteDialog,
-    isOpenAddDialog: state.book.isOpenAddDialog
+    isOpenAddDialog: state.book.isOpenAddDialog,
+    isSort: state.manager.isSort,
+    isSortDisplay: state.manager.isSortDisplay,
+    isMessage: state.manager.isMessage
   };
 };
 const actionCreator = {
@@ -115,7 +139,11 @@ const actionCreator = {
   handleFetchNotes,
   handleFetchDigests,
   handleFetchBookmarks,
-  handleFetchHighlighters
+  handleFetchHighlighters,
+  handleFetchSortCode,
+  handleFetchList,
+  handleList,
+  handleMessageBox
 };
 Manager = connect(mapStateToProps, actionCreator)(Manager);
 export default Manager;

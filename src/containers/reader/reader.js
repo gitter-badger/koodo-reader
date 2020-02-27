@@ -5,6 +5,8 @@ import Background from "../../components/background/background";
 import SettingPanel from "../../components/settingPanel/settingPanel";
 import NavigationPanel from "../../components/navigationPanel/navigationPanel";
 import OperationPanel from "../../components/operationPanel/operationPanel";
+import MessageBox from "../../components/messageBox/messageBox";
+
 import ProgressPanel from "../../components/progressPanel/progressPanel";
 import {
   handleNotes,
@@ -17,18 +19,9 @@ import {
   handleFetchHighlighters
   // handleLocations
 } from "../../redux/reader.redux";
+import { handleMessageBox } from "../../redux/manager.redux";
 import "./reader.css";
 import { connect } from "react-redux";
-
-// @connect(state => state.book, {
-//   handleNotes,
-//   handleBookmarks,
-//   handleDigests,
-//   handleFetchNotes,
-//   handleFetchBookmarks,
-//   handleFetchDigests
-//   // handleLocations
-// })
 class Reader extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +29,8 @@ class Reader extends Component {
       isOpenSettingPanel: false, // 打开设置面板
       isOpenOperationPanel: false, // 打开书签列表
       isOpenProgressPanel: false, // 打开笔记列表
-      isOpenInfoPanel: false // 打开消息通知
+      isOpenInfoPanel: false, // 打开消息通知
+      isMessage: false
     };
   }
   componentWillMount() {
@@ -45,10 +39,19 @@ class Reader extends Component {
     this.props.handleFetchDigests();
     this.props.handleFetchHighlighters();
     this.props.handleFetchChapters(this.props.currentEpub);
-    // this.props.currentEpub.locations.generate().then(() => {
-    //   this.props.handleLocations(this.props.currentEpub.locations);
-    // });
-    // console.log("gashglshg");
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // console.log(nextProps);
+    this.setState({
+      isMessage: nextProps.isMessage
+    });
+    if (nextProps.isMessage) {
+      setTimeout(() => {
+        this.props.handleMessageBox(false);
+        this.setState({ isMessage: false });
+      }, 2000);
+    }
+    console.log(this.state.isMessage, "asdgsgjhf");
   }
   componentDidMount() {
     window.rangy.init(); // 初始化
@@ -60,30 +63,124 @@ class Reader extends Component {
     // styleConfig.set(key, value);
   }
 
-  // 添加书签
+  handleEnter = position => {
+    console.log("enter");
 
-  // 删除书签
-
-  // 更新书签内容
-
-  // 添加note
-
-  // 删除note
-
-  // 更新note内容
-
-  // 获取指定key的note
-
-  // 获取指定章节的note
-
+    switch (position) {
+      case "right":
+        this.setState({
+          isOpenSettingPanel: this.state.isOpenSettingPanel ? false : true
+        });
+        break;
+      case "left":
+        this.setState({
+          isOpenInfoPanel: this.state.isOpenInfoPanel ? false : true
+        });
+        break;
+      case "top":
+        this.setState({
+          isOpenOperationPanel: this.state.isOpenOperationPanel ? false : true
+        });
+        break;
+      case "bottom":
+        this.setState({
+          isOpenProgressPanel: this.state.isOpenProgressPanel ? false : true
+        });
+        break;
+      default:
+        break;
+    }
+    // this.setState({ isOpenSettingPanel: true });
+  };
+  handleLeave = position => {
+    console.log("leave");
+    switch (position) {
+      case "right":
+        this.setState({ isOpenSettingPanel: false });
+        break;
+      case "left":
+        this.setState({ isOpenInfoPanel: false });
+        break;
+      case "top":
+        this.setState({ isOpenOperationPanel: false });
+        break;
+      case "bottom":
+        this.setState({ isOpenProgressPanel: false });
+        break;
+      default:
+        break;
+    }
+    // this.setState({ isOpenSettingPanel: false });
+  };
   render() {
     return (
       <div className="viewer">
+        {this.state.isMessage ? <MessageBox /> : null}
+
+        <div
+          className="left-panel"
+          onMouseEnter={() => {
+            this.handleEnter("left");
+          }}
+        ></div>
+        <div
+          className="right-panel"
+          onMouseEnter={() => {
+            this.handleEnter("right");
+          }}
+        ></div>
+        <div
+          className="top-panel"
+          onMouseEnter={() => {
+            this.handleEnter("top");
+          }}
+        ></div>
+        <div
+          className="bottom-panel"
+          onMouseEnter={() => {
+            this.handleEnter("bottom");
+          }}
+        ></div>
         <ViewArea className="view-area" />
-        <SettingPanel className="setting-panel" />
-        <NavigationPanel className="navigation-panel" />
-        <OperationPanel className="book-operation-panel" />
-        <ProgressPanel className="progress-panel" />
+        {this.state.isOpenSettingPanel ? (
+          <div
+            onMouseLeave={() => {
+              this.handleLeave("right");
+            }}
+          >
+            <SettingPanel className="setting-panel" />
+          </div>
+        ) : null}
+        {this.state.isOpenInfoPanel ? (
+          <div
+            onMouseLeave={() => {
+              this.handleLeave("left");
+            }}
+          >
+            <NavigationPanel className="navigation-panel" />
+          </div>
+        ) : null}
+        {this.state.isOpenProgressPanel ? (
+          <div
+            className="progress-panel-container"
+            onMouseLeave={() => {
+              this.handleLeave("bottom");
+            }}
+          >
+            <ProgressPanel className="progress-panel" />
+          </div>
+        ) : null}
+        {this.state.isOpenOperationPanel ? (
+          <div
+            className="operation-panel-container"
+            onMouseLeave={() => {
+              this.handleLeave("top");
+            }}
+          >
+            <OperationPanel className="book-operation-panel" />
+          </div>
+        ) : null}
+
         <Background className="background" />
       </div>
     );
@@ -92,7 +189,8 @@ class Reader extends Component {
 const mapStateToProps = state => {
   return {
     currentEpub: state.book.currentEpub,
-    currentBook: state.book.currentBook
+    currentBook: state.book.currentBook,
+    isMessage: state.manager.isMessage
   };
 };
 const actionCreator = {
@@ -103,7 +201,8 @@ const actionCreator = {
   handleFetchBookmarks,
   handleFetchDigests,
   handleFetchChapters,
-  handleFetchHighlighters
+  handleFetchHighlighters,
+  handleMessageBox
 };
 Reader = connect(mapStateToProps, actionCreator)(Reader);
 export default Reader;
