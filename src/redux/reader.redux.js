@@ -5,7 +5,8 @@ const initState = {
   digests: null,
   locations: null,
   chapters: null,
-  highlighters: null
+  highlighters: null,
+  isSingle: localStorage.getItem("isSingle")||"double"
 };
 export function reader(state = initState, action) {
   switch (action.type) {
@@ -33,6 +34,11 @@ export function reader(state = initState, action) {
       return {
         ...state,
         section: action.payload
+      };
+    case "HANDLE_SINGLE":
+      return {
+        ...state,
+        isSingle: action.payload
       };
     case "HANDLE_CHAPTERS":
       return {
@@ -64,6 +70,9 @@ export function handleLocations(locations) {
 export function handleSection(section) {
   return { type: "HANDLE_SECTION", payload: section };
 }
+export function handleSingle(mode) {
+  return { type: "HANDLE_SINGLE", payload: mode };
+}
 export function handleChapters(chapters) {
   return { type: "HANDLE_CHAPTERS", payload: chapters };
 }
@@ -84,6 +93,7 @@ export function handleFetchNotes() {
     });
   };
 }
+
 export function handleFetchChapters(epub) {
   return dispatch => {
     // console.log(value, "dgaskgskgr");

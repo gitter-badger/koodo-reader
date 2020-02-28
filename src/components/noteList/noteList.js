@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./noteList.css";
 import { connect } from "react-redux";
-// import { handleFetchNotes } from "../../redux/reader.redux";
 class NoteList extends Component {
   constructor(props) {
     super(props);
@@ -30,18 +29,14 @@ class NoteList extends Component {
   };
   render() {
     let { notes } = this.props;
-    // console.log(this.props.notes);
+    console.log(this.props.notes);
     let noteArr = [];
     for (let i = notes.length - 1; i >= 0; i--) {
       noteArr.push(notes[i]);
     }
 
-    // console.log(noteArr[0].date, notes, "notesaghsag");
+    console.log(noteArr[0].date, notes, "notesaghsag");
     let dateArr = [noteArr[0].date];
-    // noteArr.forEach(item => {
-    //   dateArr.push(item.date);
-    // });
-    // console.log(dateArr);
     let temp = noteArr[0].date;
     // console.log(noteArr[0].date.day === noteArr[1].date.day);
     for (let i = 1; i < noteArr.length; i++) {
@@ -60,6 +55,8 @@ class NoteList extends Component {
       // console.log(dateArr);
     }
     let noteObj = {};
+    console.log(dateArr);
+
     dateArr.forEach(date => {
       noteObj["" + date.year + date.month + date.day] = [];
     });

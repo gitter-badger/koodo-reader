@@ -7,8 +7,6 @@ import { connect } from "react-redux";
 import RecordRecent from "../../utils/recordRecent";
 import ShelfUtil from "../../utils/shelfUtil";
 import SortUtil from "../../utils/sortUtil";
-// @connect(state => state.book)
-// @connect(state => state.manager)
 class BookList extends Component {
   constructor(props) {
     super(props);
@@ -79,6 +77,8 @@ class BookList extends Component {
     return itemArr;
   };
   render() {
+    localStorage.setItem("totalBooks", this.props.books.length);
+
     console.log(this.state.isList);
     const renderBookList = () => {
       console.log(this.state.books, "sdgasf");

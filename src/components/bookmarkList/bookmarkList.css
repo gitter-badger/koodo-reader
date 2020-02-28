@@ -33,17 +33,9 @@
   max-height: 100px;
   text-overflow: ellipsis;
 }
-/* .book-bookmark-name {
-  margin-left: 14px;
-  margin-top: 8px;
-
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  color: rgba(161, 161, 161, 1);
-  opacity: 1;
-} */
 .book-bookmark-progress {
+  width: 30px;
+  height: 15px;
   margin-left: 12px;
   /* margin-top: 8px; */
   display: inline-block;

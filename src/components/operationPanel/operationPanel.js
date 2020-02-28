@@ -6,11 +6,10 @@ import {
   handleBookmarks,
   handleFetchBookmarks
 } from "../../redux/reader.redux";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux.js";
 import { handleReadingState } from "../../redux/book.redux";
 import localforage from "localforage";
 import RecordLocation from "../../utils/recordLocation";
-// @connect(state => state.book, { handleReadingState })
-// @connect(state => state.reader, { handleBookmarks })
 class OperationPanel extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +76,7 @@ class OperationPanel extends Component {
       return item.spinePos > this.props.currentEpub.spinePos;
     });
     // console.log(index, "sahathth");
-    let chapter = "";
+    let chapter = "未知章节";
     if (this.props.chapters[index] !== undefined) {
       chapter = this.props.chapters[index].label.trim(" ");
     }
@@ -91,6 +90,8 @@ class OperationPanel extends Component {
     localforage.setItem("bookmarks", bookmarkArr);
     // this.props.toggleMessage(true);
     this.setState({ isBookmark: true });
+    this.props.handleMessage("添加成功");
+    this.props.handleMessageBox(true);
   }
 
   // 点击退出按钮的处理程序
@@ -98,10 +99,7 @@ class OperationPanel extends Component {
     this.props.handleReadingState(false);
     let cfi = this.props.currentEpub.getCurrentLocationCfi();
     let locations = this.props.currentEpub.locations;
-    // console.log(this.props.currentEpub.rendition.currentLocation(), "hjrjryj");
     let percentage = locations.percentageFromCfi(cfi);
-    // console.log(percentage, "sahafhfh");
-    // console.log(percentage, "dgafhdafha");
     RecordLocation.recordCfi(this.props.currentBook.key, cfi, percentage);
   }
 
@@ -160,7 +158,9 @@ const mapStateToProps = state => {
 const actionCreator = {
   handleBookmarks,
   handleReadingState,
-  handleFetchBookmarks
+  handleFetchBookmarks,
+  handleMessageBox,
+  handleMessage
 };
 OperationPanel = connect(mapStateToProps, actionCreator)(OperationPanel);
 export default OperationPanel;

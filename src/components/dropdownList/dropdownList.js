@@ -76,19 +76,7 @@ class DropdownList extends Component {
       default:
         break;
     }
-    // this.setState({
-    //   currentBackgroundIndex: index
-    // });
     StyleConfig.addDefaultCss();
-    // let viewArea = document.querySelector(".view-area-page");
-    // viewArea.setAttribute(
-    //   "style",
-    //   `left: ${ReaderConfig.get().padding}px; right:${
-    //     ReaderConfig.get().padding
-    //   }px; top:${ReaderConfig.get().padding}px; bottom:${
-    //     ReaderConfig.get().padding
-    //   }px`
-    // );
   }
   render() {
     const renderParagraphCharacter = () => {

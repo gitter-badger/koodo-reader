@@ -10,17 +10,7 @@ import {
 } from "../../redux/book.redux";
 import RecentBooks from "../../utils/recordRecent";
 import "./book.css";
-// import Config from "../../utils/Config";
 
-// @connect(state => state.book, {
-//   handleEditDialog,
-//   handleDeleteDialog,
-//   handleAddToShelfDialog,
-//   handleReadingState,
-//   handleReadingBook,
-//   handleReadingEpub,
-//   handleRedirect
-// })
 class Book extends Component {
   constructor(props) {
     super(props);

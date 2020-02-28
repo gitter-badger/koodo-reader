@@ -23,13 +23,6 @@
   text-align: center;
   text-overflow: ellipsis;
   cursor: pointer;
-  /* white-space: nowrap;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  white-space: normal;
-  word-break: keep-all; */
-  /* overflow: hidden; */
   margin: 22px 10px;
   display: flex;
   justify-content: center;
@@ -47,6 +40,8 @@
   text-align: center;
   margin: 22px 10px;
   line-height: 30px;
+}
+.book-item-list-config {
   cursor: pointer;
 }
 .list-icon {

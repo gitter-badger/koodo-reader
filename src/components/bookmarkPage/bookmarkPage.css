@@ -20,6 +20,10 @@
   /* margin: 0px !important; */
   margin-top: 10px;
   margin-left: 10px;
+  overflow-y: scroll;
+}
+.bookmark-page-bookmark-container::-webkit-scrollbar {
+  display: none;
 }
 .bookmark-page-item {
   position: relative;
@@ -40,7 +44,7 @@
 }
 .bookmark-page-name {
   /* float: left; */
-  height: 28px;
+  height: 29px;
   width: 110px;
   /* margin-left: 10px; */
   display: block;
@@ -81,9 +85,13 @@
 }
 .bookmark-page-list-item-link {
   float: left;
+  cursor: pointer;
 }
 
 .bookmark-page-progress {
+  width: 30px;
+  display: block;
+  height: 15px;
   margin-left: 10px;
   float: left;
   font-size: 14px;
@@ -124,6 +132,7 @@
   position: relative;
   bottom: 170px;
   left: 100px;
+  cursor: pointer;
 }
 .bookmark-show-more-container {
   width: 483px;
@@ -144,4 +153,5 @@
   font-size: 18px;
   margin-right: 10px;
   margin-top: 10px;
+  cursor: pointer;
 }

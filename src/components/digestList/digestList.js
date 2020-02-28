@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./digestList.css";
 import { connect } from "react-redux";
-// import { handleFetchDigests } from "../../redux/reader.redux";
 class DigestList extends Component {
   constructor(props) {
     super(props);
@@ -97,7 +96,6 @@ class DigestList extends Component {
 }
 const mapStateToProps = state => {
   return {
-    // digests: state.reader.digests,
     digests: state.reader.digests,
     currentEpub: state.book.currentEpub,
     currentBook: state.book.currentBook,
@@ -106,8 +104,6 @@ const mapStateToProps = state => {
     books: state.manager.books
   };
 };
-const actionCreator = {
-  // handleFetchDigests
-};
+const actionCreator = {};
 DigestList = connect(mapStateToProps, actionCreator)(DigestList);
 export default DigestList;

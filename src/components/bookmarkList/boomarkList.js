@@ -12,30 +12,14 @@ class BookmarkList extends Component {
       return { bookmarks: nextProps.bookmarks };
     else return null;
   }
-  // UNSAFE_componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps.bookmarks, "bookmarks");
-  //   this.setState({
-  //     bookmarks: nextProps.bookmarks,
-  //     shelfIndex: nextProps.shelfIndex
-  //   });
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps.bookmarks, "bookmarks");
-  //   this.setState({ bookmarks: nextProps.bookmarks });
-  //   console.log(this.state.bookmarks);
-  // }
   componenetDidMount() {
     setInterval(() => {
       console.log(this.props.state);
     }, 1000);
   }
   handleJump(cfi) {
-    // let href = event.target.getAttribute("href");
-    // console.log(this.props.currentEpub, href, "sfhfdhdfhf");
     console.log(cfi, "afhahhhh");
     this.props.currentEpub.gotoCfi(cfi);
-    // event.preventDefault();
-    // console.log("fdhadfhgdgdj");
   }
   render() {
     console.log(this.props.bookmarks, "bookmarkks");
@@ -51,17 +35,15 @@ class BookmarkList extends Component {
             <li className="book-bookmark-list" key={item.key}>
               <p className="book-bookmark-digest">{item.label}</p>
               <span className="book-bookmark-index">{item.chapter}</span>
-              {
-                // <span className="book-bookmark-name">孙悟空大闹天宫</span>
-              }
-              <span className="book-bookmark-progress">
+              <div className="book-bookmark-progress">
                 {Math.floor(item.percentage * 100)}%
-              </span>
+              </div>
               <div
                 className="book-bookmark-link"
                 onClick={() => {
                   this.handleJump(item.cfi);
                 }}
+                style={{ cursor: "pointer" }}
               >
                 点击跳转
               </div>

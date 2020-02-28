@@ -30,6 +30,7 @@
   display: flex;
   justify-content: space-between;
   place-content: center;
+  overflow: hidden;
 }
 @media screen and (max-width: 888px) {
   .background-box3 {
@@ -47,19 +48,23 @@
 }
 
 .spine-shadow-left {
-  width: 68px;
+  /* width: 68px;
   height: 100%;
   background: url("http://localhost:3000/assets/gradient-left.png") repeat-y;
   z-index: 10;
   margin: 0;
-  z-index: 10;
+  z-index: 10; */
+          opacity: 0.74;
+        fill: url(#linear-gradient);
 }
 
 .spine-shadow-right {
-  width: 68px;
+  /* width: 68px;
   height: 100%;
   background: url("http://localhost:3000/assets/gradient-right.png") repeat-y;
   z-index: 10;
   margin: 0;
-  box-sizing: border-box;
+  box-sizing: border-box; */
+  opacity: 0.74;
+  fill: url(#linear-gradient);
 }

@@ -26,7 +26,7 @@
   height: 30px;
   position: absolute;
   left: 118px;
-  bottom: 135px;
+  bottom: 120px;
 }
 .book-title {
   /* height: 30px;
@@ -49,51 +49,24 @@
 .book-arthur {
   position: absolute;
   left: 118px;
-  top: 41px;
+  top: 56px;
   font-weight: 500;
   font-size: 14px;
   line-height: 25px;
   color: rgba(75, 75, 75, 1);
-  opacity: 0.67;
+  opacity: 0.5;
 }
 
 .reading-duration {
   position: absolute;
   left: 118px;
-  top: 67px;
+  top: 83px;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 22px;
   color: rgba(75, 75, 75, 1);
 }
-.book-search-box {
-  position: absolute;
-  left: 115px;
-  top: 94px;
-  width: 140px;
-  height: 31px;
-  background: rgba(191, 191, 191, 1);
-  opacity: 0.28;
-  border-radius: 19px;
-  border: none;
-  outline: none;
-  padding-left: 15px;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 22px;
-}
-.book-search-box::placeholder {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 22px;
-}
-.book-search-icon {
-  position: absolute;
-  left: 245px;
-  top: 102px;
-  color: #bfbfbf;
-  font-size: 18px;
-}
+
 .book-content-title {
   position: absolute;
   left: 62px;

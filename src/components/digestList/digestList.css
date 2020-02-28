@@ -1,13 +1,14 @@
 .digest-list-container {
   position: absolute;
-  top: 80px;
+  top: 75px;
   left: 200px;
-  width: calc(100% - 210px);
+  width: calc(100% - 200px);
   height: calc(100% - 90px);
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
   align-content: flex-start;
+  user-select: text;
 }
 .digest-list-container::-webkit-scrollbar {
   display: none;
@@ -59,8 +60,7 @@
   position: relative;
   bottom: 10px;
 }
-.digest-list-item-digest {
-}
+
 .digest-list-item-chapter {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -86,13 +86,14 @@
 }
 .digest-list-item-text {
   /* text-align: right; */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  overflow-y: scroll;
   margin: 10px;
   position: absolute;
+  height: 70px;
+  cursor: text;
+}
+.digest-list-item-text::-webkit-scrollbar {
+  display: none;
 }
 .digest-list-item-title {
   float: left;

@@ -7,12 +7,6 @@ import {
   handleMessage
 } from "../../redux/manager.redux";
 import { handleEditDialog } from "../../redux/book.redux";
-import {
-  handleFetchBookmarks,
-  handleFetchNotes,
-  handleFetchDigests,
-  handleFetchHighlighters
-} from "../../redux/reader.redux";
 import localforage from "localforage";
 class editDialog extends Component {
   constructor(props) {
@@ -94,10 +88,6 @@ const mapStateToProps = state => {
 const actionCreator = {
   handleFetchBooks,
   handleEditDialog,
-  handleFetchBookmarks,
-  handleFetchNotes,
-  handleFetchDigests,
-  handleFetchHighlighters,
   handleMessageBox,
   handleMessage
 };

@@ -75,16 +75,8 @@ class PopupMenu extends Component {
     );
 
     let { highlighters } = this.props;
-    // let chapter = epub.renderer.currentChapter;
-
-    // if (!chapter) return; // 初次打开书籍，页面尚未渲染
-
-    // this.notes = getNotesByChapter(chapter.spinePos);
-    // let notes = this.notes;
     let iframe = document.getElementsByTagName("iframe")[0];
     let iWin = iframe.contentWindow || iframe.contentDocument.defaultView;
-    // console.log(iframe, "adfasdg");
-    // console.log(window.rangy, "fhdgjg");
     let sel = window.rangy.getSelection(iframe);
     // console.log(sel);
     let serial = window.rangy.serializeSelection(sel, true);
@@ -136,14 +128,10 @@ class PopupMenu extends Component {
       return;
     }
 
-    // if (this.props.disablePopup) return;
-    // console.log(this.props.currentEpub);
     let rect = this.props.currentEpub.renderer.rangePosition(sel.getRangeAt(0));
     console.log(rect);
 
     let height = 200;
-    // TODO: 坐标计算
-    // console.log(height, "afhah");
     let posX = rect.x + rect.width / 2 - 20;
 
     let rightEdge = this.props.currentEpub.renderer.width - 154;
@@ -178,9 +166,6 @@ class PopupMenu extends Component {
     this.setState({ mode: mode });
   };
   render() {
-    // let iframe = document.getElementsByTagName("iframe")[0];
-    // console.log(iframe, "ggggg");
-    // this.renderHighlighters();
     return (
       <div
         className="popup-menu-container"
@@ -221,9 +206,7 @@ class PopupMenu extends Component {
 }
 const mapStateToProps = state => {
   return {
-    // currentBook: state.book.currentBook,
     currentEpub: state.book.currentEpub,
-    // locations: state.progressPanel.locations
     isOpenMenu: state.viewArea.isOpenMenu,
     isOpenHighlight: state.viewArea.isOpenHighlight,
     isOpenNote: state.viewArea.isOpenNote,

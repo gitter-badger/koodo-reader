@@ -41,6 +41,7 @@ export function handlePercentage(percentage) {
 export function handleFetchPercentage(book) {
   return dispatch => {
     let percentage = RecordLocation.getCfi(book.key).percentage;
+    console.log(percentage, "percentage");
     dispatch(handlePercentage(percentage));
   };
 }

@@ -34,8 +34,8 @@ class OtherUtil {
     let bookNameArr = [];
     let AuthorNameArr = [];
     books.forEach(item => {
-      bookNameArr.push(item.name);
-      AuthorNameArr.push(item.author);
+      bookNameArr.push(item.name.toLowerCase());
+      AuthorNameArr.push(item.author.toLowerCase());
     });
     let bookResults = this.fuzzyQuery(bookNameArr, keyword);
     let authorResults = this.fuzzyQuery(AuthorNameArr, keyword);
@@ -48,8 +48,8 @@ class OtherUtil {
       let bookNameArr = [];
       let AuthorNameArr = [];
       books.forEach(item => {
-        bookNameArr.push(item.name);
-        AuthorNameArr.push(item.author);
+        bookNameArr.push(item.name.toLowerCase());
+        AuthorNameArr.push(item.author.toLowerCase());
       });
       let bookResults = this.fuzzyQuery(bookNameArr, event.target.value);
       let authorResults = this.fuzzyQuery(AuthorNameArr, event.target.value);

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./bookmarkPage.css";
 import { connect } from "react-redux";
-import { BookData } from "../../utils/booklist.data";
 import { handleFetchBookmarks } from "../../redux/reader.redux";
 import {
   handleReadingState,
@@ -34,14 +33,7 @@ class BookmarkPage extends Component {
     }
     // let epub = {};
     console.log(this.props.books, book);
-    // for(let i=0;i<epubs.length;i++){
-    //   if([i].)
-    // }
-    // let epub = window.ePub({
-    //   bookPath: book.content,
-    //   restore: false
-    // });
-    // console.log(epub);
+
     this.props.handleReadingBook(book);
     this.props.handleReadingEpub(epub);
     this.props.handleReadingState(true);
@@ -91,106 +83,47 @@ class BookmarkPage extends Component {
       }
       return false;
     });
-    // console.log(bookmarkObj, "bookmarkObj");
+    console.log(bookmarkObj, "bookmarkObj");
     // bookKeyArr.map(item => {});
+    const renderBookmarklistItem = item => {
+      return bookmarkObj[item.key].map(item => (
+        <li className="bookmark-page-list-item" key={item.key}>
+          <div className="bookmark-page-list-item-title">{item.chapter}</div>
+          <div className="bookmark-page-progress">
+            {parseInt(item.percentage * 100)}%
+          </div>
+          <div
+            className="bookmark-page-list-item-link"
+            onClick={() => {
+              this.handleRedirect(item.bookKey, item.cfi, item.percentage);
+            }}
+          >
+            <div className="bookmark-page-list-item-link-text">点击跳转</div>
+          </div>
+        </li>
+      ));
+    };
     const renderBookmarkPageItem = (item, index, isShowMore) => {
+      console.log(bookmarkObj[item.key].length, "fhfjhfjhfk");
       return (
         <li className="bookmark-page-item" key={item.key}>
           <img
-            style={
-              isShowMore
-                ? {
-                    width: "105px",
-                    height: "137px",
-                    position: "fixed",
-                    margin: "25px"
-                  }
-                : {}
-            }
             className="bookmark-page-cover"
             src={coverObj[item.key]}
             alt=""
           />
-          <p
-            style={
-              isShowMore
-                ? {
-                    fontSize: "16px",
-                    position: "fixed",
-                    marginLeft: "24px",
-                    marginTop: "200px"
-                  }
-                : {}
-            }
-            className="bookmark-page-name"
-          >
-            {bookArr[index].name}
-          </p>
+          <p className="bookmark-page-name">{bookArr[index].name}</p>
 
-          <ul
-            className="bookmark-page-bookmark-container"
-            style={
-              isShowMore
-                ? { marginLeft: "170px", marginTop: "20px" }
-                : { overflow: "hidden" }
-            }
-          >
-            {bookmarkObj[item.key].map(item => (
-              <li className="bookmark-page-list-item" key={item.key}>
-                <div className="bookmark-page-list-item-title">
-                  {item.chapter}
-                </div>
-                <span className="bookmark-page-progress">
-                  {parseInt(item.percentage * 100)}%
-                </span>
-                <div
-                  className="bookmark-page-list-item-link"
-                  onClick={() => {
-                    this.handleRedirect(
-                      item.bookKey,
-                      item.cfi,
-                      item.percentage
-                    );
-                  }}
-                >
-                  <span className="bookmark-page-list-item-link-text">
-                    点击跳转
-                  </span>
-                </div>
-              </li>
-            ))}
+          <ul className="bookmark-page-bookmark-container">
+            {renderBookmarklistItem(item)}
           </ul>
-          {bookmarkObj[item.key].length > 3 ? (
-            <div
-              className="bookmark-show-more"
-              onClick={() => {
-                this.handlePopup(index);
-              }}
-              style={isShowMore ? { display: "none" } : {}}
-            >
-              显示更多
-            </div>
-          ) : null}
         </li>
       );
     };
     const renderBookmarkPage = () => {
       return bookArr.map((item, index) => {
         return (
-          <div key={index}>
-            {renderBookmarkPageItem(item, index, false)}
-            {this.state.renderIndex === index ? (
-              <div className="bookmark-show-more-container">
-                {renderBookmarkPageItem(item, index, true)}
-                <span
-                  className="icon-close"
-                  onClick={() => {
-                    this.handleClose();
-                  }}
-                ></span>
-              </div>
-            ) : null}
-          </div>
+          <div key={index}>{renderBookmarkPageItem(item, index, false)}</div>
         );
       });
     };
@@ -201,9 +134,6 @@ class BookmarkPage extends Component {
 }
 const mapStateToProps = state => {
   return {
-    // state: state,
-    // currentBook: state.book.currentBook,
-    // currentEpub: state.book.currentEpub,
     state: state,
     bookmarks: state.reader.bookmarks,
     covers: state.manager.covers,

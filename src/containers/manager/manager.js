@@ -10,6 +10,7 @@ import EditDialog from "../../components/editDialog/editDialog";
 import AddDialog from "../../components/addDialog/addDialog";
 import SortDialog from "../../components/sortDialog/sortDialog";
 import MessageBox from "../../components/messageBox/messageBox";
+import LoadingPage from "../../components/loadingPage/loadingPage";
 import { connect } from "react-redux";
 import {
   handleFetchBooks,
@@ -61,7 +62,7 @@ class Manager extends Component {
     this.setState({
       mode: nextProps.mode,
       shelfIndex: nextProps.shelfIndex,
-      // books: nextProps.books,
+      books: nextProps.books,
       notes: nextProps.notes,
       covers: nextProps.covers,
       digests: nextProps.digests,
@@ -80,10 +81,11 @@ class Manager extends Component {
       }, 2000);
     }
   }
-  componentDidMount() {}
+  componentWillUnmount() {
+  }
 
   render() {
-    let { mode, notes, digests, bookmarks, covers } = this.state;
+    let { mode, notes, digests, bookmarks, covers, books, epubs } = this.state;
     console.log(this.state.isMessage, "message");
     return (
       <div className="manager">
@@ -100,17 +102,21 @@ class Manager extends Component {
         </div>
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
-        {covers !== null &&
-        (mode === "home" || mode === "recent" || mode === "shelf") ? (
-          <BookList />
-        ) : bookmarks !== null && mode === "bookmark" ? (
-          <BookmarkPage />
-        ) : notes !== null && mode === "note" ? (
-          <NoteList />
-        ) : digests !== null && mode === "digest" ? (
-          <DigestList />
+
+        {covers !== null ? (
+          mode === "home" || mode === "recent" || mode === "shelf" ? (
+            <BookList />
+          ) : bookmarks !== null && mode === "bookmark" ? (
+            <BookmarkPage />
+          ) : notes !== null && notes !== undefined && mode === "note" ? (
+            <NoteList />
+          ) : digests !== null && mode === "digest" ? (
+            <DigestList />
+          ) : (
+            <div>hello</div>
+          )
         ) : (
-          <div>hello</div>
+          <LoadingPage />
         )}
       </div>
     );
@@ -118,7 +124,7 @@ class Manager extends Component {
 }
 const mapStateToProps = state => {
   return {
-    // books: state.manager.books,
+    books: state.manager.books,
     covers: state.manager.covers,
     notes: state.reader.notes,
     digests: state.reader.digests,

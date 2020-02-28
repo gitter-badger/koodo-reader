@@ -17,8 +17,10 @@ import {
   handleFetchDigests,
   handleFetchChapters,
   handleFetchHighlighters
+
   // handleLocations
 } from "../../redux/reader.redux";
+import { handleFetchPercentage } from "../../redux/progressPanel.redux";
 import { handleMessageBox } from "../../redux/manager.redux";
 import "./reader.css";
 import { connect } from "react-redux";
@@ -26,15 +28,17 @@ class Reader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenSettingPanel: false, // 打开设置面板
-      isOpenOperationPanel: false, // 打开书签列表
-      isOpenProgressPanel: false, // 打开笔记列表
-      isOpenInfoPanel: false, // 打开消息通知
+      isOpenSettingPanel: false,
+      isOpenOperationPanel: false,
+      isOpenProgressPanel: false,
+      isOpenInfoPanel: false,
       isMessage: false
     };
   }
   componentWillMount() {
     this.props.handleFetchBookmarks();
+    this.props.handleFetchPercentage(this.props.currentBook);
+
     this.props.handleFetchNotes();
     this.props.handleFetchDigests();
     this.props.handleFetchHighlighters();
@@ -160,7 +164,7 @@ class Reader extends Component {
             <NavigationPanel className="navigation-panel" />
           </div>
         ) : null}
-        {this.state.isOpenProgressPanel ? (
+        {true ? (
           <div
             className="progress-panel-container"
             onMouseLeave={() => {
@@ -202,7 +206,8 @@ const actionCreator = {
   handleFetchDigests,
   handleFetchChapters,
   handleFetchHighlighters,
-  handleMessageBox
+  handleMessageBox,
+  handleFetchPercentage
 };
 Reader = connect(mapStateToProps, actionCreator)(Reader);
 export default Reader;

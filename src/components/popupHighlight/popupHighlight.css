@@ -19,6 +19,7 @@
   line-height: 15px;
   color: rgba(0, 0, 0, 1);
   opacity: 1;
+  cursor: pointer;
 }
 .cancel-button {
   position: absolute;
@@ -29,6 +30,7 @@
   line-height: 15px;
   color: rgba(128, 128, 128, 1);
   opacity: 1;
+  cursor: pointer;
 }
 .highlight-color1,
 .highlight-color2,

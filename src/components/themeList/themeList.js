@@ -4,7 +4,6 @@ import ReaderConfig from "../../utils/readerConfig";
 import StyleConfig from "../../utils/styleConfig";
 import "./themeList.css";
 import { connect } from "react-redux";
-// @connect(state => state.settingPanel)
 class ThemeList extends Component {
   constructor(props) {
     super(props);

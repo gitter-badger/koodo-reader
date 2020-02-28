@@ -1,31 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./addDialog.css";
-import {
-  handleFetchBooks,
-  handleMessageBox,
-  handleMessage
-} from "../../redux/manager.redux";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux";
 import { handleAddDialog } from "../../redux/book.redux";
 import ShelfUtil from "../../utils/shelfUtil";
-import {
-  handleFetchBookmarks,
-  handleFetchNotes,
-  handleFetchDigests,
-  handleFetchHighlighters
-} from "../../redux/reader.redux";
-import localforage from "localforage";
+
 class AddDialog extends Component {
   constructor(props) {
     super(props);
     this.state = { isNew: false };
-  }
-  componentDidMount() {
-    // let nameBox = document.querySelector(".add-dialog-book-name-box");
-    // let authorBox = document.querySelector(".add-dialog-book-author-box");
-    // console.log(this.props.currentBook);
-    // nameBox.value = this.props.currentBook.name;
-    // authorBox.value = this.props.currentBook.author;
   }
 
   handleCancel = () => {
@@ -124,12 +107,7 @@ const mapStateToProps = state => {
   };
 };
 const actionCreator = {
-  handleFetchBooks,
   handleAddDialog,
-  handleFetchBookmarks,
-  handleFetchNotes,
-  handleFetchDigests,
-  handleFetchHighlighters,
   handleMessageBox,
   handleMessage
 };

@@ -4,17 +4,14 @@ import { connect } from "react-redux";
 import { MouseEvent } from "../../utils/mouseEvent";
 import { handlePercentage } from "../../redux/progressPanel.redux";
 import { handleOpenMenu } from "../../redux/viewArea.redux.js";
-import StyleConfig from "../../utils/styleConfig";
 class ViewPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isSingle: localStorage.getItem("isSingle") || "double" };
   }
   componentWillUnmount() {
     document.removeEventListener("copy", this.copyTextHack);
   }
-  // componentDidMount() {
-  // }
   componentDidMount() {
     let page = document.querySelector("#page-area");
     console.log(page, "fahfgf");
@@ -41,13 +38,6 @@ class ViewPage extends Component {
         ? null
         : RecordLocation.getCfi(this.props.currentBook.key).cfi
     );
-    // let doc = epub.renderer.doc;
-    // if (!epub.renderer.doc === undefined) {
-    //   epub.renderer.doc.addEventListener("click", this.openMenu());
-    // }
-    // console.log(epub.renderer.width, "sdgsFHADFH");
-    // page.addEventListener("mouseup", this.openMenu(), false); // 为每一章节内容绑定弹出菜单触发程序
-    // 解决火狐下不能正常复制
     this.copyTextHack = event => {
       let iDoc = document.getElementsByTagName("iframe")[0].contentDocument;
       let copyText =
@@ -59,15 +49,25 @@ class ViewPage extends Component {
   }
 
   render() {
-    console.log(this.props.currentEpub.renderer.width, "sdgsFHADFH");
-    return <div className="view-area-page" id="page-area"></div>;
+    // console.log(this.state.isSingle, "sdgsFHADFH");
+    this.props.currentEpub.renderer.forceSingle(
+      this.state.isSingle === "single"
+    );
+    // localStorage.setItem("isSingle", this.state.isSingle);
+    return (
+      <div
+        className="view-area-page"
+        id="page-area"
+      ></div>
+    );
   }
 }
 const mapStateToProps = state => {
   return {
     currentBook: state.book.currentBook,
     currentEpub: state.book.currentEpub,
-    locations: state.progressPanel.locations
+    locations: state.progressPanel.locations,
+    isSingle: state.reader.isSingle
   };
 };
 const actionCreator = {

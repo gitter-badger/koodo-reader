@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./contentList.css";
-// import SubContentList from "./subContentList";
 import { connect } from "react-redux";
-// @connect(state => state.book)
 class ContentList extends Component {
   constructor(props) {
     super(props);
