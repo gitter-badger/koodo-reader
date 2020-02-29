@@ -9726,6 +9726,11 @@ source-map@^0.5.0, source-map@^0.5.6:
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
   integrity sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w=
 
+spark-md5@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/spark-md5/-/spark-md5-3.0.0.tgz#3722227c54e2faf24b1dc6d933cc144e6f71bfef"
+  integrity sha1-NyIifFTi+vJLHcbZM8wUTm9xv+8=
+
 spdx-correct@^3.0.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/spdx-correct/-/spdx-correct-3.1.0.tgz#fb83e504445268f154b074e218c87c003cd31df4"

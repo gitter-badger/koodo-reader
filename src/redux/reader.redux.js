@@ -6,7 +6,7 @@ const initState = {
   locations: null,
   chapters: null,
   highlighters: null,
-  isSingle: localStorage.getItem("isSingle")||"double"
+  isSingle: localStorage.getItem("isSingle") || "double"
 };
 export function reader(state = initState, action) {
   switch (action.type) {
@@ -58,7 +58,7 @@ export function handleNotes(notes) {
   return { type: "HANDLE_NOTES", payload: notes };
 }
 export function handleBookmarks(bookmarks) {
-  console.log(bookmarks, "bookmarks");
+  // console.log(bookmarks, "bookmarks");
   return { type: "HANDLE_BOOKMARKS", payload: bookmarks };
 }
 export function handleDigests(digests) {
@@ -88,7 +88,7 @@ export function handleFetchNotes() {
       } else {
         noteArr = value;
       }
-      console.log("hellosdhf");
+      // console.log("hellosdhf");
       dispatch(handleNotes(noteArr));
     });
   };
@@ -127,7 +127,7 @@ export function handleFetchDigests() {
       } else {
         digestArr = value;
       }
-      console.log(digestArr);
+      // console.log(digestArr);
       dispatch(handleDigests(digestArr));
     });
   };

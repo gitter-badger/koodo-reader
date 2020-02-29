@@ -24,7 +24,7 @@
   background: rgba(75, 75, 75, 0.67);
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.22);
   /* opacity: 0.4; */
-  margin: 15px 15px 5px 15px;
+  margin: 15px 15px 37px 15px;
   cursor: pointer;
   animation: changeColor 1s linear infinite;
 }

@@ -14,7 +14,7 @@ import "./book.css";
 class Book extends Component {
   constructor(props) {
     super(props);
-    this.state = { isDeleteDialog: false };
+    this.state = { isDeleteDialog: false, isOpenConfig: false };
     this.handleOpenBook = this.handleOpenBook.bind(this);
     this.epub = null;
   }
@@ -42,10 +42,22 @@ class Book extends Component {
     this.props.handleAddDialog(true);
     this.props.handleReadingBook(this.props.book);
   };
+  handleConfig = mode => {
+    // console.log(mode, "mode");
+    this.setState({ isOpenConfig: mode });
+  };
   render() {
     // console.log(this.props.isReading, "agsffh");
     return (
-      <div className="book-list-item">
+      <div
+        className="book-list-item"
+        onMouseEnter={() => {
+          this.handleConfig(true);
+        }}
+        onMouseLeave={() => {
+          this.handleConfig(false);
+        }}
+      >
         <img
           className="book-item-cover"
           src={this.props.bookCover}
@@ -54,27 +66,29 @@ class Book extends Component {
             this.handleOpenBook();
           }}
         />
-        <div className="book-item-config">
-          <span
-            className="icon-add view-icon"
-            onClick={() => {
-              this.handleAddShelf();
-            }}
-          ></span>
-          <span
-            className="icon-delete view-icon"
-            onClick={() => {
-              this.handleDeleteBook();
-            }}
-          ></span>
-          <span
-            className="icon-edit view-icon"
-            onClick={() => {
-              this.handleEditBook();
-            }}
-          ></span>
-        </div>
         <p className="book-item-title">{this.props.book.name}</p>
+        {this.state.isOpenConfig ? (
+          <div className="book-item-config">
+            <span
+              className="icon-add view-icon"
+              onClick={() => {
+                this.handleAddShelf();
+              }}
+            ></span>
+            <span
+              className="icon-delete view-icon"
+              onClick={() => {
+                this.handleDeleteBook();
+              }}
+            ></span>
+            <span
+              className="icon-edit view-icon"
+              onClick={() => {
+                this.handleEditBook();
+              }}
+            ></span>
+          </div>
+        ) : null}
       </div>
     );
   }

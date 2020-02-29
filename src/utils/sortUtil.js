@@ -46,7 +46,7 @@ class SortUtil {
     }
     if (sortCode.sort === 2 && sortCode.order === 2) {
       let nameArr = [];
-      console.log(books, "books");
+      // console.log(books, "books");
       for (let i = 0; i < books.length; i++) {
         nameArr.push(i);
       }

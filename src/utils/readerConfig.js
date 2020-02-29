@@ -157,4 +157,39 @@ export const sideMenu = [
     mode: "digest"
   }
 ];
+export const driveList = [
+  {
+    id: 1,
+    name: "Dropbox",
+    icon: "dropbox"
+    // action: fetchRecentlyPlayed
+  },
+  {
+    id: 2,
+    name: "OneDrive",
+    icon: "onedrive"
+    // action: fetchSongs
+  },
+  {
+    id: 3,
+    name: "Google Drive",
+    icon: "googledrive"
+  },
+  {
+    id: 4,
+    name: "Mega Drive",
+    icon: "mega"
+  },
+
+  {
+    id: 5,
+    name: "Yandex Drive",
+    icon: "yandex"
+  },
+  {
+    id: 6,
+    name: "WebDav",
+    icon: "webdav"
+  }
+];
 export default readerConfig;

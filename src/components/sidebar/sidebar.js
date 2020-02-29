@@ -48,20 +48,24 @@ class Sidebar extends Component {
               this.handleSidebar(item.mode, index);
             }}
           >
+            {this.state.index === index && this.state.shelfIndex === null ? (
+              <div className="side-menu-selector-container"></div>
+            ) : null}
             <div
               className={
                 this.state.index === index && this.state.shelfIndex === null
-                  ? " side-menu-selector"
-                  : "inactive-selector side-menu-selector"
+                  ? "side-menu-selector active-selector"
+                  : "side-menu-selector "
               }
             >
               <span
                 className={
                   this.state.index === index && this.state.shelfIndex === null
-                    ? `icon-${item.icon} side-menu-icon active `
+                    ? `icon-${item.icon} side-menu-icon  active-icon`
                     : `icon-${item.icon} side-menu-icon`
                 }
               ></span>
+
               {item.name}
             </div>
           </li>
@@ -70,7 +74,7 @@ class Sidebar extends Component {
     };
     const renderShelfList = () => {
       const shelfList = Object.keys(ShelfUtil.getShelf());
-      console.log(shelfList, "shelfList");
+      // console.log(shelfList, "shelfList");
       //去除开头的新建书架
       shelfList.splice(0, 1);
       return shelfList.map((item, index) => {

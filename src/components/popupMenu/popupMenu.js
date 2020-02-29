@@ -167,39 +167,42 @@ class PopupMenu extends Component {
   };
   render() {
     return (
-      <div
-        className="popup-menu-container"
-        style={{ visibility: this.state.isOpenMenu ? "visible" : "hidden" }}
-      >
-        <div className="popup-menu-box">
-          {this.state.mode === "menu" ? (
-            <PopupOption
-              closeMenu={this.closeMenu}
-              changeMenu={this.changeMenu}
-            />
-          ) : this.state.mode === "note" ? (
-            <PopuoNote
-              closeMenu={this.closeMenu}
-              openMenu={this.openMenu}
-              changeMenu={this.changeMenu}
-            />
-          ) : (
-            <PopupHighlist
-              closeMenu={this.closeMenu}
-              changeMenu={this.changeMenu}
-              highlighter={this.highlighter}
-              isChangeDirection={this.state.isChangeDirection}
-            />
-          )}
-        </div>
-        {this.state.isChangeDirection ? (
-          <span
-            className="icon-popup popup-menu-triangle-up"
-            style={this.state.mode === "highlight" ? { bottom: "110px" } : {}}
-          ></span>
-        ) : (
-          <span className="icon-popup popup-menu-triangle-down"></span>
-        )}
+      <div>
+        {this.state.isOpenMenu ? (
+          <div className="popup-menu-container">
+            <div className="popup-menu-box">
+              {this.state.mode === "menu" ? (
+                <PopupOption
+                  closeMenu={this.closeMenu}
+                  changeMenu={this.changeMenu}
+                />
+              ) : this.state.mode === "note" ? (
+                <PopuoNote
+                  closeMenu={this.closeMenu}
+                  openMenu={this.openMenu}
+                  changeMenu={this.changeMenu}
+                />
+              ) : (
+                <PopupHighlist
+                  closeMenu={this.closeMenu}
+                  changeMenu={this.changeMenu}
+                  highlighter={this.highlighter}
+                  isChangeDirection={this.state.isChangeDirection}
+                />
+              )}
+            </div>
+            {this.state.isChangeDirection ? (
+              <span
+                className="icon-popup popup-menu-triangle-up"
+                style={
+                  this.state.mode === "highlight" ? { bottom: "110px" } : {}
+                }
+              ></span>
+            ) : (
+              <span className="icon-popup popup-menu-triangle-down"></span>
+            )}
+          </div>
+        ) : null}
       </div>
     );
   }

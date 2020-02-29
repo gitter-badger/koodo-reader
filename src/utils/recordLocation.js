@@ -12,7 +12,7 @@ class RecordLocation {
     let json = localStorage.getItem("recordLocation");
     let obj = JSON.parse(json) || {};
 
-    return obj[bookKey] || null;
+    return obj[bookKey] || {};
   }
 
   static clear(bookKey) {

@@ -7,6 +7,7 @@ import { progressPanel } from "./redux/progressPanel.redux";
 import { reader } from "./redux/reader.redux";
 import { viewArea } from "./redux/viewArea.redux";
 import { sidebar } from "./redux/sidebar.redux";
+import {chooseDrive} from './redux/chooseDrive.redux'
 const rootReducer = combineReducers({
   settingPanel,
   book,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   reader,
   progressPanel,
   viewArea,
-  sidebar
+  sidebar,
+  chooseDrive
 });
 // console.log(manager, rootReducer);
 const store = createStore(

@@ -32,17 +32,17 @@ class BookList extends Component {
       sortCode: nextProps.sortCode,
       searchBooks: nextProps.searchBooks
     });
-    console.log(this.state.sortCode);
+    // console.log(this.state.sortCode);
   };
   handleRecent = items => {
     let recentArr = [];
     for (let i in RecordRecent.getRecent()) {
       recentArr.push(RecordRecent.getRecent()[i].bookKey);
     }
-    console.log(items);
+    // console.log(items);
     // RecordRecent.getRecent();
     let recentItems = items.filter(item => {
-      console.log(item.key, recentArr.indexOf(item.key));
+      // console.log(item.key, recentArr.indexOf(item.key));
 
       return recentArr.indexOf(item.key) > -1;
     });
@@ -51,12 +51,12 @@ class BookList extends Component {
   };
   handleShelf(items, index) {
     let shelfTitle = Object.keys(ShelfUtil.getShelf());
-    console.log(shelfTitle, index, "shelfTitle");
+    // console.log(shelfTitle, index, "shelfTitle");
     let currentShelfTitle = shelfTitle[index + 1];
     let currentShelfList = ShelfUtil.getShelf()[currentShelfTitle];
-    console.log(currentShelfList);
+    // console.log(currentShelfList);
     let shelfItems = items.filter(item => {
-      console.log(item.key, currentShelfList.indexOf(item.key));
+      // console.log(item.key, currentShelfList.indexOf(item.key));
 
       return currentShelfList.indexOf(item.key) > -1;
     });
@@ -68,7 +68,7 @@ class BookList extends Component {
     localStorage.setItem("isList", mode);
   };
   handleSearch = (items, arr) => {
-    console.log(arr, "arr");
+    // console.log(arr, "arr");
     let itemArr = [];
 
     arr.forEach(item => {
@@ -79,9 +79,9 @@ class BookList extends Component {
   render() {
     localStorage.setItem("totalBooks", this.props.books.length);
 
-    console.log(this.state.isList);
+    // console.log(this.state.isList);
     const renderBookList = () => {
-      console.log(this.state.books, "sdgasf");
+      // console.log(this.state.books, "sdgasf");
       let books =
         this.props.mode === "recent"
           ? this.handleRecent(this.state.books)
@@ -111,9 +111,9 @@ class BookList extends Component {
           : this.state.covers;
       return books.map((item, index) => {
         // console.log(covers, "djhdhdfh");
-        console.log(this.state.isList, "sdgasf");
-        let mode = this.state.isList;
-        console.log(mode);
+        // console.log(this.state.isList, "sdgasf");
+        // let mode = this.state.isList;
+        // console.log(mode);
         return this.state.isList === "list" ? (
           <BookItem
             key={item.key}

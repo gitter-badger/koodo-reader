@@ -164,7 +164,7 @@ class Reader extends Component {
             <NavigationPanel className="navigation-panel" />
           </div>
         ) : null}
-        {true ? (
+        {this.state.isOpenProgressPanel ? (
           <div
             className="progress-panel-container"
             onMouseLeave={() => {

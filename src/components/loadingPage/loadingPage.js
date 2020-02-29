@@ -18,7 +18,7 @@ class LoadingPage extends Component {
           <div className="loading-page-book" key={index}>
             <div
               className="loading-page-cover"
-              style={{ opacity: `${(index % 8) * 0.2 + 0.2}` }}
+              style={{ opacity: `${(index % 7) * 0.2 + 0.2}` }}
             ></div>
           </div>
         );

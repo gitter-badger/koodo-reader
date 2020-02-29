@@ -11,6 +11,7 @@ import AddDialog from "../../components/addDialog/addDialog";
 import SortDialog from "../../components/sortDialog/sortDialog";
 import MessageBox from "../../components/messageBox/messageBox";
 import LoadingPage from "../../components/loadingPage/loadingPage";
+import ChooseDrive from "../../components/chooseDrive/chooseDrive";
 import { connect } from "react-redux";
 import {
   handleFetchBooks,
@@ -43,7 +44,8 @@ class Manager extends Component {
       isOpenAddDialog: this.props.isOpenAddDialog,
       isSort: this.props.isSort,
       isSortDisplay: this.props.isSortDisplay,
-      isMessage: false
+      isMessage: false,
+      isChoose: false
     };
   }
   //从indexdb里读取书籍
@@ -72,7 +74,8 @@ class Manager extends Component {
       isOpenAddDialog: nextProps.isOpenAddDialog,
       isSort: nextProps.isSort,
       isSortDisplay: nextProps.isSortDisplay,
-      isMessage: nextProps.isMessage
+      isMessage: nextProps.isMessage,
+      isChoose: nextProps.isChoose
     });
     if (nextProps.isMessage) {
       setTimeout(() => {
@@ -81,12 +84,10 @@ class Manager extends Component {
       }, 2000);
     }
   }
-  componentWillUnmount() {
-  }
 
   render() {
-    let { mode, notes, digests, bookmarks, covers, books, epubs } = this.state;
-    console.log(this.state.isMessage, "message");
+    let { mode, notes, digests, bookmarks, covers } = this.state;
+    // console.log(this.state.isMessage, "message");
     return (
       <div className="manager">
         <Sidebar />
@@ -102,7 +103,7 @@ class Manager extends Component {
         </div>
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
-
+        {this.state.isChoose ? <ChooseDrive /> : null}
         {covers !== null ? (
           mode === "home" || mode === "recent" || mode === "shelf" ? (
             <BookList />
@@ -137,7 +138,8 @@ const mapStateToProps = state => {
     isOpenAddDialog: state.book.isOpenAddDialog,
     isSort: state.manager.isSort,
     isSortDisplay: state.manager.isSortDisplay,
-    isMessage: state.manager.isMessage
+    isMessage: state.manager.isMessage,
+    isChoose: state.chooseDrive.isChoose
   };
 };
 const actionCreator = {

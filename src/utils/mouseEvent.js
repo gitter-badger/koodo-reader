@@ -1,6 +1,6 @@
-import recordLocation from "./recordLocation";
+// import recordLocation from "./recordLocation";
 import StyleConfig from "./styleConfig";
-import ReaderConfig from "./readerConfig";
+// import ReaderConfig from "./readerConfig";
 
 export const MouseEvent = (epub, key) => {
   let isFirefox = navigator.userAgent.indexOf("Firefox") !== -1;
