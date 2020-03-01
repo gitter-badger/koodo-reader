@@ -1,10 +1,10 @@
 @font-face {
   font-family: "icomoon";
-  src: url("fonts/icomoon.eot?zhrye1");
-  src: url("fonts/icomoon.eot?zhrye1#iefix") format("embedded-opentype"),
-    url("fonts/icomoon.ttf?zhrye1") format("truetype"),
-    url("fonts/icomoon.woff?zhrye1") format("woff"),
-    url("fonts/icomoon.svg?zhrye1#icomoon") format("svg");
+  src: url("fonts/icomoon.eot?k6wcde");
+  src: url("fonts/icomoon.eot?k6wcde#iefix") format("embedded-opentype"),
+    url("fonts/icomoon.ttf?k6wcde") format("truetype"),
+    url("fonts/icomoon.woff?k6wcde") format("woff"),
+    url("fonts/icomoon.svg?k6wcde#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,20 +25,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-yandex {
-  font-family: "IcoMoon-Free";
+
+.icon-contact:before {
+  content: "\e912";
 }
-.icon-yandex:after {
+.icon-github:before {
+  content: "\e913";
+}
+.icon-donate:before {
+  content: "\e929";
+}
+.icon-yandex2:before {
   content: "\e927";
   color: #4b4b4b;
-  opacity: 0.71;
 }
-.icon-yandex:before {
+.icon-yandex1:before {
   content: "\e928";
   color: #4b4b4b;
-  letter-spacing: -72px;
-  position: relative;
-  bottom: 6px;
 }
 .icon-two-page:before {
   content: "\e925";

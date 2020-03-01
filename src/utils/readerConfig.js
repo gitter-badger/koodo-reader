@@ -183,13 +183,40 @@ export const driveList = [
 
   {
     id: 5,
-    name: "Yandex Drive",
-    icon: "yandex"
-  },
-  {
-    id: 6,
     name: "WebDav",
     icon: "webdav"
+  }
+];
+export const emptyList = [
+  {
+    mode: "home",
+    main: "您的图书库为空",
+    sub: "请点击右上角的图标添加图书"
+  },
+  {
+    mode: "recent",
+    main: "您没有阅读记录",
+    sub: "点击任意一本书开始阅读"
+  },
+  {
+    mode: "bookmark",
+    main: "您的书签为空",
+    sub: "在阅读器界面，将鼠标移至上边缘处，在弹出的菜单栏中添加书签"
+  },
+  {
+    mode: "note",
+    main: "您的笔记为空",
+    sub: "在阅读器界面，选中文字后，在弹出的对话框中添加笔记"
+  },
+  {
+    mode: "digest",
+    main: "您的书摘为空",
+    sub: "在阅读器界面，选中文字后，在弹出的对话框中点击收藏"
+  },
+  {
+    mode: "shelf",
+    main: "您的书架为空",
+    sub: "将鼠标移动到任意书本上方，在弹出的菜单中点击加号添加到书架"
   }
 ];
 export default readerConfig;

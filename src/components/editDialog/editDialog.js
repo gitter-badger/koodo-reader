@@ -82,7 +82,7 @@ const mapStateToProps = state => {
     bookmarks: state.reader.bookmarks,
     notes: state.reader.notes,
     digests: state.reader.digests,
-    highlighters: state.reader.hightlighters
+    highlighters: state.reader.highlighters
   };
 };
 const actionCreator = {

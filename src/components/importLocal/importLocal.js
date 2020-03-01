@@ -17,9 +17,8 @@ class ImportLocal extends Component {
       isRepeat: false
       // md5: null
     };
-    this.handleChange = this.handleChange.bind(this);
   }
-  handleAddBook(book) {
+  handleAddBook = book => {
     let bookArr = this.props.books;
     console.log(bookArr, "bookArr");
     if (bookArr == null) {
@@ -33,7 +32,7 @@ class ImportLocal extends Component {
     });
     this.props.handleMessage("添加成功");
     this.props.handleMessageBox(true);
-  }
+  };
 
   doIncrementalTest = file => {
     //这里假设直接将文件选择框的dom引用传入
@@ -109,7 +108,9 @@ class ImportLocal extends Component {
   };
   handleChange = event => {
     event.preventDefault();
+    this.setState({ isRepeat: false });
     let file = event.target.files[0];
+    console.log(file);
     this.doIncrementalTest(file);
   };
 
@@ -126,7 +127,9 @@ class ImportLocal extends Component {
           className="import-book-box"
           name="file"
           multiple="multiple"
-          onChange={this.handleChange}
+          onChange={event => {
+            this.handleChange(event);
+          }}
         />
       </div>
     );

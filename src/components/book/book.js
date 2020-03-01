@@ -60,7 +60,11 @@ class Book extends Component {
       >
         <img
           className="book-item-cover"
-          src={this.props.bookCover}
+          src={
+            this.props.bookCover !== null
+              ? this.props.bookCover
+              : "../../assets/cover.jpg"
+          }
           alt=""
           onClick={() => {
             this.handleOpenBook();

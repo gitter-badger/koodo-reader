@@ -24,45 +24,67 @@ class DeleteDialog extends Component {
     this.props.handleDeleteDialog(false);
   };
   handleComfirm = () => {
-    let bookArr = DeleteUtil.deleteBook(
-      this.props.books,
-      this.props.currentBook.key
-    );
-    localforage.setItem("books", bookArr).then(() => {
-      this.props.handleDeleteDialog(false);
-      this.props.handleFetchBooks();
-    });
-
+    this.props.books !== null &&
+      localforage
+        .setItem(
+          "books",
+          DeleteUtil.deleteBook(this.props.books, this.props.currentBook.key)
+        )
+        .then(() => {
+          this.props.handleDeleteDialog(false);
+          this.props.handleFetchBooks();
+        });
+    console.log(this.props.bookmarks, "bookmarks");
     if (this.state.isCheck) {
-      let bookmarkArr = DeleteUtil.deleteBookmarks(
-        this.props.bookmarks,
-        this.props.currentBook.key
-      );
-      localforage.setItem("bookmarks", bookmarkArr).then(() => {
-        this.props.handleFetchBookmarks();
-      });
-      let noteArr = DeleteUtil.deleteNotes(
-        this.props.bookmarks,
-        this.props.currentBook.key
-      );
-      localforage.setItem("notes", noteArr).then(() => {
-        this.props.handleFetchNotes();
-      });
+      this.props.bookmarks !== null &&
+        localforage
+          .setItem(
+            "bookmarks",
+            DeleteUtil.deleteBookmarks(
+              this.props.bookmarks,
+              this.props.currentBook.key
+            )
+          )
+          .then(() => {
+            this.props.handleFetchBookmarks();
+          });
+      console.log(this.props.notes, "notes");
+
+      this.props.notes !== null &&
+        localforage
+          .setItem(
+            "notes",
+            DeleteUtil.deleteNotes(this.props.notes, this.props.currentBook.key)
+          )
+          .then(() => {
+            this.props.handleFetchNotes();
+          });
       console.log(this.props.digests, "digests");
-      let digestArr = DeleteUtil.deleteDigests(
-        this.props.digests,
-        this.props.currentBook.key
-      );
-      localforage.setItem("digests", digestArr).then(() => {
-        this.props.handleFetchDigests();
-      });
-      let highlighterArr = DeleteUtil.deleteDigests(
-        this.props.highlighters,
-        this.props.currentBook.key
-      );
-      localforage.setItem("highlighters", highlighterArr).then(() => {
-        this.props.handleFetchHighlighters();
-      });
+      this.props.digests !== null &&
+        localforage
+          .setItem(
+            "digests",
+            DeleteUtil.deleteDigests(
+              this.props.digests,
+              this.props.currentBook.key
+            )
+          )
+          .then(() => {
+            this.props.handleFetchDigests();
+          });
+      // console.log(this.props.highlighters, "highlighters");
+      this.props.highlighters !== null &&
+        localforage
+          .setItem(
+            "highlighters",
+            DeleteUtil.deleteHighlighters(
+              this.props.highlighters,
+              this.props.currentBook.key
+            )
+          )
+          .then(() => {
+            this.props.handleFetchHighlighters();
+          });
     }
     this.props.handleMessage("删除成功");
     this.props.handleMessageBox(true);
@@ -126,7 +148,7 @@ const mapStateToProps = state => {
     bookmarks: state.reader.bookmarks,
     notes: state.reader.notes,
     digests: state.reader.digests,
-    highlighters: state.reader.hightlighters
+    highlighters: state.reader.highlighters
   };
 };
 const actionCreator = {

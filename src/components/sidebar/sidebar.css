@@ -4,13 +4,13 @@
 }
 
 .logo {
-  width: 200px;
-  height: 200px;
+  width: 140px;
+
   position: absolute;
   transform: scale(0.88);
   /* position: relative; */
   top: 0px;
-  left: 15px;
+  left: 25px;
 }
 
 .side-menu-container {
@@ -85,15 +85,6 @@
   color: rgba(75, 75, 75, 0.5);
   opacity: 1;
 }
-.setting-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 200px;
-  height: 29px;
-  background: rgba(237, 237, 237, 1);
-  opacity: 1;
-}
 .icon-more {
   margin-left: 93px;
   /* line-height: 29px; */
@@ -107,6 +98,7 @@
   margin-left: 16px;
   font-size: 13px;
 }
+
 .active-icon {
   color: white;
 }

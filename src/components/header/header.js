@@ -19,7 +19,8 @@ class Header extends Component {
     this.state = {
       isSort: this.props.isSort,
       sortCode: this.props.sortCode,
-      isSortDisplay: this.props.isSortDisplay
+      isSortDisplay: this.props.isSortDisplay,
+      isOnlyLocal: false
       // md5: null
     };
   }
@@ -46,6 +47,11 @@ class Header extends Component {
   handleChoose = () => {
     this.props.handleChoose(true);
   };
+  handleOnlyLocal = () => {
+    this.setState({ isOnlyLocal: !this.state.isOnlyLocal });
+    this.props.handleMessage("下载客户端体验完整功能");
+    this.props.handleMessageBox(true);
+  };
   render() {
     // const classes = this.props.classes;
 
@@ -64,8 +70,16 @@ class Header extends Component {
         {this.state.isSort}
         <div className="only-local-container">
           <span className="only-local-text">只显示本地图书</span>
-          <div className="only-local-icon">
-            <div className="only-local-slider"></div>
+          <div
+            className="only-local-icon"
+            onClick={() => {
+              this.handleOnlyLocal();
+            }}
+          >
+            <div
+              className="only-local-slider"
+              style={this.state.isOnlyLocal ? { marginLeft: "16px" } : {}}
+            ></div>
           </div>
         </div>
         <ImportLocal />
@@ -76,7 +90,7 @@ class Header extends Component {
             this.handleChoose();
           }}
         >
-          从云端导入
+          从云端同步
         </div>
       </div>
     );

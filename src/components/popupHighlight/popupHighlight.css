@@ -46,6 +46,7 @@
   /* border: 1px solid black; */
   background-color: pink;
   box-shadow: 0px 0px 4px #ddd;
+  cursor: pointer;
 }
 .highlight-color {
   /* position: absolute;

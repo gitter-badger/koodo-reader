@@ -3,6 +3,7 @@ import "./chooseDrive.css";
 import { driveList } from "../../utils/readerConfig";
 import { handleChoose } from "../../redux/chooseDrive.redux";
 import { connect } from "react-redux";
+import { handleMessageBox, handleMessage } from "../../redux/manager.redux";
 class ChooseDrive extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,10 @@ class ChooseDrive extends Component {
   }
   handleClose = () => {
     this.props.handleChoose(false);
+  };
+  handleChoose = () => {
+    this.props.handleMessage("下载客户端体验完整功能");
+    this.props.handleMessageBox(true);
   };
   render() {
     const renderDrivePage = () => {
@@ -53,7 +58,9 @@ const mapStateToProps = state => {
   return {};
 };
 const actionCreator = {
-  handleChoose
+  handleChoose,
+  handleMessageBox,
+  handleMessage
 };
 ChooseDrive = connect(mapStateToProps, actionCreator)(ChooseDrive);
 export default ChooseDrive;

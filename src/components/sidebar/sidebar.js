@@ -4,6 +4,7 @@ import { handleMode, handleShelfIndex } from "../../redux/sidebar.redux";
 import { connect } from "react-redux";
 import { sideMenu } from "../../utils/readerConfig";
 import ShelfUtil from "../../utils/shelfUtil";
+import About from "../about/about";
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -97,60 +98,8 @@ class Sidebar extends Component {
     };
     return (
       <div className="sidebar">
-        <div className="logo">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="154"
-            height="105"
-            viewBox="0 0 154 105"
-            className="img-koodo-logo"
-          >
-            <defs>
-              <filter
-                id="koodo"
-                x="0"
-                y="0"
-                width="154"
-                height="87"
-                filterUnits="userSpaceOnUse"
-              >
-                <feOffset input="SourceAlpha" />
-                <feGaussianBlur stdDeviation="3" result="blur" />
-                <feFlood floodOpacity="0.302" />
-                <feComposite operator="in" in2="blur" />
-                <feComposite in="SourceGraphic" />
-              </filter>
-            </defs>
-            <g id="组_649" title="组 649" transform="translate(-40 -23)">
-              <text
-                id="可道阅读器"
-                transform="translate(55 121)"
-                fill="#4b4b4b"
-                fontSize="25"
-                fontFamily="SourceHanSerifCN-Bold, Source Han Serif CN"
-                fontWeight="700"
-              >
-                <tspan x="0" y="0">
-                  可道阅读器
-                </tspan>
-              </text>
-              <g transform="matrix(1, 0, 0, 1, 40, 23)" filter="url(#koodo)">
-                <text
-                  id="koodo-2"
-                  title="koodo"
-                  transform="translate(12 64)"
-                  fill="#4b4b4b"
-                  fontSize="55"
-                  fontFamily="Lobster-Regular, Lobster"
-                >
-                  <tspan x="0" y="0">
-                    koodo
-                  </tspan>
-                </text>
-              </g>
-            </g>
-          </svg>
-        </div>
+        <img src="../../assets/logo.jpg" alt="" className="logo" />
+
         <ul className="side-menu-container">
           {renderSideMenu()}
           <li className="side-menu-shelf">
@@ -176,9 +125,7 @@ class Sidebar extends Component {
             </ul>
           </li>
         </ul>
-        <div className="setting-container">
-          <span className="icon-more"></span>
-        </div>
+        <About />
       </div>
     );
   }

@@ -12,6 +12,7 @@ import SortDialog from "../../components/sortDialog/sortDialog";
 import MessageBox from "../../components/messageBox/messageBox";
 import LoadingPage from "../../components/loadingPage/loadingPage";
 import ChooseDrive from "../../components/chooseDrive/chooseDrive";
+import EmptyPage from "../../components/emptyPage/emptyPage";
 import { connect } from "react-redux";
 import {
   handleFetchBooks,
@@ -45,7 +46,8 @@ class Manager extends Component {
       isSort: this.props.isSort,
       isSortDisplay: this.props.isSortDisplay,
       isMessage: false,
-      isChoose: false
+      isChoose: false,
+      totalBooks: localStorage.getItem("totalBooks") || 0
     };
   }
   //从indexdb里读取书籍
@@ -77,6 +79,12 @@ class Manager extends Component {
       isMessage: nextProps.isMessage,
       isChoose: nextProps.isChoose
     });
+    console.log(this.state.books, "books");
+    this.setState({
+      totalBooks: this.state.books === null ? 0 : this.state.books.length
+    });
+    localStorage.setItem("totalBooks", this.state.totalBooks);
+
     if (nextProps.isMessage) {
       setTimeout(() => {
         this.props.handleMessageBox(false);
@@ -86,7 +94,8 @@ class Manager extends Component {
   }
 
   render() {
-    let { mode, notes, digests, bookmarks, covers } = this.state;
+    let { mode, notes, digests, bookmarks, covers, totalBooks } = this.state;
+    console.log(this.state.totalBooks, "toatl");
     // console.log(this.state.isMessage, "message");
     return (
       <div className="manager">
@@ -104,18 +113,18 @@ class Manager extends Component {
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
         {this.state.isChoose ? <ChooseDrive /> : null}
-        {covers !== null ? (
-          mode === "home" || mode === "recent" || mode === "shelf" ? (
-            <BookList />
-          ) : bookmarks !== null && mode === "bookmark" ? (
-            <BookmarkPage />
-          ) : notes !== null && notes !== undefined && mode === "note" ? (
-            <NoteList />
-          ) : digests !== null && mode === "digest" ? (
-            <DigestList />
-          ) : (
-            <div>hello</div>
-          )
+        {totalBooks === 0 ? (
+          <EmptyPage />
+        ) : covers === null ? (
+          <LoadingPage />
+        ) : mode === "home" || mode === "recent" || mode === "shelf" ? (
+          <BookList />
+        ) : bookmarks !== null && mode === "bookmark" ? (
+          <BookmarkPage />
+        ) : notes !== null && notes !== undefined && mode === "note" ? (
+          <NoteList />
+        ) : digests !== null && mode === "digest" ? (
+          <DigestList />
         ) : (
           <LoadingPage />
         )}

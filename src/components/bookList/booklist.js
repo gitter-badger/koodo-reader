@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./booklist.css";
-import { BookData } from "../../utils/booklist.data";
 import Book from "../book/book";
 import BookItem from "../bookItem/bookItem";
 import { connect } from "react-redux";
@@ -118,13 +117,13 @@ class BookList extends Component {
           <BookItem
             key={item.key}
             book={item}
-            bookCover={covers[index] ? covers[index].url : BookData[index]}
+            bookCover={covers[index] ? covers[index].url : null}
           />
         ) : (
           <Book
             key={item.key}
             book={item}
-            bookCover={covers[index] ? covers[index].url : BookData[index]}
+            bookCover={covers[index] ? covers[index].url : null}
           />
         );
       });
