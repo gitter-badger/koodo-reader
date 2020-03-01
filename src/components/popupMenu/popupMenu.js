@@ -21,12 +21,15 @@ class PopupMenu extends Component {
     this.props.currentEpub.on("renderer:chapterDisplayed", () => {
       let doc = this.props.currentEpub.renderer.doc;
       this.getHighlighter();
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.renderHighlighters();
       }, 100);
 
       doc.addEventListener("click", this.openMenu);
     });
+  }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
   setKey = key => {
     console.log(key, "key");
@@ -89,21 +92,23 @@ class PopupMenu extends Component {
       highlighters.forEach(item => {
         this.key = item.key;
         // console.log(this.key, "sadgasf");
-        try {
-          let temp = JSON.parse(item.range);
-          temp = [temp];
-          // console.log(temp, "test");
-          window.rangy
-            .getSelection(iframe)
-            .restoreCharacterRanges(iframe.contentDocument, temp);
-        } catch (e) {
-          console.warn(
-            "Exception has been caught when restore character ranges."
-          );
-          return;
-        }
+        if (item.bookKey === this.props.currentBook.key) {
+          try {
+            let temp = JSON.parse(item.range);
+            temp = [temp];
+            // console.log(temp, "test");
+            window.rangy
+              .getSelection(iframe)
+              .restoreCharacterRanges(iframe.contentDocument, temp);
+          } catch (e) {
+            console.warn(
+              "Exception has been caught when restore character ranges."
+            );
+            return;
+          }
 
-        this.highlighter.highlightSelection(classes[item.color]);
+          this.highlighter.highlightSelection(classes[item.color]);
+        }
       });
 
     iWin.getSelection().empty(); // 清除文本选取
@@ -210,6 +215,7 @@ class PopupMenu extends Component {
 const mapStateToProps = state => {
   return {
     currentEpub: state.book.currentEpub,
+    currentBook: state.book.currentBook,
     isOpenMenu: state.viewArea.isOpenMenu,
     isOpenHighlight: state.viewArea.isOpenHighlight,
     isOpenNote: state.viewArea.isOpenNote,

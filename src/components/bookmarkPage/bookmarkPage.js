@@ -113,10 +113,11 @@ class BookmarkPage extends Component {
             alt=""
           />
           <p className="bookmark-page-name">{bookArr[index].name}</p>
-
-          <ul className="bookmark-page-bookmark-container">
-            {renderBookmarklistItem(item)}
-          </ul>
+          <div className="bookmark-page-bookmark-container-parent">
+            <ul className="bookmark-page-bookmark-container">
+              {renderBookmarklistItem(item)}
+            </ul>
+          </div>
         </li>
       );
     };
@@ -128,7 +129,9 @@ class BookmarkPage extends Component {
       });
     };
     return (
-      <div className="bookmark-page-container">{renderBookmarkPage()}</div>
+      <div className="bookmark-page-container-parent">
+        <div className="bookmark-page-container">{renderBookmarkPage()}</div>
+      </div>
     );
   }
 }

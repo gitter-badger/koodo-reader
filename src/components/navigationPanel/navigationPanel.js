@@ -87,8 +87,10 @@ class NavigationPanel extends Component {
             </span>
           </div>
         </div>
-        <div className="navigation-body">
-          {this.state.isContentShow ? <ContentList /> : <BookmarkList />}
+        <div className="navigation-body-parent">
+          <div className="navigation-body">
+            {this.state.isContentShow ? <ContentList /> : <BookmarkList />}
+          </div>
         </div>
       </div>
     );

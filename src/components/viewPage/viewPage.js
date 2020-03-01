@@ -9,9 +9,6 @@ class ViewPage extends Component {
     super(props);
     this.state = { isSingle: localStorage.getItem("isSingle") || "double" };
   }
-  componentWillUnmount() {
-    document.removeEventListener("copy", this.copyTextHack);
-  }
   componentDidMount() {
     let page = document.querySelector("#page-area");
     console.log(page, "fahfgf");
@@ -54,12 +51,7 @@ class ViewPage extends Component {
       this.state.isSingle === "single"
     );
     // localStorage.setItem("isSingle", this.state.isSingle);
-    return (
-      <div
-        className="view-area-page"
-        id="page-area"
-      ></div>
-    );
+    return <div className="view-area-page" id="page-area"></div>;
   }
 }
 const mapStateToProps = state => {

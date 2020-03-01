@@ -39,16 +39,18 @@ class ChooseDrive extends Component {
     };
 
     return (
-      <div className="choose-drive-container">
-        <div className="choose-drive-title">绑定您的网盘账号</div>
-        <span
-          className="icon-close choose-drive-close-icon"
-          onClick={() => {
-            this.handleClose();
-          }}
-        ></span>
-        <div className="choose-drive-drive-container">
-          <div>{renderDrivePage()}</div>
+      <div className="choose-drive-container-parent">
+        <div className="choose-drive-container">
+          <div className="choose-drive-title">绑定您的网盘账号</div>
+          <span
+            className="icon-close choose-drive-close-icon"
+            onClick={() => {
+              this.handleClose();
+            }}
+          ></span>
+          <div className="choose-drive-drive-container">
+            <div>{renderDrivePage()}</div>
+          </div>
         </div>
       </div>
     );

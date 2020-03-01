@@ -65,7 +65,10 @@ class DigestList extends Component {
         return (
           <li className="digest-list-item" key={index}>
             <div className="digest-list-item-digest">
-              <div className="digest-list-item-text">{item.text}</div>
+              <div className="digest-list-item-text-parent">
+                <div className="digest-list-item-text">{item.text}</div>
+              </div>
+
               <div className="digest-list-item-citation">
                 <div className="digest-list-item-title">来自《</div>
                 <div className="digest-list-item-chapter digest-list-item-title">
@@ -91,7 +94,11 @@ class DigestList extends Component {
       });
     };
     console.log(dateArr, digestArr, digests, "digestsaghsag");
-    return <div className="digest-list-container">{renderDigestList()}</div>;
+    return (
+      <div className="digest-list-container-parent">
+        <div className="digest-list-container">{renderDigestList()}</div>
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {

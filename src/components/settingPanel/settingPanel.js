@@ -11,15 +11,16 @@ class SettingPanel extends Component {
     this.state = {};
   }
 
-
   render() {
     return (
-      <div className="setting-panel">
-        <div className="setting-panel-title">阅读选项</div>
-        <SingleControl />
-        <ThemeList />
-        <FontSizeList />
-        <DropdownList />
+      <div className="setting-panel-parent">
+        <div className="setting-panel">
+          <div className="setting-panel-title">阅读选项</div>
+          <SingleControl />
+          <ThemeList />
+          <FontSizeList />
+          <DropdownList />
+        </div>
       </div>
     );
   }

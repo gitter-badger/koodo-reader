@@ -72,11 +72,13 @@ class PopupNote extends Component {
           >
             <span className="icon-return"></span>
           </div>
-          <textarea
-            type="text"
-            className="editor-box"
-            placeholder="请在此输入您的笔记"
-          />
+          <div className="editor-box-parent">
+            <textarea
+              type="text"
+              className="editor-box"
+              placeholder="请在此输入您的笔记"
+            />
+          </div>
 
           <span
             className="confirm-button"

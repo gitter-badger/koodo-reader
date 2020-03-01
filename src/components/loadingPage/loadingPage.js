@@ -24,7 +24,11 @@ class LoadingPage extends Component {
         );
       });
     };
-    return <div className="loading-page-container">{renderLoadingPage()}</div>;
+    return (
+      <div className="loading-page-container-parent">
+        <div className="loading-page-container">{renderLoadingPage()}</div>
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {

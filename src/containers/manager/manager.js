@@ -13,6 +13,7 @@ import MessageBox from "../../components/messageBox/messageBox";
 import LoadingPage from "../../components/loadingPage/loadingPage";
 import ChooseDrive from "../../components/chooseDrive/chooseDrive";
 import EmptyPage from "../../components/emptyPage/emptyPage";
+import ShelfUtil from "../../utils/shelfUtil";
 import { connect } from "react-redux";
 import {
   handleFetchBooks,
@@ -86,17 +87,25 @@ class Manager extends Component {
     localStorage.setItem("totalBooks", this.state.totalBooks);
 
     if (nextProps.isMessage) {
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.props.handleMessageBox(false);
         this.setState({ isMessage: false });
       }, 2000);
     }
   }
+  componentWillUnmout() {
+    clearTimeout(this.timer);
+  }
 
   render() {
     let { mode, notes, digests, bookmarks, covers, totalBooks } = this.state;
     console.log(this.state.totalBooks, "toatl");
+    let shelfTitle = Object.keys(ShelfUtil.getShelf());
+    // console.log(shelfTitle, index, "shelfTitle");
+    let currentShelfTitle = shelfTitle[this.state.shelfIndex + 1];
+    let shelfBooks = ShelfUtil.getShelf()[currentShelfTitle].length;
     // console.log(this.state.isMessage, "message");
+    console.log(shelfBooks, "shelf");
     return (
       <div className="manager">
         <Sidebar />
@@ -113,11 +122,14 @@ class Manager extends Component {
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
         {this.state.isChoose ? <ChooseDrive /> : null}
+
         {totalBooks === 0 ? (
           <EmptyPage />
-        ) : covers === null ? (
+        ) : covers === null &&
+          (mode === "home" || mode === "recent" || mode === "shelf") ? (
           <LoadingPage />
-        ) : mode === "home" || mode === "recent" || mode === "shelf" ? (
+        ) : (mode !== "shelf" || shelfBooks !== 0) &&
+          (mode === "home" || mode === "recent" || mode === "shelf") ? (
           <BookList />
         ) : bookmarks !== null && mode === "bookmark" ? (
           <BookmarkPage />
@@ -126,7 +138,7 @@ class Manager extends Component {
         ) : digests !== null && mode === "digest" ? (
           <DigestList />
         ) : (
-          <LoadingPage />
+          <EmptyPage />
         )}
       </div>
     );

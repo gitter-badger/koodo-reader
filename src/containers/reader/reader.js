@@ -50,7 +50,7 @@ class Reader extends Component {
       isMessage: nextProps.isMessage
     });
     if (nextProps.isMessage) {
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.props.handleMessageBox(false);
         this.setState({ isMessage: false });
       }, 2000);
@@ -60,7 +60,9 @@ class Reader extends Component {
   componentDidMount() {
     window.rangy.init(); // 初始化
   }
-
+componentWillUnmount(){
+  clearTimeout(this.timer)
+}
   // 为state的属性设置相应的值
   setConfig(key, value) {
     this.setState({ [key]: value });

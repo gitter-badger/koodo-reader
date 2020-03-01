@@ -14,7 +14,7 @@
   width: 120px;
   height: 20px;
   font-size: 20px;
-  font-family: Source Han Sans CN;
+
   font-weight: bold;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -26,7 +26,6 @@
 .add-dialog-shelf-list-container {
   width: 100%;
   font-size: 16px;
-  font-weight: 500;
   line-height: 14px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -47,7 +46,6 @@
   box-sizing: border-box;
   margin-left: 16px;
   font-size: 15px;
-  font-weight: 500;
   line-height: 31px;
 }
 .add-dialog-shelf-list-option {
@@ -58,13 +56,11 @@
   box-sizing: border-box;
   margin-left: 16px;
   font-size: 15px;
-  font-weight: 500;
   line-height: 31px;
 }
 .add-dialog-new-shelf-container {
   width: 100%;
   font-size: 16px;
-  font-weight: 500;
   line-height: 14px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -86,7 +82,6 @@
   margin-left: 16px;
   padding-left: 5px;
   font-size: 15px;
-  font-weight: 500;
   line-height: 31px;
 }
 .add-dialog-cancel {
@@ -100,8 +95,7 @@
   top: 144px;
 
   font-size: 14px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
+
   line-height: 26px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -117,8 +111,7 @@
   left: 227px;
   top: 144px;
   font-size: 14px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
+
   line-height: 30px;
   color: white;
   opacity: 1;

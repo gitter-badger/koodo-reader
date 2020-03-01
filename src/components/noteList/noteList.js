@@ -86,7 +86,10 @@ class NoteList extends Component {
             key={index}
             style={isCurrent ? { height: "200px" } : null}
           >
-            <div className="note-list-item-note">{item.notes}</div>
+            <div className="note-list-item-note-parent">
+              <div className="note-list-item-note">{item.notes}</div>
+            </div>
+
             <div
               onClick={() => {
                 this.handleClick(date, index);
@@ -110,7 +113,10 @@ class NoteList extends Component {
               className="note-list-item-more-info"
               style={isCurrent ? { display: "block" } : {}}
             >
-              <div className="note-list-item-more-text">{item.text}</div>
+              <div className="note-list-item-more-text-parent">
+                <div className="note-list-item-more-text">{item.text}</div>
+              </div>
+
               <div className="note-list-item-citation">
                 <div className="note-list-item-title">来自《</div>
                 <div className="note-list-item-chapter note-list-item-title">
@@ -136,7 +142,11 @@ class NoteList extends Component {
       });
     };
     console.log(dateArr, noteArr, notes, "notesaghsag");
-    return <div className="note-list-container">{renderNoteList()}</div>;
+    return (
+      <div className="note-list-container-parent">
+        <div className="note-list-container">{renderNoteList()}</div>
+      </div>
+    );
   }
 }
 const mapStateToProps = state => {

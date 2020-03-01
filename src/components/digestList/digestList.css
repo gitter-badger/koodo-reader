@@ -1,23 +1,28 @@
-.digest-list-container {
+.digest-list-container-parent {
   position: absolute;
   top: 75px;
   left: 200px;
   width: calc(100% - 200px);
   height: calc(100% - 90px);
+  overflow: hidden;
+}
+.digest-list-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
   align-content: flex-start;
   user-select: text;
 }
-.digest-list-container::-webkit-scrollbar {
-  display: none;
-}
+
 .digest-page-item-date {
   /* float: left; */
   position: absolute;
   font-size: 14px;
-  font-weight: 500;
   line-height: 25px;
   color: rgba(75, 75, 75, 1);
   opacity: 0.75;
@@ -53,7 +58,6 @@
   margin: 15px;
 
   font-size: 14px;
-  font-weight: 500;
   line-height: 14px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -67,7 +71,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  height: 15px;
+  height: 14px;
   max-width: 130px;
 }
 .digest-list-item-citation {
@@ -84,17 +88,26 @@
   /* width: 300px; */
   /* text-align: right; */
 }
+.digest-list-item-text-parent {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  overflow: hidden;
+}
 .digest-list-item-text {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+  box-sizing: content-box; /* So the width will be 100% + 17px */
   /* text-align: right; */
   overflow-y: scroll;
-  margin: 10px;
+  margin: 14px 10px;
   position: absolute;
   height: 70px;
   cursor: text;
 }
-.digest-list-item-text::-webkit-scrollbar {
-  display: none;
-}
+
 .digest-list-item-title {
   float: left;
 }

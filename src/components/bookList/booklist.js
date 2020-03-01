@@ -129,37 +129,39 @@ class BookList extends Component {
       });
     };
     return (
-      <div className="book-list-container">
-        <div className="book-list-view">
-          <div
-            className="card-list-mode"
-            onClick={() => {
-              this.handleChange("card");
-            }}
-            style={
-              this.state.isList === "card"
-                ? {}
-                : { color: "rgba(75,75,75,0.5)" }
-            }
-          >
-            <span className="icon-grid"></span> 卡片模式
+      <div className="book-list-container-parent">
+        <div className="book-list-container">
+          <div className="book-list-view">
+            <div
+              className="card-list-mode"
+              onClick={() => {
+                this.handleChange("card");
+              }}
+              style={
+                this.state.isList === "card"
+                  ? {}
+                  : { color: "rgba(75,75,75,0.5)" }
+              }
+            >
+              <span className="icon-grid"></span> 卡片模式
+            </div>
+            <div
+              className="list-view-mode"
+              onClick={() => {
+                this.handleChange("list");
+              }}
+              style={
+                this.state.isList === "list"
+                  ? {}
+                  : { color: "rgba(75,75,75,0.5)" }
+              }
+            >
+              <span className="icon-list"></span> 列表模式
+            </div>
           </div>
-          <div
-            className="list-view-mode"
-            onClick={() => {
-              this.handleChange("list");
-            }}
-            style={
-              this.state.isList === "list"
-                ? {}
-                : { color: "rgba(75,75,75,0.5)" }
-            }
-          >
-            <span className="icon-list"></span> 列表模式
-          </div>
-        </div>
 
-        <div className="book-list-item-box">{renderBookList()}</div>
+          <div className="book-list-item-box">{renderBookList()}</div>
+        </div>
       </div>
     );
   }

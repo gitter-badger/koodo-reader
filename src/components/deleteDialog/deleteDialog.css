@@ -14,7 +14,7 @@
   width: 120px;
   height: 25px;
   font-size: 20px;
-  font-family: Source Han Sans CN;
+
   font-weight: bold;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -30,7 +30,6 @@
   width: 100%;
   line-height: 25px;
   font-size: 18px;
-  font-weight: 500;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
   text-align: center;
@@ -45,8 +44,7 @@
 }
 .delete-dialog-other-option {
   font-size: 14px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
+
   line-height: 14px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -74,8 +72,7 @@
   top: 144px;
 
   font-size: 14px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
+
   line-height: 26px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
@@ -91,8 +88,7 @@
   left: 227px;
   top: 144px;
   font-size: 14px;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
+
   line-height: 30px;
   color: white;
   opacity: 1;

@@ -99,32 +99,35 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <img src="../../assets/logo.jpg" alt="" className="logo" />
+        <div className="side-menu-container-parent">
+          <ul className="side-menu-container">
+            {renderSideMenu()}
+            <li className="side-menu-shelf">
+              <div
+                onClick={() => {
+                  this.handleShelf();
+                }}
+              >
+                <span className="icon-shelf"></span>
+                {"我的书架"}
+                <span
+                  className={
+                    this.state.isCollapse ? "icon-dropdown" : "icon-shangla"
+                  }
+                ></span>
+              </div>
+              <div className="shelf-list-container-parent">
+                <ul
+                  className="shelf-list-container"
+                  style={this.state.isCollapse ? { display: "none" } : {}}
+                >
+                  {renderShelfList()}
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
 
-        <ul className="side-menu-container">
-          {renderSideMenu()}
-          <li className="side-menu-shelf">
-            <div
-              onClick={() => {
-                this.handleShelf();
-              }}
-            >
-              <span className="icon-shelf"></span>
-              {"我的书架"}
-              <span
-                className={
-                  this.state.isCollapse ? "icon-dropdown" : "icon-shangla"
-                }
-              ></span>
-            </div>
-
-            <ul
-              className="shelf-list-container"
-              style={this.state.isCollapse ? { display: "none" } : {}}
-            >
-              {renderShelfList()}
-            </ul>
-          </li>
-        </ul>
         <About />
       </div>
     );

@@ -15,6 +15,7 @@ import {
 } from "../../redux/reader.redux";
 import DeleteUtil from "../../utils/deleteUtil";
 import localforage from "localforage";
+import ShelfUtil from "../../utils/shelfUtil";
 class DeleteDialog extends Component {
   constructor(props) {
     super(props);
@@ -23,103 +24,126 @@ class DeleteDialog extends Component {
   handleCancel = () => {
     this.props.handleDeleteDialog(false);
   };
-  handleComfirm = () => {
-    this.props.books !== null &&
+  handleDeleteOther = () => {
+    this.props.bookmarks !== null &&
       localforage
         .setItem(
-          "books",
-          DeleteUtil.deleteBook(this.props.books, this.props.currentBook.key)
+          "bookmarks",
+          DeleteUtil.deleteBookmarks(
+            this.props.bookmarks,
+            this.props.currentBook.key
+          )
         )
         .then(() => {
-          this.props.handleDeleteDialog(false);
-          this.props.handleFetchBooks();
+          this.props.handleFetchBookmarks();
         });
-    console.log(this.props.bookmarks, "bookmarks");
-    if (this.state.isCheck) {
-      this.props.bookmarks !== null &&
-        localforage
-          .setItem(
-            "bookmarks",
-            DeleteUtil.deleteBookmarks(
-              this.props.bookmarks,
-              this.props.currentBook.key
-            )
-          )
-          .then(() => {
-            this.props.handleFetchBookmarks();
-          });
-      console.log(this.props.notes, "notes");
+    console.log(this.props.notes, "notes");
 
-      this.props.notes !== null &&
+    this.props.notes !== null &&
+      localforage
+        .setItem(
+          "notes",
+          DeleteUtil.deleteNotes(this.props.notes, this.props.currentBook.key)
+        )
+        .then(() => {
+          this.props.handleFetchNotes();
+        });
+    console.log(this.props.digests, "digests");
+    this.props.digests !== null &&
+      localforage
+        .setItem(
+          "digests",
+          DeleteUtil.deleteDigests(
+            this.props.digests,
+            this.props.currentBook.key
+          )
+        )
+        .then(() => {
+          this.props.handleFetchDigests();
+        });
+    // console.log(this.props.highlighters, "highlighters");
+    this.props.highlighters !== null &&
+      localforage
+        .setItem(
+          "highlighters",
+          DeleteUtil.deleteHighlighters(
+            this.props.highlighters,
+            this.props.currentBook.key
+          )
+        )
+        .then(() => {
+          this.props.handleFetchHighlighters();
+        });
+  };
+  handleComfirm = () => {
+    if (this.props.mode === "shelf") {
+      ShelfUtil.clearShelf(this.props.shelfIndex, this.props.currentBook.key);
+      this.props.handleDeleteDialog(false);
+    } else {
+      this.props.books !== null &&
         localforage
           .setItem(
-            "notes",
-            DeleteUtil.deleteNotes(this.props.notes, this.props.currentBook.key)
+            "books",
+            DeleteUtil.deleteBook(this.props.books, this.props.currentBook.key)
           )
           .then(() => {
-            this.props.handleFetchNotes();
+            this.props.handleDeleteDialog(false);
+            this.props.handleFetchBooks();
           });
-      console.log(this.props.digests, "digests");
-      this.props.digests !== null &&
-        localforage
-          .setItem(
-            "digests",
-            DeleteUtil.deleteDigests(
-              this.props.digests,
-              this.props.currentBook.key
-            )
-          )
-          .then(() => {
-            this.props.handleFetchDigests();
-          });
-      // console.log(this.props.highlighters, "highlighters");
-      this.props.highlighters !== null &&
-        localforage
-          .setItem(
-            "highlighters",
-            DeleteUtil.deleteHighlighters(
-              this.props.highlighters,
-              this.props.currentBook.key
-            )
-          )
-          .then(() => {
-            this.props.handleFetchHighlighters();
-          });
+      console.log(this.props.bookmarks, "bookmarks");
+      ShelfUtil.deletefromAllShelf(this.props.currentBook.key);
+      if (this.state.isCheck) {
+        this.handleDeleteOther();
+      }
     }
+
     this.props.handleMessage("删除成功");
     this.props.handleMessageBox(true);
   };
   handleCheck = mode => {
     this.setState({ isCheck: mode });
   };
+
   render() {
     return (
       <div className="delete-dialog-container">
-        <div className="delete-dialog-title">是否删除本图书</div>
+        {this.props.mode !== "shelf" ? (
+          <div className="delete-dialog-title">是否删除本图书</div>
+        ) : (
+          <div className="delete-dialog-title">从书架删除本书</div>
+        )}
+
         <div className="delete-dialog-book">
           <div className="delete-dialog-book-title">
             {this.props.currentBook.name}
           </div>
         </div>
-
-        <div className="delete-dialog-other-option">
-          同时删除本书所有的书签，笔记，书摘
-        </div>
-        {this.state.isCheck ? (
-          <span
-            className="icon-check"
-            onClick={() => {
-              this.handleCheck(false);
-            }}
-          ></span>
+        {this.props.mode !== "shelf" ? (
+          <div className="delete-dialog-other-option">
+            同时删除本书所有的书签，笔记，书摘
+          </div>
         ) : (
-          <span
-            className="delete-dialog-uncheck-icon"
-            onClick={() => {
-              this.handleCheck(true);
-            }}
-          ></span>
+          <div className="delete-dialog-other-option">
+            仅从此书架中删除本书，原图书不受影响
+          </div>
         )}
+
+        {this.props.mode !== "shelf" &&
+          (this.state.isCheck ? (
+            <span
+              className="icon-check"
+              onClick={() => {
+                this.handleCheck(false);
+              }}
+            ></span>
+          ) : (
+            <span
+              className="delete-dialog-uncheck-icon"
+              onClick={() => {
+                this.handleCheck(true);
+              }}
+            ></span>
+          ))}
         <div
           className="delete-dialog-cancel"
           onClick={() => {
@@ -148,7 +172,9 @@ const mapStateToProps = state => {
     bookmarks: state.reader.bookmarks,
     notes: state.reader.notes,
     digests: state.reader.digests,
-    highlighters: state.reader.highlighters
+    highlighters: state.reader.highlighters,
+    mode: state.sidebar.mode,
+    shelfIndex: state.sidebar.shelfIndex
   };
 };
 const actionCreator = {
