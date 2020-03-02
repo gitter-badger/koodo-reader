@@ -98,17 +98,25 @@ class Reader extends Component {
     }
     // this.setState({ isOpenSettingPanel: true });
   };
-  handleLeave = position => {
-    // console.log("leave");
+  handleLeave = (event, position) => {
+    console.log("leave");
     // let option = document.querySelector(".general-setting-option");
-
+    // console.log(window.event.clientX, "X");
+    console.log(event.clientX, document.body.offsetWidth, "hello");
     switch (position) {
-      case "right":
-        this.setState({ isOpenSettingPanel: false });
+      case "right": {
+        if (event.clientX < document.body.offsetWidth - 282) {
+          this.setState({
+            isOpenSettingPanel: false
+          });
+        }
         break;
+      }
+
       case "left":
         this.setState({ isOpenInfoPanel: false });
         break;
+
       case "top":
         this.setState({ isOpenOperationPanel: false });
         break;
@@ -152,8 +160,8 @@ class Reader extends Component {
         <ViewArea className="view-area" />
         {this.state.isOpenSettingPanel ? (
           <div
-            onMouseLeave={() => {
-              this.handleLeave("right");
+            onMouseLeave={event => {
+              this.handleLeave(event, "right");
             }}
           >
             <SettingPanel className="setting-panel" />
@@ -161,8 +169,8 @@ class Reader extends Component {
         ) : null}
         {this.state.isOpenInfoPanel ? (
           <div
-            onMouseLeave={() => {
-              this.handleLeave("left");
+            onMouseLeave={event => {
+              this.handleLeave(event, "left");
             }}
           >
             <NavigationPanel className="navigation-panel" />
@@ -171,8 +179,8 @@ class Reader extends Component {
         {this.state.isOpenProgressPanel ? (
           <div
             className="progress-panel-container"
-            onMouseLeave={() => {
-              this.handleLeave("bottom");
+            onMouseLeave={event => {
+              this.handleLeave(event, "bottom");
             }}
           >
             <ProgressPanel className="progress-panel" />
@@ -181,8 +189,8 @@ class Reader extends Component {
         {this.state.isOpenOperationPanel ? (
           <div
             className="operation-panel-container"
-            onMouseLeave={() => {
-              this.handleLeave("top");
+            onMouseLeave={event => {
+              this.handleLeave(event, "top");
             }}
           >
             <OperationPanel className="book-operation-panel" />

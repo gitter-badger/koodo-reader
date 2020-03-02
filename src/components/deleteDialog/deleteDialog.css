@@ -43,14 +43,15 @@
   overflow: hidden;
 }
 .delete-dialog-other-option {
+  width: 100%;
   font-size: 14px;
-
+  text-align: center;
   line-height: 14px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
   position: absolute;
   top: 106px;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 }
 .icon-check {
   width: 16px;

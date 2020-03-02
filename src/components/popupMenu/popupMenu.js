@@ -124,12 +124,14 @@ class PopupMenu extends Component {
     // 如果 note card 正在被展示，则隐藏
     if (this.state.isOpenMenu) {
       // this.setState({ isOpenMenu: false });
+      this.changeMenu("menu");
       this.closeMenu();
     }
     console.log(this.state.isOpenMenu, "fhadh");
     // 使弹出菜单更加灵活可控
     if (sel.isCollapsed) {
       this.props.isOpenMenu && this.closeMenu();
+      this.changeMenu("menu");
       return;
     }
 

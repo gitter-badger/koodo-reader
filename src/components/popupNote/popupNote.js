@@ -51,14 +51,16 @@ class PopupNote extends Component {
     iDoc.getSelection().empty();
     this.props.handleMessage("添加成功");
     this.props.handleMessageBox(true);
+    this.props.changeMenu("menu");
     // return note;
   }
   handleReturn = () => {
     this.props.changeMenu("menu");
-    this.props.openMenu();
+    // this.props.openMenu();
   };
   handleClose = () => {
     this.props.closeMenu();
+    this.props.changeMenu("menu");
   };
   render() {
     const renderNoteEditor = () => {

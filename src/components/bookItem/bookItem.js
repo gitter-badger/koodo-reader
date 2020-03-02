@@ -75,7 +75,7 @@ class Book extends Component {
           {"" + date.year + "-" + date.month + "-" + date.day}
         </p>
         <p className="book-item-list-percentage">
-          {Math.round(percentage * 100)}%
+          {this.props.percentage !== null ? Math.round(percentage * 100) : 0}%
         </p>
         <div className="book-item-list-config">
           <span
@@ -103,7 +103,10 @@ class Book extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { isReading: state.book.isReading };
+  return {
+    isReading: state.book.isReading,
+    percentage: state.progressPanel.percentage
+  };
 };
 const actionCreator = {
   handleReadingState,

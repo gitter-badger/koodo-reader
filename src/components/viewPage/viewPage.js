@@ -43,6 +43,9 @@ class ViewPage extends Component {
       event.preventDefault();
     };
     document.addEventListener("copy", this.copyTextHack);
+    // window.addEventListener("keypress", () => {
+    //   console.log("ehllo");
+    // });
   }
 
   render() {

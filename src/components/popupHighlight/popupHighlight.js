@@ -10,6 +10,7 @@ class PopupHighlight extends Component {
   };
   handleClose = () => {
     this.props.close();
+    this.props.changeMenu("menu");
   };
 
   componentDidMount() {
@@ -52,6 +53,7 @@ class PopupHighlight extends Component {
     this.props.handleMessage("高亮成功");
     this.props.handleMessageBox(true);
     console.log("%c Add note here. ", "background-color: green");
+        this.props.changeMenu("menu");
   }
 
   render() {

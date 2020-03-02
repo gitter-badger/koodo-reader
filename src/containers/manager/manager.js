@@ -14,6 +14,8 @@ import LoadingPage from "../../components/loadingPage/loadingPage";
 import ChooseDrive from "../../components/chooseDrive/chooseDrive";
 import EmptyPage from "../../components/emptyPage/emptyPage";
 import ShelfUtil from "../../utils/shelfUtil";
+import WelcomePage from "../../components/welcomePage/welcomePage";
+import RecordRecent from "../../utils/recordRecent";
 import { connect } from "react-redux";
 import {
   handleFetchBooks,
@@ -48,7 +50,9 @@ class Manager extends Component {
       isSortDisplay: this.props.isSortDisplay,
       isMessage: false,
       isChoose: false,
-      totalBooks: localStorage.getItem("totalBooks") || 0
+      totalBooks: localStorage.getItem("totalBooks") || 0,
+      isFirst: localStorage.getItem("isFirst") || "first",
+      recentBooks: Object.keys(RecordRecent.getRecent()).length
     };
   }
   //从indexdb里读取书籍
@@ -96,10 +100,22 @@ class Manager extends Component {
   componentWillUnmout() {
     clearTimeout(this.timer);
   }
-
+  handleCloseWelcome = () => {
+    this.setState({ isFirst: "no" });
+    localStorage.setItem("isFirst", "no");
+  };
   render() {
-    let { mode, notes, digests, bookmarks, covers, totalBooks } = this.state;
-    console.log(this.state.totalBooks, "toatl");
+    console.log(this.state.isFirst, "first");
+    let {
+      mode,
+      notes,
+      digests,
+      bookmarks,
+      covers,
+      totalBooks,
+      recentBooks
+    } = this.state;
+    console.log(this.state.recentBooks, "toatl");
     let shelfTitle = Object.keys(ShelfUtil.getShelf());
     // console.log(shelfTitle, index, "shelfTitle");
     let currentShelfTitle = shelfTitle[this.state.shelfIndex + 1];
@@ -122,14 +138,22 @@ class Manager extends Component {
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
         {this.state.isChoose ? <ChooseDrive /> : null}
-
+        {this.state.isFirst === "first" ? (
+          <WelcomePage
+            handleCloseWelcome={() => {
+              this.handleCloseWelcome();
+            }}
+          />
+        ) : null}
         {totalBooks === 0 ? (
           <EmptyPage />
         ) : covers === null &&
           (mode === "home" || mode === "recent" || mode === "shelf") ? (
           <LoadingPage />
         ) : (mode !== "shelf" || shelfBooks !== 0) &&
-          (mode === "home" || mode === "recent" || mode === "shelf") ? (
+          (mode === "home" ||
+            (mode === "recent" && recentBooks !== 0) ||
+            mode === "shelf") ? (
           <BookList />
         ) : bookmarks !== null && mode === "bookmark" ? (
           <BookmarkPage />

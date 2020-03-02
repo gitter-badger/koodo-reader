@@ -16,6 +16,7 @@ import {
 import DeleteUtil from "../../utils/deleteUtil";
 import localforage from "localforage";
 import ShelfUtil from "../../utils/shelfUtil";
+import RecordRecent from "../../utils/recordRecent";
 class DeleteDialog extends Component {
   constructor(props) {
     super(props);
@@ -25,55 +26,70 @@ class DeleteDialog extends Component {
     this.props.handleDeleteDialog(false);
   };
   handleDeleteOther = () => {
-    this.props.bookmarks !== null &&
-      localforage
-        .setItem(
-          "bookmarks",
-          DeleteUtil.deleteBookmarks(
-            this.props.bookmarks,
-            this.props.currentBook.key
-          )
-        )
-        .then(() => {
+    if (this.props.bookmarks !== null) {
+      let bookmarkArr = DeleteUtil.deleteBookmarks(
+        this.props.bookmarks,
+        this.props.currentBook.key
+      );
+      if (bookmarkArr.length === 0) {
+        localforage.removeItem("bookmarks").then(() => {
           this.props.handleFetchBookmarks();
         });
-    console.log(this.props.notes, "notes");
-
-    this.props.notes !== null &&
-      localforage
-        .setItem(
-          "notes",
-          DeleteUtil.deleteNotes(this.props.notes, this.props.currentBook.key)
-        )
-        .then(() => {
+      } else {
+        localforage.setItem("bookmarks", bookmarkArr).then(() => {
+          this.props.handleFetchBookmarks();
+        });
+      }
+    }
+    if (this.props.notes !== null) {
+      let noteArr = DeleteUtil.deleteNotes(
+        this.props.notes,
+        this.props.currentBook.key
+      );
+      if (noteArr.length === 0) {
+        localforage.removeItem("notes").then(() => {
           this.props.handleFetchNotes();
         });
-    console.log(this.props.digests, "digests");
-    this.props.digests !== null &&
-      localforage
-        .setItem(
-          "digests",
-          DeleteUtil.deleteDigests(
-            this.props.digests,
-            this.props.currentBook.key
-          )
-        )
-        .then(() => {
+      } else {
+        localforage.setItem("notes", noteArr).then(() => {
+          this.props.handleFetchNotes();
+        });
+      }
+    }
+    console.log(this.props.notes, "notes");
+    if (this.props.digests !== null) {
+      let digestArr = DeleteUtil.deleteDigests(
+        this.props.digests,
+        this.props.currentBook.key
+      );
+      if (digestArr.length === 0) {
+        localforage.removeItem("digests").then(() => {
           this.props.handleFetchDigests();
         });
-    // console.log(this.props.highlighters, "highlighters");
-    this.props.highlighters !== null &&
-      localforage
-        .setItem(
-          "highlighters",
-          DeleteUtil.deleteHighlighters(
-            this.props.highlighters,
-            this.props.currentBook.key
-          )
-        )
-        .then(() => {
+      } else {
+        localforage.setItem("digests", digestArr).then(() => {
+          this.props.handleFetchDigests();
+        });
+      }
+    }
+    if (this.props.highlighters !== null) {
+      let highlighterArr = DeleteUtil.deleteHighlighters(
+        this.props.highlighters,
+        this.props.currentBook.key
+      );
+      if (highlighterArr.length === 0) {
+        localforage.removeItem("highlighters").then(() => {
           this.props.handleFetchHighlighters();
         });
+      } else {
+        localforage.setItem("highlighters", highlighterArr).then(() => {
+          this.props.handleFetchHighlighters();
+        });
+      }
+    }
+    console.log(this.props.digests, "digests");
+
+    // console.log(this.props.highlighters, "highlighters");
   };
   handleComfirm = () => {
     if (this.props.mode === "shelf") {
@@ -92,9 +108,8 @@ class DeleteDialog extends Component {
           });
       console.log(this.props.bookmarks, "bookmarks");
       ShelfUtil.deletefromAllShelf(this.props.currentBook.key);
-      if (this.state.isCheck) {
-        this.handleDeleteOther();
-      }
+      RecordRecent.clear(this.props.currentBook.key);
+      this.handleDeleteOther();
     }
 
     this.props.handleMessage("删除成功");
@@ -128,22 +143,24 @@ class DeleteDialog extends Component {
           </div>
         )}
 
-        {this.props.mode !== "shelf" &&
-          (this.state.isCheck ? (
-            <span
-              className="icon-check"
-              onClick={() => {
-                this.handleCheck(false);
-              }}
-            ></span>
-          ) : (
-            <span
-              className="delete-dialog-uncheck-icon"
-              onClick={() => {
-                this.handleCheck(true);
-              }}
-            ></span>
-          ))}
+        {
+          // this.props.mode !== "shelf" &&
+          // (this.state.isCheck ? (
+          //   <span
+          //     className="icon-check"
+          //     onClick={() => {
+          //       this.handleCheck(false);
+          //     }}
+          //   ></span>
+          // ) : (
+          //   <span
+          //     className="delete-dialog-uncheck-icon"
+          //     onClick={() => {
+          //       this.handleCheck(true);
+          //     }}
+          //   ></span>
+          // ))
+        }
         <div
           className="delete-dialog-cancel"
           onClick={() => {

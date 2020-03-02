@@ -48,7 +48,7 @@ class About extends Component {
 
         <div className="about-icon-container">
           <a
-            href="http://www.baidu.com"
+            href="https://wj.qq.com/s2/5565378/4b3f/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -62,25 +62,36 @@ class About extends Component {
               }}
             ></span>
           </a>
-
-          <span
-            className="icon-contact about-icon"
-            onMouseEnter={() => {
-              this.handleContact(true);
-            }}
-            onMouseLeave={() => {
-              this.handleContact(false);
-            }}
-          ></span>
-          <span
-            className="icon-donate about-icon"
-            onMouseEnter={() => {
-              this.handleDonate(true);
-            }}
-            onMouseLeave={() => {
-              this.handleDonate(false);
-            }}
-          ></span>
+          <a
+            href="https://wj.qq.com/s2/5565378/4b3f/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span
+              className="icon-contact about-icon"
+              onMouseEnter={() => {
+                this.handleContact(true);
+              }}
+              onMouseLeave={() => {
+                this.handleContact(false);
+              }}
+            ></span>
+          </a>
+          <a
+            href="https://wj.qq.com/s2/5565378/4b3f/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span
+              className="icon-donate about-icon"
+              onMouseEnter={() => {
+                this.handleDonate(true);
+              }}
+              onMouseLeave={() => {
+                this.handleDonate(false);
+              }}
+            ></span>
+          </a>
         </div>
       </div>
     );

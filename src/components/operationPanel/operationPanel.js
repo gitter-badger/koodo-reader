@@ -82,6 +82,7 @@ class OperationPanel extends Component {
     }
     // console.log(label, "ahahagh");
     let bookmark = new Bookmark(bookKey, cfi, label, percentage, chapter);
+    console.log(bookmark, "bookmark");
     let bookmarkArr = this.props.bookmarks ? this.props.bookmarks : [];
     // console.log(this.props.bookmarks, "dhdhdfah");
     bookmarkArr.push(bookmark);

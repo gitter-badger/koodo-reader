@@ -96,6 +96,7 @@
   box-sizing: content-box;
   overflow-y: scroll;
   z-index: 0;
+  overflow-x: hidden;
 }
 /* .navigation-body::-webkit-scrollbar {
   display: none;
@@ -106,5 +107,5 @@
   align-items: center;
   font-size: 15px;
   color: rgba(75, 75, 75, 0.8);
-  line-height: 30px;
+  line-height: 60px;
 }
