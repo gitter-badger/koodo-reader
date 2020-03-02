@@ -156,17 +156,21 @@ body {
 
 html,
 body {
-  font-family: "Source Han Sans CN", "STHeitiSC-Light", "Helvetica-Light",
-    "Arial", "sans-serif";
+  font-family: "Helvetica Neue", "Helvetica", "Arial", "PingFang SC",
+    "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei",
+    sans-serif;
   font-weight: 500;
 }
-
-@font-face {
-  font-family: "Source Han Sans CN";
-  src: url("../../assets/SourceHanSansCN-Medium.otf");
+option::-ms-expand {
+  display: none;
 }
-
-@font-face {
-  font-family: "Source Han Serif CN";
-  src: url("../../assets/SourceHanSerifCN-Medium.otf");
+option {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* --背景色字体颜色--*/
+option:hover {
+  color: #fff;
+  background-color: #1e90ff;
 }

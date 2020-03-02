@@ -38,5 +38,24 @@
   color: rgba(133, 133, 133, 1);
   opacity: 0.6;
   position: relative;
-  top: 4px;
+  top: 6px;
+  font-weight: 500;
+}
+.editor-box::-ms-input-placeholder {
+  font-size: 16px;
+  line-height: 15px;
+  color: rgba(133, 133, 133, 1);
+  opacity: 0.6;
+  position: relative;
+  top: 6px;
+  font-weight: 500;
+}
+.editor-box::-moz-placeholder {
+  font-size: 16px;
+  line-height: 15px;
+  color: rgba(133, 133, 133, 1);
+  opacity: 0.6;
+  position: relative;
+  top: 6px;
+  font-weight: 500;
 }

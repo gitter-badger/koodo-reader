@@ -89,7 +89,11 @@ class NavigationPanel extends Component {
         </div>
         <div className="navigation-body-parent">
           <div className="navigation-body">
-            {this.state.isContentShow ? <ContentList /> : <BookmarkList />}
+            {this.state.isContentShow ? (
+              <ContentList />
+            ) : this.props.bookmarks !== null ? (
+              <BookmarkList />
+            ) : <div className="navigation-panel-empty-bookmark">书签为空</div>}
           </div>
         </div>
       </div>

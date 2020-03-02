@@ -23,6 +23,7 @@ class DropdownList extends Component {
     };
   }
   componentDidMount() {
+    console.log(this.state.currentFontFamilyIndex, "currentFontFamilyIndex");
     document
       .querySelector(".paragraph-character-setting")
       .children[0].children[1].children[
@@ -78,6 +79,11 @@ class DropdownList extends Component {
     }
     StyleConfig.addDefaultCss();
   }
+  // handleClick = event => {
+  //   console.log(event.target);
+  //   let select = event.target;
+  //   select.setAttribute("style", "margin-bottom:200px");
+  // };
   render() {
     const renderParagraphCharacter = () => {
       return dropdownList.map((item, index) => (
@@ -89,6 +95,9 @@ class DropdownList extends Component {
             onChange={event => {
               this.handleView(event, item.value);
             }}
+            // onClick={event => {
+            //   this.handleClick(event);
+            // }}
           >
             {item.option.map((item, index) => (
               <option

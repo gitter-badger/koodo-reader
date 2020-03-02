@@ -59,7 +59,7 @@ class Manager extends Component {
     this.props.handleFetchBookmarks();
     this.props.handleFetchHighlighters();
     this.props.handleFetchSortCode();
-    this.props.handleList(localStorage.getItem("isList") || false);
+    this.props.handleFetchList();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {

@@ -19,7 +19,7 @@ class SettingPanel extends Component {
           <SingleControl />
           <ThemeList />
           <FontSizeList />
-          <DropdownList />
+          <DropdownList/>
         </div>
       </div>
     );

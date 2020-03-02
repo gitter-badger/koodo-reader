@@ -96,6 +96,7 @@
   overflow-y: scroll;
   padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
   box-sizing: content-box;
+  line-height: 17px;
 }
 
 .note-list-item-more-info {

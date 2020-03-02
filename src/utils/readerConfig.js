@@ -3,7 +3,7 @@ class readerConfig {
   static getDefaultConfigObj() {
     return {
       theme: "rgba(255,254,252,1)",
-      fontFamily: "Source Han Sans CN",
+      fontFamily: "Helvetica",
       fontWeight: 300,
       fontSize: 17, // 0 代表使用默认值
       lineHeight: 1.25, // 0 代表使用默认值
@@ -79,11 +79,11 @@ export const dropdownList = [
     value: "fontFamily",
 
     option: [
-      { id: 1, name: "默认(思源黑体)", value: "Source Han Sans CN" },
-      { id: 2, name: "思源宋体", value: "Source Han Serif CN" },
-      { id: 3, name: "思源黑体", value: "Source Han Sans CN" },
-      { id: 4, name: "微软雅黑", value: "Microsoft Yahei" },
-      { id: 5, name: "黑体", value: "SimHei" },
+      { id: 1, name: "默认(Helvetica)", value: "Helvetica" },
+      { id: 2, name: "微软雅黑", value: "Microsoft Yahei" },
+      { id: 3, name: " 苹方字体", value: " Arial" },
+      { id: 4, name: "冬青黑体", value: "Hiragino Sans GB" },
+      { id: 5, name: "黑体", value: "Heiti SC" },
       { id: 6, name: "Aril", value: "Aril" }
     ]
   },

@@ -28,14 +28,14 @@
   clear: both;
 }
 .card-list-mode {
-  width: 74px;
+  width: 81px;
   height: 17px;
   float: left;
   line-height: 17px;
   cursor: pointer;
 }
 .list-view-mode {
-  width: 74px;
+  width: 81px;
   height: 17px;
   float: left;
   line-height: 17px;

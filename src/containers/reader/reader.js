@@ -60,9 +60,9 @@ class Reader extends Component {
   componentDidMount() {
     window.rangy.init(); // 初始化
   }
-componentWillUnmount(){
-  clearTimeout(this.timer)
-}
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
   // 为state的属性设置相应的值
   setConfig(key, value) {
     this.setState({ [key]: value });
@@ -99,7 +99,9 @@ componentWillUnmount(){
     // this.setState({ isOpenSettingPanel: true });
   };
   handleLeave = position => {
-    console.log("leave");
+    // console.log("leave");
+    // let option = document.querySelector(".general-setting-option");
+
     switch (position) {
       case "right":
         this.setState({ isOpenSettingPanel: false });
