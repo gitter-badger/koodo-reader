@@ -1,3 +1,4 @@
+//消息提示
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./messageBox.css";
@@ -12,7 +13,7 @@ class MessageBox extends Component {
   render() {
     return (
       <div className="message-box-container">
-        <span className="icon-message  message-box-icon"></span>
+        <span className="icon-success  message-box-icon"></span>
         <div className="message-content">{this.state.message}</div>
       </div>
     );

@@ -1,8 +1,10 @@
+//header 页面
 import React, { Component } from "react";
 import "./header.css";
 import { connect } from "react-redux";
 import SearchBox from "../searchBox/searchBox";
 import ImportLocal from "../importLocal/importLocal";
+import About from "../about/about";
 import {
   handleFetchBooks,
   handleSort,
@@ -11,7 +13,7 @@ import {
   handleMessageBox,
   handleMessage
 } from "../../redux/manager.redux";
-import { handleChoose } from "../../redux/chooseDrive.redux";
+import { handleBackup } from "../../redux/backupPage.redux";
 // @connect(state => state.manager)
 class Header extends Component {
   constructor(props) {
@@ -44,8 +46,9 @@ class Header extends Component {
     // this.props.handleSortDisplay(!this.state.isSortDisplay);
     // console.log(this.state.isSortDisplay);
   };
-  handleChoose = () => {
-    this.props.handleChoose(true);
+  handleBackup = () => {
+    console.log("dgsghsg");
+    this.props.handleBackup(true);
   };
   handleOnlyLocal = () => {
     this.setState({ isOnlyLocal: !this.state.isOnlyLocal });
@@ -68,29 +71,32 @@ class Header extends Component {
           <span className="icon-sort header-sort-icon"></span>
         </div>
         {this.state.isSort}
-        <div className="only-local-container">
-          <span className="only-local-text">只显示本地图书</span>
-          <div
-            className="only-local-icon"
-            onClick={() => {
-              this.handleOnlyLocal();
-            }}
-          >
-            <div
-              className="only-local-slider"
-              style={this.state.isOnlyLocal ? { marginLeft: "16px" } : {}}
-            ></div>
-          </div>
-        </div>
+        {
+          // <div className="only-local-container">
+          //   <span className="only-local-text">只显示本地图书</span>
+          //   <div
+          //     className="only-local-icon"
+          //     onClick={() => {
+          //       this.handleOnlyLocal();
+          //     }}
+          //   >
+          //     <div
+          //       className="only-local-slider"
+          //       style={this.state.isOnlyLocal ? { marginLeft: "16px" } : {}}
+          //     ></div>
+          //   </div>
+          // </div>
+        }
+        <About />
         <ImportLocal />
 
         <div
           className="import-from-cloud"
           onClick={() => {
-            this.handleChoose();
+            this.handleBackup();
           }}
         >
-          从云端同步
+          备份和恢复
         </div>
       </div>
     );
@@ -110,7 +116,7 @@ const actionCreator = {
   handleSortDisplay,
   handleMessageBox,
   handleMessage,
-  handleChoose
+  handleBackup
 };
 Header = connect(mapStateToProps, actionCreator)(Header);
 export default Header;

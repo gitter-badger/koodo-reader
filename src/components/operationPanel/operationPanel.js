@@ -1,3 +1,4 @@
+//图书操作页面
 import React, { Component } from "react";
 import "./operationPanel.css";
 import Bookmark from "../../model/Bookmark";
@@ -25,6 +26,7 @@ class OperationPanel extends Component {
       ? this.handleFullScreen()
       : this.handleExitFullScreen();
   }
+  //控制进入全屏
   handleFullScreen() {
     let de = document.documentElement;
 

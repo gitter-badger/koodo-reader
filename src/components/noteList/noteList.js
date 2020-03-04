@@ -1,25 +1,30 @@
+//我的笔记页面
 import React, { Component } from "react";
 import "./noteList.css";
 import { connect } from "react-redux";
 class NoteList extends Component {
   constructor(props) {
     super(props);
-    this.state = { currentDate: null, currentIndex: null };
+    this.state = {
+      currentDate: null,
+      currentIndex: null
+    };
   }
-
+  //获取图书名
   handleBookName = bookKey => {
     let { books } = this.props;
-    let chapter = "";
+    let bookName = "";
     for (let i = 0; i < this.props.books.length; i++) {
       console.log(books[i].key === bookKey);
       if (books[i].key === bookKey) {
-        chapter = books[i].name;
+        bookName = books[i].name;
         break;
       }
     }
-    console.log(chapter, "chapter");
-    return chapter;
+    // console.log(chapter, "chapter");
+    return bookName;
   };
+  //获取到当前的笔记index
   handleClick = (date, index) => {
     if (this.state.currentDate) {
       this.setState({ currentDate: null, currentIndex: null });
@@ -31,17 +36,19 @@ class NoteList extends Component {
     let { notes } = this.props;
     console.log(this.props.notes);
     let noteArr = [];
+    //从早到晚排序
     for (let i = notes.length - 1; i >= 0; i--) {
       noteArr.push(notes[i]);
     }
 
-    console.log(noteArr[0].date, notes, "notesaghsag");
+    // console.log(noteArr[0].date, notes, "notesaghsag");
     let dateArr = [noteArr[0].date];
     let temp = noteArr[0].date;
     // console.log(noteArr[0].date.day === noteArr[1].date.day);
+    //获取笔记日期列表
     for (let i = 1; i < noteArr.length; i++) {
       // console.log(noteArr[i].date);
-      console.log(noteArr[i].date);
+      // console.log(noteArr[i].date);
       if (
         noteArr[i].date !== undefined &&
         (noteArr[i].date.year !== temp.year ||
@@ -54,6 +61,7 @@ class NoteList extends Component {
 
       // console.log(dateArr);
     }
+    //得到日期为键，笔记为值的对象
     let noteObj = {};
     console.log(dateArr);
 
@@ -72,7 +80,7 @@ class NoteList extends Component {
       });
       // if(item.date.year===)
     });
-    console.log(noteObj, "agasgbsg");
+    // console.log(noteObj, "agasgbsg");
     const renderNoteListItem = date => {
       return noteObj[date].map((item, index) => {
         console.log(item, "item");

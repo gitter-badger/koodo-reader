@@ -1,25 +1,23 @@
 // import localforage from "localforage";
 const initState = {
-  isChoose:false
+  isBackup: false
 };
-export function chooseDrive(state = initState, action) {
+export function backupPage(state = initState, action) {
   switch (action.type) {
-    case "HANDLE_CHOOSE":
+    case "HANDLE_BACKUP":
       return {
         ...state,
-        isChoose: action.payload
+        isBackup: action.payload
       };
 
-    
     default:
       return state;
   }
 }
 
-export function handleChoose(mode) {
-  return { type: "HANDLE_CHOOSE", payload: mode };
+export function handleBackup(mode) {
+  return { type: "HANDLE_BACKUP", payload: mode };
 }
-
 
 // export function handleFetchLocations(epub) {
 //   return dispatch => {

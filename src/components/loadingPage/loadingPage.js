@@ -1,3 +1,4 @@
+//图书加载前的动画
 import React, { Component } from "react";
 import "./loadingPage.css";
 import { connect } from "react-redux";

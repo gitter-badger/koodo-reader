@@ -1,3 +1,4 @@
+//从本地导入书籍
 import React, { Component } from "react";
 import "./importLocal.css";
 import BookModel from "../../model/Book";
@@ -18,6 +19,7 @@ class ImportLocal extends Component {
       // md5: null
     };
   }
+  //向indexdb中添加书籍
   handleAddBook = book => {
     let bookArr = this.props.books;
     console.log(bookArr, "bookArr");
@@ -33,7 +35,7 @@ class ImportLocal extends Component {
     this.props.handleMessage("添加成功");
     this.props.handleMessageBox(true);
   };
-
+  //获取书籍md5
   doIncrementalTest = file => {
     //这里假设直接将文件选择框的dom引用传入
 
@@ -75,6 +77,7 @@ class ImportLocal extends Component {
     loadNext();
   };
   handleBook = (file, md5) => {
+    //md5重复不导入
     if (this.props.books !== null) {
       this.props.books.forEach(item => {
         if (item.md5 === md5) {
@@ -84,7 +87,7 @@ class ImportLocal extends Component {
         }
       });
     }
-
+    //解析图书，获取图书数据
     if (!this.state.isRepeat) {
       let reader = new FileReader();
       reader.readAsArrayBuffer(file);

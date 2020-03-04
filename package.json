@@ -9,6 +9,7 @@
     "epubjs": "^0.3.85",
     "file-saver": "^2.0.2",
     "fuse.js": "^3.4.6",
+    "jszip": "^3.2.2",
     "localforage": "^1.7.3",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",

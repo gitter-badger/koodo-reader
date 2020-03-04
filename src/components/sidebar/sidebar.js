@@ -4,7 +4,7 @@ import { handleMode, handleShelfIndex } from "../../redux/sidebar.redux";
 import { connect } from "react-redux";
 import { sideMenu } from "../../utils/readerConfig";
 import ShelfUtil from "../../utils/shelfUtil";
-import About from "../about/about";
+// import About from "../about/about";
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -127,8 +127,6 @@ class Sidebar extends Component {
             </li>
           </ul>
         </div>
-
-        <About />
       </div>
     );
   }

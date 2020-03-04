@@ -1,3 +1,4 @@
+//图书下面的背景，包括页边和书脊
 import React, { Component } from "react";
 import "./background.css";
 import { connect } from "react-redux";

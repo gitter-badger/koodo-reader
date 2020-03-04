@@ -14,14 +14,16 @@
 }
 .welcome-title {
   font-size: 30px;
-  position: absolute;
+  /* position: absolute;
   left: 156px;
-  top: 45px;
+  top: 45px; */
   font-family: Source Han Sans CN;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 100px;
   color: rgba(75, 75, 75, 1);
   opacity: 1;
+  text-align: center;
+  width: 100%;
 }
 .welcome-message-page {
   float: left;

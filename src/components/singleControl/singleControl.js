@@ -1,3 +1,4 @@
+//单双页切换
 import React, { Component } from "react";
 import "./singleControl.css";
 import { handleSingle } from "../../redux/reader.redux";

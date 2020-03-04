@@ -1,3 +1,4 @@
+//图书导航栏页面的书签页面
 import React, { Component } from "react";
 import "./bookmarkList.css";
 import { connect } from "react-redux";
@@ -12,11 +13,7 @@ class BookmarkList extends Component {
       return { bookmarks: nextProps.bookmarks };
     else return null;
   }
-  componenetDidMount() {
-    setInterval(() => {
-      console.log(this.props.state);
-    }, 1000);
-  }
+  //跳转到图书的指定位置
   handleJump(cfi) {
     console.log(cfi, "afhahhhh");
     this.props.currentEpub.gotoCfi(cfi);

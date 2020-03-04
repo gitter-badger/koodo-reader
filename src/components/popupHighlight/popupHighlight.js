@@ -1,3 +1,4 @@
+//添加图书高亮
 import React, { Component } from "react";
 import "./popupHighlight.css";
 import Highlighter from "../../model/Highlighter";
@@ -6,6 +7,7 @@ import { handleMessageBox, handleMessage } from "../../redux/manager.redux.js";
 import { connect } from "react-redux";
 class PopupHighlight extends Component {
   handleReturn = () => {
+    //返回popupmenu
     this.props.changeMenu("menu");
   };
   handleClose = () => {
