@@ -4,7 +4,7 @@ import { handleMode, handleShelfIndex } from "../../redux/sidebar.redux";
 import { connect } from "react-redux";
 import { sideMenu } from "../../utils/readerConfig";
 import ShelfUtil from "../../utils/shelfUtil";
-import About from "../about/about";
+// import About from "../about/about";
 class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -98,7 +98,15 @@ class Sidebar extends Component {
     };
     return (
       <div className="sidebar">
-        <img src="../../assets/logo.jpg" alt="" className="logo" />
+        <img
+          src={
+            process.env.NODE_ENV === "production"
+              ? "%PUBLIC_URL%/assets/logo.jpg"
+              : "../../assets/logo.jpg"
+          }
+          alt=""
+          className="logo"
+        />
         <div className="side-menu-container-parent">
           <ul className="side-menu-container">
             {renderSideMenu()}
@@ -127,8 +135,6 @@ class Sidebar extends Component {
             </li>
           </ul>
         </div>
-
-        <About />
       </div>
     );
   }

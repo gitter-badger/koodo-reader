@@ -1,3 +1,4 @@
+//添加图书到书架的对话框
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./addDialog.css";
@@ -24,6 +25,7 @@ class AddDialog extends Component {
     this.props.handleMessage("添加成功");
     this.props.handleMessageBox(true);
   };
+  //如果是添加到已存在的书架就diable新建图书的input框
   handleChange = event => {
     let shelfTitle = event.target.value;
     if (shelfTitle === "新建书架") {
@@ -73,7 +75,7 @@ class AddDialog extends Component {
         </div>
         <div className="add-dialog-new-shelf-container">
           <div className="add-dialog-new-shelf-text">新建</div>
-          <input className="add-dialog-new-shelf-box" disabled />
+          <input className="add-dialog-new-shelf-box" />
         </div>
         <div
           className="add-dialog-cancel"

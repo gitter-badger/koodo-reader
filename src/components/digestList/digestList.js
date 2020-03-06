@@ -1,3 +1,4 @@
+//我的书摘页面
 import React, { Component } from "react";
 import "./digestList.css";
 import { connect } from "react-redux";
@@ -6,23 +7,25 @@ class DigestList extends Component {
     super(props);
     this.state = {};
   }
+  //根据bookkey获取
   handleBookName = bookKey => {
     let { books } = this.props;
-    let chapter = "";
+    let bookName = "";
     for (let i = 0; i < this.props.books.length; i++) {
       console.log(books[i].key === bookKey, "fhgjfhj");
       if (books[i].key === bookKey) {
-        chapter = books[i].name;
+        bookName = books[i].name;
         break;
       }
     }
-    console.log(books, chapter, bookKey, "sasbfs");
-    return chapter;
+    // console.log(books, chapter, bookKey, "sasbfs");
+    return bookName;
   };
   render() {
     let { digests } = this.props;
     console.log(this.props.digests);
     let digestArr = [];
+    //使书摘从晚到早排序
     for (let i = digests.length - 1; i >= 0; i--) {
       digestArr.push(digests[i]);
     }
@@ -31,6 +34,7 @@ class DigestList extends Component {
     let dateArr = [digestArr[0].date];
     let temp = digestArr[0].date;
     // console.log(digestArr[0].date.day === digestArr[1].date.day);
+    //获取同一天的所有书摘
     for (let i = 1; i < digestArr.length; i++) {
       // console.log(digestArr[i].date);
       if (
@@ -43,6 +47,7 @@ class DigestList extends Component {
       }
       // console.log(dateArr);
     }
+    //得到以日期为键，书摘为值的对象
     let digestObj = {};
     dateArr.forEach(date => {
       digestObj["" + date.year + date.month + date.day] = [];
@@ -59,7 +64,7 @@ class DigestList extends Component {
       });
       // if(item.date.year===)
     });
-    console.log(digestObj, "agasgbsg");
+    // console.log(digestObj, "agasgbsg");
     const renderDigestListItem = date => {
       return digestObj[date].map((item, index) => {
         return (
@@ -93,7 +98,7 @@ class DigestList extends Component {
         );
       });
     };
-    console.log(dateArr, digestArr, digests, "digestsaghsag");
+    // console.log(dateArr, digestArr, digests, "digestsaghsag");
     return (
       <div className="digest-list-container-parent">
         <div className="digest-list-container">{renderDigestList()}</div>

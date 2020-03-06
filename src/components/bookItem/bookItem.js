@@ -1,3 +1,4 @@
+//控制列表模式下的图书显示
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {

@@ -61,8 +61,8 @@ class readerConfig {
 }
 export const themeList = [
   { id: 1, theme: "rgba(235,255,231,1)" },
-  { id: 2, theme: "rgba(75,75,75,1)" },
-  { id: 3, theme: "rgba(242,219,187,1)" },
+  { id: 2, theme: "rgba(244, 232, 211,0.4)" },
+  { id: 3, theme: "rgba(242,219,187,0.8)" },
   { id: 4, theme: "rgba(255,254,252,1)" }
 ];
 export const fontSizeList = [
@@ -160,27 +160,26 @@ export const sideMenu = [
 export const driveList = [
   {
     id: 1,
+    name: "本地",
+    icon: "local"
+  },
+  {
+    id: 2,
     name: "Dropbox",
     icon: "dropbox"
     // action: fetchRecentlyPlayed
   },
   {
-    id: 2,
+    id: 3,
     name: "OneDrive",
     icon: "onedrive"
     // action: fetchSongs
   },
   {
-    id: 3,
+    id: 4,
     name: "Google Drive",
     icon: "googledrive"
   },
-  {
-    id: 4,
-    name: "Mega Drive",
-    icon: "mega"
-  },
-
   {
     id: 5,
     name: "WebDav",
@@ -222,18 +221,15 @@ export const emptyList = [
 export const welcomeMessage = [
   {
     main: "这是一个免费开源的Epub阅读器",
-    sub:
-      "可道阅读器包括桌面版和网页版，网页版包含桌面版除同步以外的所有功能，您所有的数据都将持久的保存在您的浏览器中"
+    sub: "可道阅读器同时支持桌面版和网页版，您所有的数据都可以导出和恢复"
   },
   {
     main: "只为最好的阅读体验",
-    sub:
-      "书架，书签，笔记，书摘，文字高亮，图书搜索，主题切换，阅读历史，文字样式切换，进度跳转，你能想得到的功能，这全都有"
+    sub: "主题切换，阅读历史，图书管理，书架管理，更多功能等你探索"
   },
   {
     main: "简单流畅的操作方式",
-    sub:
-      "将鼠标移至阅读器边缘，弹出对应的菜单，使用鼠标滚轮和键盘上下左右按键控制翻页"
+    sub: "鼠标移至边缘弹出菜单，使用鼠标滚轮和键盘上下左右按键控制翻页"
   },
   {
     main: "快去添加您的第一本书吧",

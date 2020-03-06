@@ -11,7 +11,7 @@ import AddDialog from "../../components/addDialog/addDialog";
 import SortDialog from "../../components/sortDialog/sortDialog";
 import MessageBox from "../../components/messageBox/messageBox";
 import LoadingPage from "../../components/loadingPage/loadingPage";
-import ChooseDrive from "../../components/chooseDrive/chooseDrive";
+import BackupPage from "../../components/backupPage/backupPage";
 import EmptyPage from "../../components/emptyPage/emptyPage";
 import ShelfUtil from "../../utils/shelfUtil";
 import WelcomePage from "../../components/welcomePage/welcomePage";
@@ -49,9 +49,9 @@ class Manager extends Component {
       isSort: this.props.isSort,
       isSortDisplay: this.props.isSortDisplay,
       isMessage: false,
-      isChoose: false,
+      isBackup: false,
       totalBooks: localStorage.getItem("totalBooks") || 0,
-      isFirst: localStorage.getItem("isFirst") || "first",
+      isFirst: null,
       recentBooks: Object.keys(RecordRecent.getRecent()).length
     };
   }
@@ -82,7 +82,7 @@ class Manager extends Component {
       isSort: nextProps.isSort,
       isSortDisplay: nextProps.isSortDisplay,
       isMessage: nextProps.isMessage,
-      isChoose: nextProps.isChoose
+      isBackup: nextProps.isBackup
     });
     console.log(this.state.books, "books");
     this.setState({
@@ -97,6 +97,10 @@ class Manager extends Component {
       }, 2000);
     }
   }
+  componentDidMount() {
+    this.setState({ isFirst: localStorage.getItem("isFirst") || "first" });
+  }
+
   componentWillUnmout() {
     clearTimeout(this.timer);
   }
@@ -115,7 +119,7 @@ class Manager extends Component {
       totalBooks,
       recentBooks
     } = this.state;
-    console.log(this.state.recentBooks, "toatl");
+    console.log(this.state.isBackup, "toatl");
     let shelfTitle = Object.keys(ShelfUtil.getShelf());
     // console.log(shelfTitle, index, "shelfTitle");
     let currentShelfTitle = shelfTitle[this.state.shelfIndex + 1];
@@ -137,7 +141,7 @@ class Manager extends Component {
         </div>
         {this.state.isMessage ? <MessageBox /> : null}
         {this.state.isSortDisplay ? <SortDialog /> : null}
-        {this.state.isChoose ? <ChooseDrive /> : null}
+        {this.state.isBackup ? <BackupPage /> : null}
         {this.state.isFirst === "first" ? (
           <WelcomePage
             handleCloseWelcome={() => {
@@ -184,7 +188,7 @@ const mapStateToProps = state => {
     isSort: state.manager.isSort,
     isSortDisplay: state.manager.isSortDisplay,
     isMessage: state.manager.isMessage,
-    isChoose: state.chooseDrive.isChoose
+    isBackup: state.backupPage.isBackup
   };
 };
 const actionCreator = {

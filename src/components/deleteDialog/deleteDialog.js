@@ -20,7 +20,9 @@ import RecordRecent from "../../utils/recordRecent";
 class DeleteDialog extends Component {
   constructor(props) {
     super(props);
-    this.state = { isCheck: false };
+    this.state = {
+      // isCheck: false
+    };
   }
   handleCancel = () => {
     this.props.handleDeleteDialog(false);
@@ -92,6 +94,7 @@ class DeleteDialog extends Component {
     // console.log(this.props.highlighters, "highlighters");
   };
   handleComfirm = () => {
+    //从列表删除和从图书库删除判断
     if (this.props.mode === "shelf") {
       ShelfUtil.clearShelf(this.props.shelfIndex, this.props.currentBook.key);
       this.props.handleDeleteDialog(false);
@@ -107,17 +110,20 @@ class DeleteDialog extends Component {
             this.props.handleFetchBooks();
           });
       console.log(this.props.bookmarks, "bookmarks");
+      //从书架删除
       ShelfUtil.deletefromAllShelf(this.props.currentBook.key);
+      //从阅读记录删除
       RecordRecent.clear(this.props.currentBook.key);
+      //删除书签，笔记，书摘，高亮
       this.handleDeleteOther();
     }
 
     this.props.handleMessage("删除成功");
     this.props.handleMessageBox(true);
   };
-  handleCheck = mode => {
-    this.setState({ isCheck: mode });
-  };
+  // handleCheck = mode => {
+  //   this.setState({ isCheck: mode });
+  // };
 
   render() {
     return (

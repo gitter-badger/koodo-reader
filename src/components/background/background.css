@@ -32,6 +32,7 @@
   place-content: center; */
   overflow: hidden;
 }
+/* 控制小于888px是书脊消失 */
 @media screen and (max-width: 888px) {
   .background-box3 {
     display: none;

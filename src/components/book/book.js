@@ -1,3 +1,4 @@
+//卡片模式下的图书显示
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
@@ -42,6 +43,7 @@ class Book extends Component {
     this.props.handleAddDialog(true);
     this.props.handleReadingBook(this.props.book);
   };
+  //控制按钮的弹出
   handleConfig = mode => {
     // console.log(mode, "mode");
     this.setState({ isOpenConfig: mode });
@@ -63,6 +65,8 @@ class Book extends Component {
           src={
             this.props.bookCover !== null
               ? this.props.bookCover
+              : process.env.NODE_ENV === "production"
+              ? "%PUBLIC_URL%/assets/cover.jpg"
               : "../../assets/cover.jpg"
           }
           alt=""

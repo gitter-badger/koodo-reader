@@ -1,3 +1,4 @@
+//图书导航栏
 import React, { Component } from "react";
 import "./navigationPanel.css";
 import { connect } from "react-redux";
@@ -93,7 +94,9 @@ class NavigationPanel extends Component {
               <ContentList />
             ) : this.props.bookmarks !== null ? (
               <BookmarkList />
-            ) : <div className="navigation-panel-empty-bookmark">书签为空</div>}
+            ) : (
+              <div className="navigation-panel-empty-bookmark">书签为空</div>
+            )}
           </div>
         </div>
       </div>

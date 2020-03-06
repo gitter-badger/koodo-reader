@@ -1,3 +1,4 @@
+//为空页面
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./emptyPage.css";
@@ -33,7 +34,11 @@ class EmptyPage extends Component {
     return (
       <div className="empty-page-container">
         <img
-          src="../../assets/empty.jpg"
+          src={
+            process.env.NODE_ENV === "production"
+              ? "%PUBLIC_URL%/assets/empty.jpg"
+              : "../../assets/empty.jpg"
+          }
           alt=""
           className="empty-page-illustration"
         />

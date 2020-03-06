@@ -1,3 +1,4 @@
+//从本地导入书籍
 import React, { Component } from "react";
 import "./importLocal.css";
 import BookModel from "../../model/Book";
@@ -8,7 +9,7 @@ import {
   handleMessage,
   handleFetchBooks
 } from "../../redux/manager.redux";
-import SparkMD5 from "spark-md5";
+// import SparkMD5 from "spark-md5";
 // @connect(state => state.manager)
 class ImportLocal extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ImportLocal extends Component {
       // md5: null
     };
   }
+  //向indexdb中添加书籍
   handleAddBook = book => {
     let bookArr = this.props.books;
     console.log(bookArr, "bookArr");
@@ -33,7 +35,7 @@ class ImportLocal extends Component {
     this.props.handleMessage("添加成功");
     this.props.handleMessageBox(true);
   };
-
+  //获取书籍md5
   doIncrementalTest = file => {
     //这里假设直接将文件选择框的dom引用传入
 
@@ -45,7 +47,7 @@ class ImportLocal extends Component {
       chunkSize = 2097152, // 以每片2MB大小来逐次读取
       chunks = Math.ceil(file.size / chunkSize),
       currentChunk = 0,
-      spark = new SparkMD5(), //创建SparkMD5的实例
+      spark = new window.SparkMD5(), //创建SparkMD5的实例
       fileReader = new FileReader();
 
     fileReader.onload = e => {
@@ -62,6 +64,7 @@ class ImportLocal extends Component {
         // this.setState({ md5: md5 });
         // console.log(md5, "sgsgh");
         this.handleBook(file, md5);
+        // console.log(md5);
       }
     };
 
@@ -75,6 +78,7 @@ class ImportLocal extends Component {
     loadNext();
   };
   handleBook = (file, md5) => {
+    //md5重复不导入
     if (this.props.books !== null) {
       this.props.books.forEach(item => {
         if (item.md5 === md5) {
@@ -84,7 +88,7 @@ class ImportLocal extends Component {
         }
       });
     }
-
+    //解析图书，获取图书数据
     if (!this.state.isRepeat) {
       let reader = new FileReader();
       reader.readAsArrayBuffer(file);

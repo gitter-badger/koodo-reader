@@ -1,3 +1,4 @@
+//我的书签页面
 import React, { Component } from "react";
 import "./bookmarkPage.css";
 import { connect } from "react-redux";
@@ -12,18 +13,21 @@ import RecordLocation from "../../utils/recordLocation";
 class BookmarkPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { renderIndex: null };
+    this.state = {
+      // renderIndex: null
+    };
   }
   UNSAFE_componentWillMount() {
     this.props.handleFetchBookmarks();
   }
-
+  //点击跳转后跳转到指定页面
   handleRedirect = (key, cfi, percentage) => {
     let { books, epubs } = this.props;
     let book = {};
     let epub = {};
+    //根据bookKey获取指定的book和epub
     for (let i = 0; i < books.length; i++) {
-      console.log(books[i].key, key, "key");
+      // console.log(books[i].key, key, "key");
       if (books[i].key === key) {
         console.log("sdghasghgh");
         book = books[i];
@@ -32,7 +36,7 @@ class BookmarkPage extends Component {
       }
     }
     // let epub = {};
-    console.log(this.props.books, book);
+    // console.log(this.props.books, book);
 
     this.props.handleReadingBook(book);
     this.props.handleReadingEpub(epub);
@@ -40,17 +44,18 @@ class BookmarkPage extends Component {
     RecentBooks.setRecent(key);
     RecordLocation.recordCfi(key, cfi, percentage);
   };
-  handlePopup = index => {
-    this.setState({ renderIndex: index });
-  };
-  handleClose = () => {
-    // console.log("hello");
-    this.setState({ renderIndex: null });
-  };
+  // handlePopup = index => {
+  //   this.setState({ renderIndex: index });
+  // };
+  // handleClose = () => {
+  //   // console.log("hello");
+  //   this.setState({ renderIndex: null });
+  // };
   render() {
     let { bookmarks, books, covers } = this.props;
     // console.log(this.props.state, "bookmarks");
     let bookKeyArr = [];
+    //获取bookmarks中的图书列表
     bookmarks.forEach(item => {
       if (bookKeyArr.indexOf(item.bookKey) === -1) {
         bookKeyArr.push(item.bookKey);
@@ -58,7 +63,7 @@ class BookmarkPage extends Component {
       }
     });
     // console.log(bookKeyArr, "bookArr");
-
+    //根据图书列表获取图书数据
     let bookArr = books.filter(item => {
       // console.log(item.key, bookKeyArr, "haslghakfg");
       return bookKeyArr.indexOf(item.key) > -1;
@@ -69,15 +74,18 @@ class BookmarkPage extends Component {
       return bookKeyArr.indexOf(item.key) > -1;
     });
     let coverObj = {};
+    //根据图书数据获取封面的url
     coverArr.forEach(item => {
       coverObj[item.key] = item.url;
     });
     // console.log(coverObj, "arr");
     let bookmarkObj = {};
     bookmarks.forEach(item => {
+      //bookmarkobj没有此书就新建
       if (!bookmarkObj[item.bookKey] && bookKeyArr.indexOf(item.bookKey) > -1) {
         bookmarkObj[item.bookKey] = [];
       }
+      //往bookmarkobj里填充书签信息，最终获得以bookkey为键，bookmark为值的对象
       if (bookKeyArr.indexOf(item.bookKey) > -1) {
         bookmarkObj[item.bookKey].push(item);
       }

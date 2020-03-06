@@ -1,3 +1,4 @@
+//图书样式设置的下拉菜单页面
 import React, { Component } from "react";
 import ReaderConfig from "../../utils/readerConfig";
 import StyleConfig from "../../utils/styleConfig";
@@ -23,7 +24,8 @@ class DropdownList extends Component {
     };
   }
   componentDidMount() {
-    console.log(this.state.currentFontFamilyIndex, "currentFontFamilyIndex");
+    // console.log(this.state.currentFontFamilyIndex, "currentFontFamilyIndex");
+    //使下拉菜单选中预设的值
     document
       .querySelector(".paragraph-character-setting")
       .children[0].children[1].children[
@@ -41,6 +43,7 @@ class DropdownList extends Component {
         this.state.currentPaddingIndex
       ].setAttribute("selected", "selected");
   }
+  //切换不同的样式
   handleView(event, option) {
     // console.log(value, "value");
     let arr = event.target.value.split(",");

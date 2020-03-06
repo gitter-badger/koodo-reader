@@ -31,10 +31,11 @@ class PopupMenu extends Component {
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
-  setKey = key => {
-    console.log(key, "key");
-    this.setState({ key: key });
-  };
+  // setKey = key => {
+  //   console.log(key, "key");
+  //   this.setState({ key: key });
+  // };
+  //新建高亮
   getHighlighter = () => {
     // 注意点一
     // 为了每次切换章节时都有与当前文档相关联的 pen
@@ -53,7 +54,7 @@ class PopupMenu extends Component {
             let sel = iDoc.getSelection();
             if (!sel.isCollapsed) return;
             let key = event.currentTarget.dataset.key;
-            console.log(key);
+            // console.log(key);
             this.openMenu();
             event.stopPropagation();
 
@@ -70,12 +71,13 @@ class PopupMenu extends Component {
       console.log("applier");
     });
   };
+  //渲染高亮
   renderHighlighters = () => {
     // TODO: 注意点二
-    console.log(
-      "%c renderNotes has been called! ",
-      "color: cyan; background: #333333"
-    );
+    // console.log(
+    //   "%c renderNotes has been called! ",
+    //   "color: cyan; background: #333333"
+    // );
 
     let { highlighters } = this.props;
     let iframe = document.getElementsByTagName("iframe")[0];
@@ -92,6 +94,7 @@ class PopupMenu extends Component {
       highlighters.forEach(item => {
         this.key = item.key;
         // console.log(this.key, "sadgasf");
+        //控制渲染指定图书的指定高亮
         if (item.bookKey === this.props.currentBook.key) {
           try {
             let temp = JSON.parse(item.range);
@@ -121,30 +124,30 @@ class PopupMenu extends Component {
     let sel = iDoc.getSelection();
     // this.props.handleSelection(sel.toString());
     this.setState({ isChangeDirection: false });
-    // 如果 note card 正在被展示，则隐藏
+    // 如果 popmenu正在被展示，则隐藏
     if (this.state.isOpenMenu) {
       // this.setState({ isOpenMenu: false });
       this.changeMenu("menu");
       this.closeMenu();
     }
-    console.log(this.state.isOpenMenu, "fhadh");
+    // console.log(this.state.isOpenMenu, "fhadh");
     // 使弹出菜单更加灵活可控
     if (sel.isCollapsed) {
       this.props.isOpenMenu && this.closeMenu();
       this.changeMenu("menu");
       return;
     }
-
+    //获取选择文字的坐标
     let rect = this.props.currentEpub.renderer.rangePosition(sel.getRangeAt(0));
     console.log(rect);
 
     let height = 200;
     let posX = rect.x + rect.width / 2 - 20;
-
+    //防止menu超出图书
     let rightEdge = this.props.currentEpub.renderer.width - 154;
     console.log(this.props.currentEpub.renderer.width);
     var posY;
-
+    //控制menu方向
     if (rect.y < height) {
       this.setState({ isChangeDirection: true });
       posY = rect.y + 77;
